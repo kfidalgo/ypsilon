@@ -1,654 +1,673 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ypsilon — Plataforma Bioinformática para Engenharia de Anticorpos | Portfólio de Cátia Fidalgo</title>
-  <meta name="description" content="Amostra interativa da plataforma Ypsilon: pipeline NGS, modelação 3D com IA, maturação de afinidade com ESM-2 e genómica comparativa para descoberta de anticorpos.">
-  <link rel="stylesheet" href="styles.css">
+  <title>Ypsilon Bioinformatics Platform — Demonstração Interativa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Top Header Bar -->
-  <header class="top-nav">
-    <div class="brand-zone">
-      <div class="logo-badge">
-        <span class="ypsilon-glyph">Ψ</span>
-        <div class="brand-text">
-          <span class="brand-name">Ypsilon</span>
-          <span class="brand-tag">Bioinformatics Platform</span>
-        </div>
-      </div>
-      <span class="demo-tag">Modo Portfólio Interativo</span>
+  <!-- SIDEBAR (Exatamente como a interface original) -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <img src="assets/logo.png" alt="Ypsilon Logo" class="brand-logo" onerror="this.src=''; this.alt='Ypsilon Platform';">
     </div>
 
-    <div class="author-zone">
-      <div class="author-pill">
-        <span class="avatar-circle">CF</span>
-        <div class="author-details">
-          <span class="author-name">Cátia Fidalgo</span>
-          <span class="author-role">Bioinformática & Biologia Computacional</span>
-        </div>
-      </div>
-      <button class="btn-primary" onclick="showSummaryModal()">
-        <span>📄 Resumo do Projeto</span>
+    <div class="sidebar-section-title">NAVIGATION</div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-mod="Home">
+        <span class="material-symbols-outlined nav-icon">home</span>
+        <span class="nav-text">Home</span>
       </button>
+      <button class="nav-btn" data-mod="Workspace">
+        <span class="material-symbols-outlined nav-icon">workspaces</span>
+        <span class="nav-text">Workspace</span>
+      </button>
+      <button class="nav-btn" data-mod="Search">
+        <span class="material-symbols-outlined nav-icon">search</span>
+        <span class="nav-text">Search</span>
+      </button>
+      <button class="nav-btn" data-mod="Tools">
+        <span class="material-symbols-outlined nav-icon">build</span>
+        <span class="nav-text">Tools</span>
+      </button>
+      <button class="nav-btn" data-mod="Dashboards">
+        <span class="material-symbols-outlined nav-icon">dashboard</span>
+        <span class="nav-text">Dashboards</span>
+      </button>
+      <button class="nav-btn" data-mod="Reports">
+        <span class="material-symbols-outlined nav-icon">description</span>
+        <span class="nav-text">Reports</span>
+      </button>
+      <button class="nav-btn" data-mod="Admin">
+        <span class="material-symbols-outlined nav-icon">settings</span>
+        <span class="nav-text">System Admin</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-demo-badge">
+      <span class="material-symbols-outlined">verified</span>
+      <div>
+        <div class="demo-title">Showcase Neutro</div>
+        <div class="demo-sub">Sem dados confidenciais</div>
+      </div>
     </div>
-  </header>
+  </aside>
 
-  <!-- App Wrapper with Sidebar and Main Canvas -->
-  <div class="app-layout">
-    
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-      <div class="sidebar-section-title">NAVEGAÇÃO PRINCIPAL</div>
-      <ul class="nav-menu">
-        <li class="nav-item active" data-target="home">
-          <span class="nav-icon">🏠</span>
-          <span class="nav-label">Home</span>
-        </li>
-        <li class="nav-item" data-target="workspace">
-          <span class="nav-icon">📁</span>
-          <span class="nav-label">Workspace & Labs</span>
-        </li>
-        <li class="nav-item" data-target="tools">
-          <span class="nav-icon">🛠️</span>
-          <span class="nav-label">Catálogo de Tools</span>
-        </li>
-      </ul>
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
 
-      <div class="sidebar-section-title">MÓDULOS DE ANÁLISE</div>
-      <ul class="nav-menu">
-        <li class="nav-item" data-target="ngs">
-          <span class="nav-icon">🧬</span>
-          <span class="nav-label">NGS Analysis</span>
-          <span class="pill-badge">Pipeline</span>
-        </li>
-        <li class="nav-item" data-target="seq-analysis">
-          <span class="nav-icon">🔬</span>
-          <span class="nav-label">Sequence Analysis</span>
-        </li>
-        <li class="nav-item" data-target="translation">
-          <span class="nav-icon">🔤</span>
-          <span class="nav-label">DNA Translation</span>
-        </li>
-        <li class="nav-item" data-target="alignment">
-          <span class="nav-icon">📊</span>
-          <span class="nav-label">Alignment</span>
-        </li>
-        <li class="nav-item" data-target="phylogeny">
-          <span class="nav-icon">🌳</span>
-          <span class="nav-label">Phylogenetic Trees</span>
-        </li>
-        <li class="nav-item" data-target="modeling">
-          <span class="nav-icon">🧪</span>
-          <span class="nav-label">3D Structural Profiler</span>
-          <span class="pill-badge ai">AI / GPU</span>
-        </li>
-        <li class="nav-item" data-target="maturation">
-          <span class="nav-icon">⚡</span>
-          <span class="nav-label">Affinity Maturation</span>
-          <span class="pill-badge ai">ESM-2</span>
-        </li>
-        <li class="nav-item" data-target="reports">
-          <span class="nav-icon">📑</span>
-          <span class="nav-label">Reports & Ghost Files</span>
-        </li>
-      </ul>
-
-      <div class="sidebar-footer">
-        <div class="tech-stack-preview">
-          <span class="tech-badge">Python 3.10</span>
-          <span class="tech-badge">Streamlit</span>
-          <span class="tech-badge">Snakemake</span>
-          <span class="tech-badge">ColabFold</span>
-          <span class="tech-badge">ESM-2</span>
-          <span class="tech-badge">Docker</span>
-          <span class="tech-badge">Postgres</span>
-          <span class="tech-badge">Keycloak</span>
+    <!-- GLOBAL HEADER (Banner + Perfil Cátia Fidalgo) -->
+    <header class="global-header">
+      <div class="header-pattern-bg">
+        <div class="user-profile-card">
+          <div class="user-profile-avatar">C</div>
+          <div class="user-profile-info">
+            <div class="user-profile-name">Cátia Fidalgo (Local)</div>
+            <div class="user-profile-role"><span class="user-profile-badge">Admin</span></div>
+          </div>
+          <div class="user-profile-divider"></div>
         </div>
       </div>
-    </aside>
+      <div class="header-gradient-bar"></div>
+    </header>
 
-    <!-- Main Content Area -->
-    <main class="main-canvas">
+    <!-- CONTENT CONTAINER -->
+    <main class="content-container">
 
-      <!-- SECTION: HOME -->
-      <section id="section-home" class="view-panel active">
-        <div class="hero-card">
-          <div class="hero-badge">Bioinformática Aplicada a Anticorpos Terapêuticos</div>
-          <h1>Ypsilon: Da Sequenciação NGS à Otimização Estrutural 3D</h1>
-          <p class="hero-subtext">
-            Plataforma <em>full-stack</em> desenvolvida para simplificar e automatizar a descoberta e engenharia de anticorpos contra alvos oncológicos (com validação prática no alvo <strong>TROP-2</strong> em cancro da mama).
-          </p>
-          <div class="hero-stats">
-            <div class="stat-pill">
-              <span class="stat-num">+118.000</span>
-              <span class="stat-desc">Reads NGS Analisados</span>
-            </div>
-            <div class="stat-pill">
-              <span class="stat-num">99.4%</span>
-              <span class="stat-desc">Taxa de Sucesso QC</span>
-            </div>
-            <div class="stat-pill">
-              <span class="stat-num">9 Tools</span>
-              <span class="stat-desc">Integradas de Raiz</span>
-            </div>
-            <div class="stat-pill">
-              <span class="stat-num">GPU & LLM</span>
-              <span class="stat-desc">ColabFold + ESM-2</span>
-            </div>
+      <!-- ========================================== -->
+      <!-- MODULE: HOME                               -->
+      <!-- ========================================== -->
+      <section id="mod-Home" class="module-view active">
+        <div class="module-header">Antibody Analyzer</div>
+        <div class="welcome-text">Bem-vindo(a), <strong>Cátia Fidalgo</strong>.</div>
+
+        <div class="architecture-callout">
+          <div class="callout-icon"><span class="material-symbols-outlined">info</span></div>
+          <div class="callout-body">
+            <strong>Demonstração Arquitetural da Plataforma Ypsilon</strong>
+            <p>Esta versão ilustrativa replica o ambiente web, os módulos e a navegação da plataforma bioinformática desenvolvida no âmbito da dissertação. Todos os dados laboratoriais originais foram substituídos por sequências sintéticas e esquemas neutros para salvaguarda de confidencialidade.</p>
           </div>
         </div>
 
-        <div class="content-block">
-          <div class="section-heading">
-            <div>
-              <h2>Interface Principal (Home Dashboard)</h2>
-              <p>Visualização da área de entrada da aplicação tal como corre no servidor <em>localhost</em>.</p>
+        <!-- 3 Colunas na Linha 1 -->
+        <div class="home-grid row-3">
+          <div class="home-card" onclick="switchModule('Workspace')">
+            <div class="home-card-header">
+              <h3>Workspace</h3>
+              <span class="material-symbols-outlined home-card-icon">schema</span>
             </div>
-            <span class="module-chip">Visão Geral</span>
+            <p>Aceder a conjuntos de dados genómicos, gerir laboratórios virtuais e comparar populações de anticorpos.</p>
           </div>
 
-          <div class="ui-preview-wrapper" onclick="openZoomModal('images/home.png', 'Painel Principal da Plataforma Ypsilon')">
-            <img src="images/home.png" alt="Painel Principal (Home) da Plataforma Ypsilon" class="ui-screen">
-            <div class="zoom-hint">🔍 Clique para ampliar a captura de ecrã real</div>
+          <div class="home-card" onclick="switchModule('Tools')">
+            <div class="home-card-header">
+              <h3>Tools</h3>
+              <span class="material-symbols-outlined home-card-icon">science</span>
+            </div>
+            <p>Executar análise de NGS, alinhamentos de sequências, árvores filogenéticas e modelação 3D estrutural.</p>
           </div>
 
-          <div class="feature-grid three-col">
-            <div class="info-card">
-              <div class="card-icon">⚡</div>
-              <h3>Eliminação do Terminal</h3>
-              <p>Substitui dezenas de <em>scripts</em> isolados de consola por uma interface reativa, segura e intuitiva acessível através do navegador.</p>
+          <div class="home-card" onclick="switchModule('Search')">
+            <div class="home-card-header">
+              <h3>Search</h3>
+              <span class="material-symbols-outlined home-card-icon">search</span>
             </div>
-            <div class="info-card">
-              <div class="card-icon">🔒</div>
-              <h3>Segurança e Multi-laboratório</h3>
-              <p>Autenticação federada com Keycloak (OIDC/JWT) com isolamento estrito de dados entre diferentes equipas e projetos.</p>
+            <p>Pesquisar sequências, clones candidatos e metadados arquivados nos laboratórios do sistema.</p>
+          </div>
+        </div>
+
+        <!-- 2 Colunas na Linha 2 -->
+        <div class="home-grid row-2">
+          <div class="home-card" onclick="switchModule('Dashboards')">
+            <div class="home-card-header">
+              <h3>Dashboards</h3>
+              <span class="material-symbols-outlined home-card-icon">insights</span>
             </div>
-            <div class="info-card">
-              <div class="card-icon">🎯</div>
-              <h3>Rigor Biofísico e IA</h3>
-              <p>Cruzamento de anotação heurística canónica de CDRs com modelos de linguagem de proteínas (ESM-2) e modelação AlphaFold/ColabFold.</p>
+            <p>Visualizar métricas biofísicas globais, frequências clonais e distribuições de propriedades físico-químicas.</p>
+          </div>
+
+          <div class="home-card" onclick="switchModule('Reports')">
+            <div class="home-card-header">
+              <h3>Reports</h3>
+              <span class="material-symbols-outlined home-card-icon">description</span>
+            </div>
+            <p>Gerar, exportar e descarregar relatórios técnicos detalhados e estruturados das variantes analisadas.</p>
+          </div>
+        </div>
+
+        <!-- Estatísticas Tecnológicas da Plataforma -->
+        <div class="tech-spec-container">
+          <div class="tech-spec-title">
+            <span class="material-symbols-outlined">developer_board</span>
+            Especificações da Infraestrutura Ypsilon
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">Python 3.10</span>
+            <span class="tech-tag">Streamlit Core</span>
+            <span class="tech-tag">Docker Compose</span>
+            <span class="tech-tag">PostgreSQL / SQLite</span>
+            <span class="tech-tag">BioPython</span>
+            <span class="tech-tag">Clustal Omega (UPGMA)</span>
+            <span class="tech-tag">ColabFold / AlphaFold2</span>
+            <span class="tech-tag">ESM-2 Embeddings</span>
+            <span class="tech-tag">Plotly & py3Dmol</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE: TOOLS (Catálogo das 9 Ferramentas)  -->
+      <!-- ========================================== -->
+      <section id="mod-Tools" class="module-view">
+        <div class="module-header">Tools</div>
+        <div class="module-subheader">Selecione uma ferramenta bioinformática para explorar o seu funcionamento e arquitetura</div>
+
+        <div class="tools-grid">
+          <!-- 1. NGS Analysis -->
+          <div class="home-card tool-item">
+            <div class="home-card-header">
+              <h3>NGS Analysis</h3>
+              <span class="material-symbols-outlined home-card-icon">dna</span>
+            </div>
+            <p>Filtragem heurística e extração automatizada de alças hipervariáveis (CDR1, CDR2, CDR3) a partir de ficheiros FASTQ brutos.</p>
+            <button class="tool-open-btn" onclick="openToolRunner('ngs')">Open</button>
+          </div>
+
+          <!-- 2. Sequence Analysis -->
+          <div class="home-card tool-item">
+            <div class="home-card-header">
+              <h3>Sequence Analysis</h3>
+              <span class="material-symbols-outlined home-card-icon">analytics</span>
+            </div>
+            <p>Cálculo de biométricas de sequências isoladas: Peso Molecular (MW), pI teórico, carga líquida, GRAVY e deteção de cisteínas livres.</p>
+            <button class="tool-open-btn" onclick="openToolRunner('seq')">Open</button>
+          </div>
+
+          <!-- 3. Translation -->
+          <div class="home-card tool-item">
+            <div class="home-card-header">
+              <h3>Translation</h3>
+              <span class="material-symbols-outlined home-card-icon">translate</span>
+            </div>
+            <p>Tradução de sequências de DNA em múltiplos quadros de leitura (*Reading Frames*), deteção de codões de paragem e mapeamento do núcleo do anticorpo.</p>
+            <button class="tool-open-btn" onclick="openToolRunner('trans')">Open</button>
+          </div>
+
+          <!-- 4. Alignment -->
+          <div class="home-card tool-item">
+            <div class="home-card-header">
+              <h3>Alignment</h3>
+              <span class="material-symbols-outlined home-card-icon">splitscreen</span>
+            </div>
+            <p>Alinhamento múltiplo (MSA) via Clustal Omega nativo com visualizador interativo colorido por propriedades químicas e tabela de variações.</p>
+            <button class="tool-open-btn" onclick="openToolRunner('align')">Open</button>
+          </div>
+
+          <!-- 5. Phylogenetic Trees -->
+          <div class="home-card tool-item">
+            <div class="home-card-header">
+              <h3>Phylogenetic Trees</h3>
+              <span class="material-symbols-outlined home-card-icon">account_tree</span>
+            </div>
+            <p>Reconstrução de linhagens clonais e dendrogramas pelo método UPGMA para identificar hipermutações somáticas e diversificação.</p>
+            <button class="tool-open-btn" onclick="openToolRunner('phylo')">Open</button>
+          </div>
+
+          <!-- 6. Comparative Analysis -->
+          <div class="home-card tool-item">
+            <div class="home-card-header">
+              <h3>Comparative Analysis</h3>
+              <span class="material-symbols-outlined home-card-icon">compare_arrows</span>
+            </div>
+            <p>Comparação de sobreposição clonal e enriquecimento de frequências entre diferentes bibliotecas ou rondas de seleção.</p>
+            <button class="tool-open-btn" onclick="openToolRunner('comp')">Open</button>
+          </div>
+
+          <!-- 7. Antibody Structural Profiler -->
+          <div class="home-card tool-item">
+            <div class="home-card-header">
+              <h3>Antibody Structural Profiler</h3>
+              <span class="material-symbols-outlined home-card-icon">view_in_ar</span>
+            </div>
+            <p>Modelação tridimensional via inteligência artificial (ColabFold/AlphaFold2), mapa de confiança pLDDT, cálculo SASA e pontes dissulfeto.</p>
+            <button class="tool-open-btn" onclick="openToolRunner('3d')">Open</button>
+          </div>
+
+          <!-- 8. Interaction (Docking) -->
+          <div class="home-card tool-item">
+            <div class="home-card-header">
+              <h3>Interaction (Docking)</h3>
+              <span class="material-symbols-outlined home-card-icon">link</span>
+            </div>
+            <p>Modelação de interfaces de ligação complexo anticorpo-antigénio e estimativa de energias livres de afinidade de ligação.</p>
+            <button class="tool-open-btn" onclick="openToolRunner('dock')">Open</button>
+          </div>
+
+          <!-- 9. Affinity Maturation Lab -->
+          <div class="home-card tool-item">
+            <div class="home-card-header">
+              <h3>Affinity Maturation Lab</h3>
+              <span class="material-symbols-outlined home-card-icon">trending_up</span>
+            </div>
+            <p>Engenharia *in silico* de anticorpos utilizando o modelo de linguagem ESM-2 para predição de mutações com maior termoestabilidade.</p>
+            <button class="tool-open-btn" onclick="openToolRunner('mat')">Open</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE: TOOL_RUNNER (Simulador de Ferramenta)-->
+      <!-- ========================================== -->
+      <section id="mod-Tool_Runner" class="module-view">
+        <div class="runner-nav-header">
+          <button class="back-link-btn" onclick="switchModule('Tools')">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Voltar ao Menu de Ferramentas
+          </button>
+          <div class="runner-badge" id="runnerToolCategory">Módulo Bioinformático</div>
+        </div>
+
+        <div class="module-header" id="runnerToolTitle">Nome da Ferramenta</div>
+        <div class="module-subheader" id="runnerToolDesc">Descrição e objetivo técnico da ferramenta</div>
+
+        <!-- Painel Técnico Explicativo da Ferramenta -->
+        <div class="tool-architecture-box">
+          <div class="tab-pills">
+            <button class="tab-pill active" onclick="switchRunnerTab('overview')">Visão Geral & Parâmetros</button>
+            <button class="tab-pill" onclick="switchRunnerTab('architecture')">Algoritmos & Backend</button>
+            <button class="tab-pill" onclick="switchRunnerTab('demo')">Simulação Neutra (Demonstração)</button>
+          </div>
+
+          <!-- Tab 1: Visão Geral -->
+          <div id="tab-overview" class="tab-content active">
+            <div class="runner-form-card">
+              <div class="form-title">Painel de Parâmetros de Entrada</div>
+              <div id="runnerFormFields" class="form-fields-grid">
+                <!-- Preenchido dinamicamente via JS -->
+              </div>
+              <div class="form-actions">
+                <button class="btn-primary" onclick="simulateToolExecution()">
+                  <span class="material-symbols-outlined">play_arrow</span>
+                  Executar Simulação Demonstrativa
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Arquitetura & Algoritmos -->
+          <div id="tab-architecture" class="tab-content">
+            <div class="algo-details-grid" id="runnerAlgoDetails">
+              <!-- Preenchido dinamicamente via JS -->
+            </div>
+          </div>
+
+          <!-- Tab 3: Simulação Neutra -->
+          <div id="tab-demo" class="tab-content">
+            <div id="runnerSimulationOutput" class="simulation-placeholder">
+              <span class="material-symbols-outlined placeholder-icon">experiment</span>
+              <h4>Sem execução ativa</h4>
+              <p>Clique no botão <strong>"Executar Simulação Demonstrativa"</strong> para visualizar como a plataforma renderiza os resultados estruturais de forma neutra.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SECTION: WORKSPACE -->
-      <section id="section-workspace" class="view-panel">
-        <div class="section-header-banner">
-          <div class="header-content">
-            <span class="category-pill">Organização de Dados</span>
-            <h2>Workspace & Laboratórios Virtuais</h2>
-            <p>Gestão compartimentada de amostras e campanhas de sequenciação por alvos biológicos.</p>
-          </div>
-        </div>
+      <!-- ========================================== -->
+      <!-- MODULE: WORKSPACE                          -->
+      <!-- ========================================== -->
+      <section id="mod-Workspace" class="module-view">
+        <div class="module-header">WORKSPACE</div>
+        <div class="module-subheader">Gestão estruturada de laboratórios virtuais, alvos terapêuticos e arquivo de análises</div>
 
-        <div class="dual-screen-row">
-          <div class="screen-card">
-            <div class="screen-title">1. Gestão Central do Workspace</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/workspace.png', 'Gestão do Workspace')">
-              <img src="images/workspace.png" alt="Workspace Overview" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar</div>
-            </div>
-            <div class="card-note">
-              <strong>Como Funciona:</strong> Cada investigador acede exclusivamente ao seu ambiente privado. Não há risco de contaminação cruzada de dados confidenciais entre grupos de investigação.
-            </div>
-          </div>
+        <div class="workspace-layout">
+          <!-- Coluna Esquerda: Lista de Laboratórios -->
+          <div class="ws-sidebar-col">
+            <div class="sidebar-list-title">Laboratórios Virtuais</div>
+            <button class="btn-new-lab" onclick="openNewLabModal()">
+              <span class="material-symbols-outlined">add</span>
+              Novo Laboratório
+            </button>
 
-          <div class="screen-card">
-            <div class="screen-title">2. Criação do Laboratório "Trop-2.1"</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/new_lab.png', 'Criação de Laboratório Trop-2')">
-              <img src="images/new_lab.png" alt="Novo Laboratório" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar</div>
-            </div>
-            <div class="card-note">
-              <strong>Estudo de Caso:</strong> Instanciação de um laboratório dedicado ao rastreio de clones contra o antigénio tumoral TROP-2 no cancro da mama.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION: TOOLS CATALOG -->
-      <section id="section-tools" class="view-panel">
-        <div class="section-header-banner">
-          <div class="header-content">
-            <span class="category-pill">Catálogo Completo</span>
-            <h2>Menu Central de Ferramentas Bioinformáticas</h2>
-            <p>Nove módulos integrados que cobrem da análise genómica básica à otimização molecular.</p>
-          </div>
-        </div>
-
-        <div class="ui-preview-wrapper large" onclick="openZoomModal('images/tools_menu.png', 'Catálogo de Ferramentas')">
-          <img src="images/tools_menu.png" alt="Menu de Ferramentas" class="ui-screen">
-          <div class="zoom-hint">🔍 Clique para ampliar o catálogo real</div>
-        </div>
-
-        <div class="tools-interactive-grid">
-          <div class="tool-tile" onclick="navigateTo('ngs')">
-            <div class="tile-header"><span>🧬 NGS Analysis</span><span class="tile-arrow">→</span></div>
-            <p>Filtragem, fusão BBMerge, tradução e agrupamento de clones a partir de FASTQ brutos.</p>
-          </div>
-          <div class="tool-tile" onclick="navigateTo('seq-analysis')">
-            <div class="tile-header"><span>🔬 Sequence Analysis</span><span class="tile-arrow">→</span></div>
-            <p>Diagnóstico biofísico de desenvolvibilidade para peptídeos e clones individuais.</p>
-          </div>
-          <div class="tool-tile" onclick="navigateTo('translation')">
-            <div class="tile-header"><span>🔤 DNA Translation</span><span class="tile-arrow">→</span></div>
-            <p>Tradução <em>in silico</em> inteligente com reconhecimento autónomo do quadro funcional.</p>
-          </div>
-          <div class="tool-tile" onclick="navigateTo('alignment')">
-            <div class="tool-header"><span>📊 Alignment</span><span class="tile-arrow">→</span></div>
-            <p>Alinhamento multisequência ClustalX com isolamento dinâmico de mutações.</p>
-          </div>
-          <div class="tool-tile" onclick="navigateTo('phylogeny')">
-            <div class="tool-header"><span>🌳 Phylogenetic Trees</span><span class="tile-arrow">→</span></div>
-            <p>Dendrogramas UPGMA para reconstrução de linhagens clonais e hipermutação.</p>
-          </div>
-          <div class="tool-tile" onclick="navigateTo('modeling')">
-            <div class="tool-header"><span>🧪 Structural Profiler</span><span class="tile-arrow">→</span></div>
-            <p>Modelação 3D ColabFold, cálculo SASA e validação de pontes dissulfeto.</p>
-          </div>
-          <div class="tool-tile" onclick="navigateTo('maturation')">
-            <div class="tool-header"><span>⚡ Affinity Maturation</span><span class="tile-arrow">→</span></div>
-            <p>Predição de mutações de afinidade com o modelo de linguagem ESM-2 (Meta AI).</p>
-          </div>
-          <div class="tool-tile" onclick="navigateTo('reports')">
-            <div class="tool-header"><span>📑 Reports & Exports</span><span class="tile-arrow">→</span></div>
-            <p>Exportação para PDF, Excel colorido e geração de ficheiros <em>ghost</em>.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION: NGS ANALYSIS -->
-      <section id="section-ngs" class="view-panel">
-        <div class="section-header-banner">
-          <div class="header-content">
-            <span class="category-pill">Pipeline Orquestrada</span>
-            <h2>NGS Analysis: Processamento de Alto Débito</h2>
-            <p>Do ficheiro FASTQ em bruto à catalogação e resgate humano supervisionado de clones.</p>
-          </div>
-        </div>
-
-        <!-- Step 1: Input -->
-        <div class="flow-card">
-          <div class="flow-badge">Etapa 1</div>
-          <div class="flow-body">
-            <h3>Submissão Segura de Ficheiros FASTQ</h3>
-            <p>Os ficheiros R1 e R2 são selecionados a partir de pastas partilhadas seguras da rede da Faculdade. O utilizador associa o teste ao laboratório <code>Trop-2.1</code> e define o pH de simulação (ex: 7.40).</p>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/ngs_input.png', 'Submissão NGS')">
-              <img src="images/ngs_input.png" alt="Submissão NGS" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar ecrã</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 2: Stats & Distribution -->
-        <div class="flow-card">
-          <div class="flow-badge">Etapa 2</div>
-          <div class="flow-body">
-            <h3>Funil Estatístico e Frequência Clonal</h3>
-            <p>O <em>pipeline Snakemake</em> processou <strong>118.654 leituras brutas</strong>, validando <strong>28.327 clones únicos</strong> com uma taxa de qualidade de <strong>99.4%</strong>. O gráfico de barras evidencia o clone dominante (<code>Seq.1</code> com 54 ocorrências).</p>
-            <div class="dual-screen-row">
-              <div class="screen-card">
-                <div class="ui-preview-wrapper" onclick="openZoomModal('images/ngs_stats.png', 'Estatísticas NGS')">
-                  <img src="images/ngs_stats.png" alt="Estatísticas NGS" class="ui-screen">
-                  <div class="zoom-hint">🔍 Estatísticas</div>
+            <div class="lab-list">
+              <div class="lab-item active">
+                <div class="lab-item-header">
+                  <span class="lab-name">Biblioteca_Sintetica_01</span>
+                  <span class="lab-badge">Ativo</span>
                 </div>
+                <div class="lab-item-meta">4 Estudos Registados</div>
               </div>
-              <div class="screen-card">
-                <div class="ui-preview-wrapper" onclick="openZoomModal('images/ngs_bars.png', 'Gráfico de Frequências')">
-                  <img src="images/ngs_bars.png" alt="Gráfico de Clones" class="ui-screen">
-                  <div class="zoom-hint">🔍 Gráfico de Barras</div>
+              <div class="lab-item">
+                <div class="lab-item-header">
+                  <span class="lab-name">Projeto_Nanobodies_VHH</span>
                 </div>
+                <div class="lab-item-meta">2 Estudos Registados</div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Step 3: Success vs Failed & Promote -->
-        <div class="flow-card">
-          <div class="flow-badge">Etapa 3</div>
-          <div class="flow-body">
-            <h3>Anotação Heurística e Inovador Sistema de Resgate ("Promote to Success")</h3>
-            <p>A plataforma extrai automaticamente as CDRs (CDR1, CDR2, CDR3) e regiões FR. Para sequências com âncoras atípicas (reprovadas com N/A), o cientista pode editar a sequência diretamente na tabela e promover o clone de volta ao grupo de sucesso.</p>
-            <div class="dual-screen-row">
-              <div class="screen-card">
-                <div class="screen-title">Tabela de Candidatos de Sucesso</div>
-                <div class="ui-preview-wrapper" onclick="openZoomModal('images/ngs_success.png', 'Tabela de Sucesso')">
-                  <img src="images/ngs_success.png" alt="Tabela Sucesso" class="ui-screen">
-                  <div class="zoom-hint">🔍 Ver CDRs extraídas</div>
+          <!-- Coluna Direita: Conteúdo do Laboratório -->
+          <div class="ws-content-col">
+            <div class="active-lab-card">
+              <div class="active-lab-header">
+                <div>
+                  <h2 class="lab-title">Biblioteca_Sintetica_01</h2>
+                  <div class="lab-description">Ambiente de trabalho demonstrativo para análise e seleção de variantes de anticorpos de cadeia pesada.</div>
                 </div>
+                <span class="lab-status-tag">Seguro / Isolado</span>
               </div>
-              <div class="screen-card">
-                <div class="screen-title">Sequências Reprovadas + Botão "Promote"</div>
-                <div class="ui-preview-wrapper" onclick="openZoomModal('images/ngs_promote.png', 'Resgate de Clones')">
-                  <img src="images/ngs_promote.png" alt="Resgate de Clones" class="ui-screen">
-                  <div class="zoom-hint">🔍 Ver botão Promote to Success</div>
+
+              <!-- Lista de Estudos/Registos -->
+              <div class="assets-table-container">
+                <table class="assets-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 30px;"><input type="checkbox"></th>
+                      <th>Designação do Registo</th>
+                      <th>Tipo</th>
+                      <th>Data</th>
+                      <th style="text-align: right;">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td><strong>NGS_Funnel_Demo_01</strong></td>
+                      <td><span class="badge-type run">RUN (NGS)</span></td>
+                      <td>2026-10-12</td>
+                      <td style="text-align: right;">
+                        <button class="btn-table-action" onclick="showGhostInfo('NGS_Funnel_Demo_01')">Abrir</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td><strong>Alinhamento_Top10_Sintetico</strong></td>
+                      <td><span class="badge-type study">STUDY (MSA)</span></td>
+                      <td>2026-10-12</td>
+                      <td style="text-align: right;">
+                        <button class="btn-table-action" onclick="showGhostInfo('Alinhamento_Top10_Sintetico')">Abrir</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td><strong>Arvore_Filogenetica_UPGMA_01</strong></td>
+                      <td><span class="badge-type tree">TREE</span></td>
+                      <td>2026-10-13</td>
+                      <td style="text-align: right;">
+                        <button class="btn-table-action" onclick="showGhostInfo('Arvore_Filogenetica_UPGMA_01')">Abrir</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox"></td>
+                      <td><strong>Relatorio_Ghost_Top10 (Operational Cache)</strong></td>
+                      <td><span class="badge-type ghost">GHOST FILE</span></td>
+                      <td>2026-10-13</td>
+                      <td style="text-align: right;">
+                        <button class="btn-table-action" onclick="showGhostInfo('Relatorio_Ghost_Top10')">Abrir</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Mecanismo de Ghost Files Explicado -->
+              <div class="ghost-architecture-box">
+                <div class="ghost-header">
+                  <span class="material-symbols-outlined">psychology</span>
+                  Mecanismo dos "Ficheiros Ghost" (Patente Conceptual da Plataforma)
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 4: Sequence Visualizer -->
-        <div class="flow-card">
-          <div class="flow-badge">Etapa 4</div>
-          <div class="flow-body">
-            <h3>Visualizador Imersivo de Sequências</h3>
-            <p>Destaque visual a vermelho das âncoras estruturais canónicas (Cisteínas, Triptofano, Tirosina e motivo FG) com coloração das alças ativas e cartão completo de biométricas (MW, pI, Instabilidade, Extinção).</p>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/seq_visualizer.png', 'Visualizador Imersivo')">
-              <img src="images/seq_visualizer.png" alt="Visualizador Imersivo" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar Visualizador</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION: SEQUENCE ANALYSIS -->
-      <section id="section-seq-analysis" class="view-panel">
-        <div class="section-header-banner">
-          <div class="header-content">
-            <span class="category-pill">Análise Rápida</span>
-            <h2>Sequence Analysis: Diagnóstico Biofísico Instantâneo</h2>
-            <p>Avaliação ágil de sequências avulsas sem necessidade de carregar ficheiros NGS pesados.</p>
-          </div>
-        </div>
-
-        <div class="content-block">
-          <div class="dual-screen-row">
-            <div class="screen-card">
-              <div class="screen-title">1. Entrada Ad-hoc de Sequência</div>
-              <div class="ui-preview-wrapper" onclick="openZoomModal('images/seq_analysis_form.png', 'Formulário Sequence Analysis')">
-                <img src="images/seq_analysis_form.png" alt="Formulário" class="ui-screen">
-                <div class="zoom-hint">🔍 Ampliar</div>
-              </div>
-              <div class="card-note">Permite colar texto puro de aminoácidos ou carregar a partir de <em>snapshots</em> guardados.</div>
-            </div>
-
-            <div class="screen-card">
-              <div class="screen-title">2. Relatório com Deteção de Cisteínas Livres (Cys: 3)</div>
-              <div class="ui-preview-wrapper" onclick="openZoomModal('images/seq_analysis_results.png', 'Resultados e Biométricas')">
-                <img src="images/seq_analysis_results.png" alt="Resultados" class="ui-screen">
-                <div class="zoom-hint">🔍 Ampliar</div>
-              </div>
-              <div class="card-note">
-                <strong>Alerta Bioquímico:</strong> A indicação de 3 cisteínas assinala a existência de um resíduo livre na superfície (risco de agregação ou oportunidade para conjugação de fármacos ADC).
+                <p>Para evitar sobrecarregar a memória RAM ao processar bibliotecas massivas de NGS (com mais de 100.000 leituras), a plataforma Ypsilon cria automaticamente <em>ficheiros ghost</em> na aba Reports: ficheiros operacionais leves focados estritamente no <strong>Top N</strong> de clones mais abundantes. Este método acelera em mais de 10x as rotinas subsequentes de alinhamento múltiplo e modelação tridimensional.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SECTION: TRANSLATION -->
-      <section id="section-translation" class="view-panel">
-        <div class="section-header-banner">
-          <div class="header-content">
-            <span class="category-pill">Tradução Genómica</span>
-            <h2>DNA Translation: Reconhecimento Inteligente de Reading Frames</h2>
-            <p>Conversão de sequências nucleotídicas de PCR ou Sanger com identificação do quadro funcional.</p>
+      <!-- ========================================== -->
+      <!-- MODULE: DASHBOARDS                         -->
+      <!-- ========================================== -->
+      <section id="mod-Dashboards" class="module-view">
+        <div class="module-header">NGS ANALYSIS DASHBOARD</div>
+        <div class="module-subheader">Filtragem multicritério e seleção de candidatos para relatórios laboratoriais</div>
+
+        <div class="dash-selectors-row">
+          <div class="dash-selector-item">
+            <label>Laboratório:</label>
+            <select class="styled-select">
+              <option>Biblioteca_Sintetica_01</option>
+              <option>Projeto_Nanobodies_VHH</option>
+            </select>
+          </div>
+          <div class="dash-selector-item">
+            <label>Conjunto de Dados (Análise):</label>
+            <select class="styled-select">
+              <option>NGS_Funnel_Demo_01 (10 clones selecionados)</option>
+            </select>
           </div>
         </div>
 
-        <div class="content-block">
-          <div class="ui-preview-wrapper large" onclick="openZoomModal('images/translation.png', 'Módulo de Tradução')">
-            <img src="images/translation.png" alt="DNA to Protein Translation" class="ui-screen">
-            <div class="zoom-hint">🔍 Ampliar ecrã de tradução</div>
+        <!-- Filtros Biofísicos Interativos -->
+        <div class="filter-box">
+          <div class="filter-title">
+            <span class="material-symbols-outlined">tune</span>
+            Filtros Biofísicos de Seleção (Heurísticas Termodinâmicas)
+          </div>
+          <div class="sliders-grid">
+            <div class="slider-group">
+              <div class="slider-label">Peso Molecular (MW): <span id="valMW">12.0 - 15.0 kDa</span></div>
+              <input type="range" min="10" max="20" value="13" class="styled-range">
+            </div>
+            <div class="slider-group">
+              <div class="slider-label">Ponto Isoelétrico (pI): <span id="valPI">5.0 - 8.5</span></div>
+              <input type="range" min="3" max="11" value="7" class="styled-range">
+            </div>
+            <div class="slider-group">
+              <div class="slider-label">Carga Líquida (@ pH 7.4): <span id="valCharge">-2.0 a +3.0</span></div>
+              <input type="range" min="-10" max="10" value="0" class="styled-range">
+            </div>
+            <div class="slider-group">
+              <div class="slider-label">Filtro de Cisteínas:</div>
+              <select class="styled-select small">
+                <option>Todas</option>
+                <option selected>Par (Pontes Formadas)</option>
+                <option>Ímpar (Cisteína Livre)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabela Neutra de Candidatos Sintéticos -->
+        <div class="candidates-table-container">
+          <div class="candidates-table-header">
+            <h4>Candidatos Selecionados (Dados Neutros Demonstrativos)</h4>
+            <span class="count-tag">5 Clones em Exibição</span>
+          </div>
+          <table class="neutral-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Frequência</th>
+                <th>CDR3 (Sequência Neutra)</th>
+                <th>MW (kDa)</th>
+                <th>pI</th>
+                <th>Carga</th>
+                <th>Cisteínas</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Seq.1 (Clone_Alpha)</strong></td>
+                <td>54</td>
+                <td><code class="aa-code">ARDFGSYYWFDY</code></td>
+                <td>12.82</td>
+                <td>6.65</td>
+                <td>-0.43</td>
+                <td>2 (Par)</td>
+                <td><span class="status-pill success">Validado</span></td>
+              </tr>
+              <tr>
+                <td><strong>Seq.2 (Clone_Beta)</strong></td>
+                <td>38</td>
+                <td><code class="aa-code">ARDLGYGYVMDY</code></td>
+                <td>13.10</td>
+                <td>7.12</td>
+                <td>+0.15</td>
+                <td>2 (Par)</td>
+                <td><span class="status-pill success">Validado</span></td>
+              </tr>
+              <tr>
+                <td><strong>Seq.3 (Clone_Gamma)</strong></td>
+                <td>29</td>
+                <td><code class="aa-code">AKEYSSSWFAY</code></td>
+                <td>12.45</td>
+                <td>5.90</td>
+                <td>-1.20</td>
+                <td>2 (Par)</td>
+                <td><span class="status-pill success">Validado</span></td>
+              </tr>
+              <tr>
+                <td><strong>Seq.4 (Clone_Delta)</strong></td>
+                <td>21</td>
+                <td><code class="aa-code">AREGAYYSYAMDY</code></td>
+                <td>13.40</td>
+                <td>6.80</td>
+                <td>-0.10</td>
+                <td>2 (Par)</td>
+                <td><span class="status-pill promoted">Promote to Success</span></td>
+              </tr>
+              <tr>
+                <td><strong>Seq.5 (Clone_Epsilon)</strong></td>
+                <td>17</td>
+                <td><code class="aa-code">ARVRDYYDSGGYYDY</code></td>
+                <td>14.05</td>
+                <td>7.45</td>
+                <td>+0.60</td>
+                <td>2 (Par)</td>
+                <td><span class="status-pill success">Validado</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE: REPORTS                            -->
+      <!-- ========================================== -->
+      <section id="mod-Reports" class="module-view">
+        <div class="module-header">REPORTS & EXPORTS</div>
+        <div class="module-subheader">Geração e arquivo de relatórios analíticos, tabelas de exportação e registos de auditoria</div>
+
+        <div class="reports-grid">
+          <div class="report-card">
+            <div class="report-icon"><span class="material-symbols-outlined">picture_as_pdf</span></div>
+            <div class="report-body">
+              <h3>Relatório de Descoberta (PDF)</h3>
+              <p>Documento formal contendo sumário executivo do funil NGS, distribuição clonal, alças hipervariáveis e métricas físico-químicas formatadas.</p>
+              <div class="report-actions">
+                <span class="badge-ready">Formato Vetorial</span>
+                <span class="report-size">A4 Landscape</span>
+              </div>
+            </div>
           </div>
 
-          <div class="engineering-box">
-            <div class="eng-icon">💡</div>
-            <div>
-              <h4>Inteligência do Software: Marcador "AQAA...HHHHHH Antibody Core"</h4>
-              <p>Ao traduzir uma sequência pura de nucleótidos nos três quadros de leitura abertos, a plataforma identifica autonomamente o motivo de ancoragem terminal (<code>AQAA</code>) e a etiqueta His-Tag (<code>HHHHHH</code>), garantindo a fidelidade do peptídeo ativo gerado.</p>
+          <div class="report-card">
+            <div class="report-icon"><span class="material-symbols-outlined">table_view</span></div>
+            <div class="report-body">
+              <h3>Exportação de Alinhamentos (Excel)</h3>
+              <p>Ficheiro estruturado (.xlsx) gerado dinamicamente pela biblioteca XlsxWriter com cada aminoácido colorido pela sua família química (Clustal-X).</p>
+              <div class="report-actions">
+                <span class="badge-ready">Coloração Condicional</span>
+                <span class="report-size">Excel 2016+</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="report-card">
+            <div class="report-icon"><span class="material-symbols-outlined">data_object</span></div>
+            <div class="report-body">
+              <h3>Ficheiros Ghost (Operational Cache)</h3>
+              <p>Versões compactadas de sequências filtradas (Top N) gravadas no banco de dados para alimentar pipelines secundários de IA e docking.</p>
+              <div class="report-actions">
+                <span class="badge-ready">Otimização SQL</span>
+                <span class="report-size">JSON / FASTA</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SECTION: ALIGNMENT -->
-      <section id="section-alignment" class="view-panel">
-        <div class="section-header-banner">
-          <div class="header-content">
-            <span class="category-pill">Genómica Comparativa</span>
-            <h2>Alignment: Clustal Omega e Deteção de Variações</h2>
-            <p>Alinhamento de múltiplos clones do Top N e quantificação de mutações estruturais.</p>
-          </div>
+      <!-- ========================================== -->
+      <!-- MODULE: SEARCH                             -->
+      <!-- ========================================== -->
+      <section id="mod-Search" class="module-view">
+        <div class="module-header">GLOBAL SEARCH</div>
+        <div class="module-subheader">Pesquisa de sequências, clones candidatos e metadados nos arquivos da plataforma</div>
+
+        <div class="search-input-box">
+          <span class="material-symbols-outlined search-icon">search</span>
+          <input type="text" id="globalSearchInput" placeholder="Pesquisar por motivo de CDR3, identificador ou propriedade (ex: ARDFGS, Seq.1, pI)..." oninput="handleSearch(this.value)">
         </div>
 
-        <div class="dual-screen-row">
-          <div class="screen-card">
-            <div class="screen-title">Alinhamento ClustalX com Código de Cores Químico</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/alignment_clustal.png', 'Alinhamento Clustal')">
-              <img src="images/alignment_clustal.png" alt="Alinhamento Clustal" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar</div>
-            </div>
-          </div>
-
-          <div class="screen-card">
-            <div class="screen-title">Filtro Ativo "Find Variations"</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/alignment_variations.png', 'Filtro Find Variations')">
-              <img src="images/alignment_variations.png" alt="Find Variations" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="content-block">
-          <div class="screen-title">Tabela Estatística de Variações (Transversões, Transições e Deleções)</div>
-          <div class="ui-preview-wrapper" onclick="openZoomModal('images/variation_table.png', 'Tabela de Variações')">
-            <img src="images/variation_table.png" alt="Tabela de Variações" class="ui-screen">
-            <div class="zoom-hint">🔍 Ver Tabela de Variações</div>
-          </div>
-          <div class="card-note">
-            Identidade Global de <strong>73.92%</strong> (esqueleto conservado) com discriminação de posições mutadas (ex: <code>D -> V</code> na posição 3 com 70% de frequência clonal e <code>P-Value = 0.0000</code>).
-          </div>
+        <div class="search-results-box" id="searchResultsArea">
+          <div class="search-hint">Escreva um termo na barra de pesquisa para filtrar os registos demonstrativos da plataforma.</div>
         </div>
       </section>
 
-      <!-- SECTION: PHYLOGENY -->
-      <section id="section-phylogeny" class="view-panel">
-        <div class="section-header-banner">
-          <div class="header-content">
-            <span class="category-pill">Evolução Clonal</span>
-            <h2>Phylogenetic Trees: Reconstrução Evolutiva UPGMA</h2>
-            <p>Mapeamento de parentesco genético e deteção de assinaturas de hipermutação somática.</p>
-          </div>
-        </div>
+      <!-- ========================================== -->
+      <!-- MODULE: ADMIN                              -->
+      <!-- ========================================== -->
+      <section id="mod-Admin" class="module-view">
+        <div class="module-header">SYSTEM ADMINISTRATION</div>
+        <div class="module-subheader">Painel de infraestrutura, controlo de acessos federados e saúde dos nós computacionais</div>
 
-        <div class="ui-preview-wrapper large" onclick="openZoomModal('images/phylogenetic_tree.png', 'Árvore Filogenética UPGMA')">
-          <img src="images/phylogenetic_tree.png" alt="Árvore Filogenética" class="ui-screen">
-          <div class="zoom-hint">🔍 Clique para ampliar o dendrograma interativo</div>
-        </div>
-
-        <div class="feature-grid two-col">
-          <div class="info-card">
-            <div class="card-icon">🌿</div>
-            <h3>Bifurcação Primária em 2 Famílias</h3>
-            <p>A ramificação profunda inicial (distância ~0.25) comprova que o Top 10 de clones não resulta de um único ancestral, mas sim de duas linhagens clonais independentes com afinidade ao TROP-2.</p>
-          </div>
-          <div class="info-card">
-            <div class="card-icon">⚡</div>
-            <h3>Ramos Curtos Nodosos (Hipermutação)</h3>
-            <p>Nós terminais com distâncias reduzidas (0.004 a 0.013) assinalam o surgimento de micromutações adaptativas em torno do clone de maior sucesso.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION: 3D MODELING -->
-      <section id="section-modeling" class="view-panel">
-        <div class="section-header-banner">
-          <div class="header-content">
-            <span class="category-pill">Modelação Estrutural & IA</span>
-            <h2>3D Structural Profiler: ColabFold e Validação SASA</h2>
-            <p>Previsão conformacional acelerada por GPU e inspeção de viabilidade das pontes dissulfeto.</p>
-          </div>
-        </div>
-
-        <div class="dual-screen-row">
-          <div class="screen-card">
-            <div class="screen-title">1. Modelo Tridimensional com Malha de Superfície</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/model_3d.png', 'Modelo 3D ColabFold')">
-              <img src="images/model_3d.png" alt="Modelo 3D" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar molécula 3D</div>
-            </div>
-            <div class="card-note">
-              FRs a bege, CDR-L1/L2/L3 a cores diferenciadas, bastões laranja para pontes dissulfeto internas e esferas amarelas para cisteínas expostas.
-            </div>
+        <div class="admin-kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Autenticação Federada</div>
+            <div class="kpi-value">OpenID</div>
+            <div class="kpi-trend trend-up"><span class="material-symbols-outlined" style="font-size:16px;">check_circle</span> SSO / Keycloak Ativo</div>
           </div>
 
-          <div class="screen-card">
-            <div class="screen-title">2. Perfil de Confiança pLDDT e Acessibilidade SASA</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/plddt_sasa.png', 'pLDDT e SASA')">
-              <img src="images/plddt_sasa.png" alt="pLDDT e SASA" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar métricas</div>
-            </div>
-            <div class="card-note">
-              Cys23 (3.35 Å²) e Cys88 (0 Å²) ambas classificadas como <strong>Buried/Structural</strong> (SASA &lt; 5.0 Å²), atestando a integridade termodinâmica da ponte dissulfeto.
-            </div>
-          </div>
-        </div>
-
-        <div class="dual-screen-row">
-          <div class="screen-card">
-            <div class="screen-title">3. Tabela de Segmentação das Regiões FR e CDR</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/seq_regions.png', 'Tabela de Regiões de Sequência')">
-              <img src="images/seq_regions.png" alt="Regiões de Sequência" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar limites</div>
-            </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Motor de Base de Dados</div>
+            <div class="kpi-value">PostgreSQL</div>
+            <div class="kpi-trend trend-up"><span class="material-symbols-outlined" style="font-size:16px;">database</span> SQLAlchemy ORM Ligado</div>
           </div>
 
-          <div class="screen-card">
-            <div class="screen-title">4. Cobertura Homóloga do ColabFold (+12.000 sequências)</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/coverage_plot.png', 'Cobertura ColabFold')">
-              <img src="images/coverage_plot.png" alt="Cobertura ColabFold" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar alinhamento</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION: AFFINITY MATURATION -->
-      <section id="section-maturation" class="view-panel">
-        <div class="section-header-banner">
-          <div class="header-content">
-            <span class="category-pill">Modelos de Linguagem de Proteínas</span>
-            <h2>Affinity Maturation Lab: Inteligência Artificial com ESM-2</h2>
-            <p>Otimização <em>in silico</em> da força de ligação através de modelos profundos da Meta AI.</p>
-          </div>
-        </div>
-
-        <div class="dual-screen-row">
-          <div class="screen-card">
-            <div class="screen-title">Tabela Preditiva de Mutações nas CDRs</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/maturation_table.png', 'Maturação de Afinidade')">
-              <img src="images/maturation_table.png" alt="Maturação de Afinidade" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar tabela</div>
-            </div>
-          </div>
-
-          <div class="screen-card">
-            <div class="screen-title">Detalhe da Pontuação Log-Likelihood do ESM-2</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/maturation_esm.png', 'Detalhe ESM-2')">
-              <img src="images/maturation_esm.png" alt="Detalhe ESM-2" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar pontuações</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="engineering-box">
-          <div class="eng-icon">🎯</div>
-          <div>
-            <h4>Triagem Focada para Validação em Bancada</h4>
-            <p>O sistema simula milhares de mutações nas alças hipervariáveis do clone e filtra estrategicamente resíduos de risco (excluindo cisteínas e prolinas). As variantes com pontuações favoráveis de probabilidade biológica surgem destacadas, reduzindo drasticamente o número de mutantes que necessitam de síntese física no laboratório.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION: REPORTS & ARCHITECTURE -->
-      <section id="section-reports" class="view-panel">
-        <div class="section-header-banner">
-          <div class="header-content">
-            <span class="category-pill">Engenharia de Software</span>
-            <h2>Reports, "Ficheiros Ghost" e Arquitetura</h2>
-            <p>Otimização de desempenho de base de dados e geração automatizada de relatórios.</p>
-          </div>
-        </div>
-
-        <div class="dual-screen-row">
-          <div class="screen-card">
-            <div class="screen-title">Filtro Top N ao Gravar Análise</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/save_analysis.png', 'Filtro Top N')">
-              <img src="images/save_analysis.png" alt="Salvar Análise" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar</div>
-            </div>
-          </div>
-
-          <div class="screen-card">
-            <div class="screen-title">Aba Reports com <code>_ngstotal</code> e <code>_ngstop</code> ("Ghost")</div>
-            <div class="ui-preview-wrapper" onclick="openZoomModal('images/reports_ghost.png', 'Ficheiros Ghost')">
-              <img src="images/reports_ghost.png" alt="Reports" class="ui-screen">
-              <div class="zoom-hint">🔍 Ampliar</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="feature-grid three-col">
-          <div class="info-card">
-            <div class="card-icon">👻</div>
-            <h3>O que são os "Ficheiros Ghost"?</h3>
-            <p>São cópias operacionais leves geradas automaticamente para o Top N de clones mais abundantes. Evitam carregar centenas de milhares de sequências para a memória RAM durante a modelação 3D.</p>
-          </div>
-          <div class="info-card">
-            <div class="card-icon">🐳</div>
-            <h3>Contentorização com Docker</h3>
-            <p>Arquitetura em três contentores (PostgreSQL 15, Streamlit Dashboard e ColabFold Worker com suporte para GPU NVIDIA) orquestrados por Docker Compose.</p>
-          </div>
-          <div class="info-card">
-            <div class="card-icon">📑</div>
-            <h3>Exportação Automatizada</h3>
-            <p>Geração instantânea de relatórios oficiais em formato PDF e folhas de cálculo Excel mantendo a mesma codificação cromática exibida no ecrã.</p>
+          <div class="kpi-card">
+            <div class="kpi-title">Nó de IA Estrutural</div>
+            <div class="kpi-value">ColabFold</div>
+            <div class="kpi-trend trend-up"><span class="material-symbols-outlined" style="font-size:16px;">memory</span> GPU Worker Operacional</div>
           </div>
         </div>
       </section>
 
     </main>
+
+    <!-- GLOBAL FOOTER -->
+    <footer class="global-footer">
+      <div class="footer-inst">Faculty of Veterinary Medicine</div>
+      <div class="footer-dev">Developed by Cátia Fidalgo</div>
+    </footer>
   </div>
 
-  <!-- Modal for Zooming Screenshots -->
-  <div id="zoomModal" class="modal-backdrop" onclick="closeZoomModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
+  <!-- MODAL: DETALHES / NOVO LABORATÓRIO -->
+  <div id="genericModal" class="modal-overlay">
+    <div class="modal-card">
       <div class="modal-header">
-        <span id="modalCaption" class="modal-caption"></span>
-        <button class="modal-close" onclick="closeZoomModal()">&times;</button>
+        <h3 id="modalTitle">Título</h3>
+        <button class="modal-close-btn" onclick="closeModal()">&times;</button>
       </div>
-      <div class="modal-image-wrapper">
-        <img id="modalImg" src="" alt="Imagem Ampliada">
+      <div class="modal-body" id="modalBody">
+        Conteúdo
       </div>
-    </div>
-  </div>
-
-  <!-- Modal for Executive Summary -->
-  <div id="summaryModal" class="modal-backdrop" onclick="closeSummaryModal()">
-    <div class="modal-content summary-modal-box" onclick="event.stopPropagation()">
-      <div class="modal-header">
-        <h3>Ficha Técnica da Plataforma Ypsilon</h3>
-        <button class="modal-close" onclick="closeSummaryModal()">&times;</button>
-      </div>
-      <div class="summary-body">
-        <p><strong>Desenvolvido por:</strong> Cátia Fidalgo (Bioinformática & Biologia Computacional)</p>
-        <p><strong>Objetivo:</strong> Unificação computacional de ponta a ponta para rastreio de bibliotecas de anticorpos contra alvos oncológicos (TROP-2).</p>
-        <p><strong>Destaques Tecnológicos:</strong></p>
-        <ul>
-          <li><strong>Pipeline NGS:</strong> Snakemake, BBMerge, BioPython, Clustal Omega.</li>
-          <li><strong>IA & Modelação:</strong> ColabFold (AlphaFold acelerado por GPU) e ESM-2 (Meta AI).</li>
-          <li><strong>Infraestrutura:</strong> Python, Streamlit, Docker, PostgreSQL, Keycloak (OIDC/JWT).</li>
-          <li><strong>Estudo Real:</strong> 118k leituras, 28k clones catalogados, 99.4% taxa de validação.</li>
-        </ul>
+      <div class="modal-footer">
+        <button class="btn-primary" onclick="closeModal()">Fechar</button>
       </div>
     </div>
   </div>

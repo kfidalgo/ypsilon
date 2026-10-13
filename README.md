@@ -1,46 +1,34 @@
-# Ypsilon — Portfólio Interativo & Demonstração Web
-**Autora:** Cátia Fidalgo  
-**Área:** Bioinformática & Biologia Computacional  
+# Ypsilon — Plataforma Bioinformática para Descoberta de Anticorpos
 
-Este repositório contém uma versão interativa e demonstrativa da plataforma **Ypsilon**, desenhada especificamente para apresentação em candidaturas de emprego e partilha com recrutadores, laboratórios e centros de investigação.
-
----
-
-## 🚀 Como Visualizar Agora no Computador
-
-Para abrir a plataforma de imediato no teu computador:
-1. Abre esta pasta (`ypsilon-showcase`).
-2. Faz duplo clique no ficheiro **`index.html`**.
-3. O site abrirá instantaneamente no teu navegador preferido (Google Chrome, Firefox, Edge ou Safari), sem necessidade de instalar nada ou ligar servidores!
+**Demonstração Interativa & Portfólio Tecnológico**  
+*Desenvolvido por Cátia Fidalgo — Faculdade de Medicina Veterinária (Universidade de Lisboa)*
 
 ---
 
-## 🌐 Como Publicar Grátis no GitHub Pages (Para ter um link online)
+## 📌 Sobre a Plataforma
+A **Ypsilon** é uma plataforma bioinformática integral concebida para automatizar e acelerar a descoberta, caracterização e engenharia *in silico* de anticorpos a partir de dados de sequenciação de nova geração (**NGS** / *Phage Display*).
 
-Para teres um link online (como `https://teu-utilizador.github.io/ypsilon-showcase/`) para colocar no teu currículo ou no LinkedIn:
+A plataforma elimina a necessidade de interação via terminal de comandos, oferecendo uma interface web intuitiva e unificada sob contentores Docker que orquestra 9 ferramentas analíticas avançadas:
 
-1. **Criar um Repositório no GitHub:**
-   * Acede a [github.com](https://github.com) e clica em **New Repository**.
-   * Dá o nome ao repositório (ex: `ypsilon-showcase` ou `ypsilon-portfolio`).
-   * Escolhe **Public** e clica em **Create repository**.
-
-2. **Carregar os Ficheiros:**
-   * Clica em **uploading an existing file**.
-   * Arrasta todos os ficheiros desta pasta (`index.html`, `styles.css`, `app.js`, `README.md` e a pasta `images/`) para o GitHub.
-   * Clica em **Commit changes**.
-
-3. **Ativar o GitHub Pages:**
-   * No teu repositório, clica no separador **Settings** (topo direito).
-   * No menu lateral esquerdo, clica em **Pages**.
-   * Em *Build and deployment > Branch*, seleciona a branch **main** (pasta `/root`) e clica em **Save**.
-   * Em cerca de 1 a 2 minutos, o GitHub gera o teu link público gratuito!
+1. **NGS Analysis:** Filtragem de qualidade Phred, anotação heurística e extração automatizada de regiões CDR1, CDR2 e CDR3 com mecanismo *Promote to Success*.
+2. **Sequence Analysis:** Avaliação termodinâmica rápida, determinação de ponto isoelétrico (pI), peso molecular, índice de instabilidade e deteção de cisteínas livres não emparelhadas.
+3. **Translation:** Tradução de DNA nos 3 quadros de leitura (*Reading Frames*) com realce de resíduos canónicos e núcleos conservados.
+4. **Alignment:** Alinhamento múltiplo via **Clustal Omega** com visualizador interativo colorido por classes físico-químicas de aminoácidos e cálculo de P-Value de mutações.
+5. **Phylogenetic Trees:** Reconstrução de linhagens clonais e cálculo de distâncias evolutivas pelo método hierárquico **UPGMA**.
+6. **Comparative Analysis:** Análise de sobreposição e enriquecimento clonal (*Fold-Change*) entre diferentes bibliotecas e rondas de seleção.
+7. **Antibody Structural Profiler:** Modelação tridimensional via **ColabFold / AlphaFold2**, mapa residual de confiança **pLDDT** e cálculo de área acessível ao solvente (**SASA**).
+8. **Interaction (Docking):** Modelação da interface de ligação anticorpo-antigénio e estimativa de energias livres de afinidade.
+9. **Affinity Maturation Lab:** Maturação de afinidade *in silico* baseada no modelo de linguagem biológico **ESM-2** (Meta AI) para sugerir mutações favoráveis.
 
 ---
 
-## 🛠️ Conteúdo em Destaque no Site
+## 🔒 Nota de Confidencialidade
+Esta demonstração pública utiliza exclusivamente sequências sintéticas e dados neutros para preservar o segredo dos alvos e amostras laboratoriais proprietárias do projeto de investigação.
 
-* **NGS Analysis Pipeline:** Demonstração do funil de filtragem, estatísticas e resgate interativo de clones (*Promote to Success*).
-* **Modelação 3D com IA:** Apresentação da renderização WebGL do ColabFold e validação das pontes dissulfeto por SASA.
-* **Maturação de Afinidade:** Otimização de anticorpos baseada em modelos de linguagem de proteínas (ESM-2 da Meta AI).
-* **Genómica Comparativa:** Alinhamentos múltiplos ClustalX com o filtro *Find Variations* e árvores evolutivas UPGMA.
-* **Arquitetura & Engenharia:** Explicação do sistema de *"ficheiros ghost"*, isolamento multi-laboratório e contentorização Docker.
+---
+
+## 🚀 Como Executar Localmente
+Para explorar a demonstração no seu computador:
+1. Abra a pasta `ypsilon-showcase`.
+2. Dê duplo clique no ficheiro `index.html`.
+3. A aplicação abre instantaneamente em qualquer navegador web moderno.
