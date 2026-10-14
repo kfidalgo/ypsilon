@@ -1,7 +1,7 @@
 # Ypsilon — Plataforma Bioinformática para Descoberta de Anticorpos
 
 **Demonstração Interativa & Portfólio Tecnológico**  
-*Desenvolvido por Cátia Fidalgo — Faculdade de Medicina Veterinária (Universidade de Lisboa)*
+*Faculdade de Medicina Veterinária — Universidade de Lisboa*
 
 ---
 
