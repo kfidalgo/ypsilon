@@ -1,64 +1,67 @@
 // ==========================================================================
-// YPSILON BIOINFORMATICS PLATFORM - INTERACTIVE CONTROLLER (SHOWCASE NEUTRO)
+// YPSILON BIOINFORMATICS PLATFORM - INTERACTIVE CONTROLLER (SHOWCASE)
+// Specialized in Antibody Variable Light Chain (VL) Discovery & Engineering
+// 100% English Edition
 // ==========================================================================
 
 const toolsDatabase = {
   ngs: {
     title: "NGS Analysis",
-    category: "Genómica & Descoberta",
-    desc: "Processamento de leituras FASTQ emparelhadas (R1/R2), controlo de qualidade e extração heurística de CDRs.",
+    category: "High-Throughput Sequencing & Repertoire Mining",
+    desc: "End-to-end processing pipeline for raw paired-end FASTQ reads (R1/R2) from antibody Variable Light chain (VL) libraries. Executes BBMerge overlap assembly, Phred quality score filtering (Q30), open reading frame translation, heuristic framework anchor detection (FR1/FR4), automated segmentation of CDR-L1, CDR-L2, and CDR-L3 loops, clonal abundance calculation with frequency ranking, thermodynamic property profiling, and the 'Promote to Success' curation engine for somatic variant rescue.",
     formFields: [
-      { label: "Laboratório de Destino", type: "select", options: ["Biblioteca_Sintetica_01", "Projeto_Nanobodies_VHH"] },
-      { label: "FASTQ Forward (R1)", type: "select", options: ["amostra_demo_R1.fastq.gz (Pasta Partilhada Segura)", "biblioteca_vhh_R1.fastq.gz"] },
-      { label: "FASTQ Reverse (R2)", type: "select", options: ["amostra_demo_R2.fastq.gz (Pasta Partilhada Segura)", "biblioteca_vhh_R2.fastq.gz"] },
-      { label: "pH Ambiental (Cálculo de Cargas)", type: "number", value: "7.40" }
+      { label: "Target Laboratory", type: "select", options: ["Synthetic_VL_Library_01", "Lambda_VL_Screening_Project"] },
+      { label: "FASTQ Forward (R1)", type: "select", options: ["synthetic_vl_library_R1.fastq.gz (Secure Server Folder)", "vl_screen_round3_R1.fastq.gz"] },
+      { label: "FASTQ Reverse (R2)", type: "select", options: ["synthetic_vl_library_R2.fastq.gz (Secure Server Folder)", "vl_screen_round3_R2.fastq.gz"] },
+      { label: "Minimum Phred Quality (Q-Score)", type: "select", options: ["Q30 (99.9% Accuracy)", "Q20 (99.0% Accuracy)"] },
+      { label: "Environmental pH (Charge Calculation)", type: "number", value: "7.40" }
     ],
     algoCards: [
       {
-        title: "Funil de Filtragem & Heurística",
+        title: "Paired-End Merging & Quality Funnel",
         icon: "filter_alt",
-        body: "O algoritmo filtra leituras por qualidade Phred (Q30) e aplica expressões regulares nas âncoras conservadas de imunoglobulinas (Cisteína canónica em FR1/FR3, Triptofano em FR2 e motivo FG em FR4) para isolar com precisão as alças CDR1, CDR2 e CDR3."
+        body: "Overlapping forward and reverse reads are merged using the BBMerge algorithm. Low-quality reads (mean Phred score below Q30) and reads with uncalled bases (N) are discarded. Valid open reading frames are translated into amino acid sequences."
       },
       {
-        title: "Mecanismo 'Promote to Success'",
+        title: "VL Framework & CDR-L1/L2/L3 Extraction",
+        icon: "rule",
+        body: "The engine scans for conserved Variable Light chain framework anchors: FR1 kappa/lambda motifs (e.g. ELVXTQTP, ELVLTQSP) and FR4 joining motifs (e.g. GTNVEIK, GTELEIL). It uses canonical cysteines (~C23 and terminal Cys) and conserved anchors (WY in FR2, FG in FR4) to isolate CDR-L1, CDR-L2, and CDR-L3 loops with single-amino-acid precision."
+      },
+      {
+        title: "Clonal Frequency & Top Clone Ranking",
+        icon: "analytics",
+        body: "Millions of raw sequences are dereplicated into unique VL clones. The pipeline computes copy counts, percentage frequencies, and repertoire diversity indices, ranking the top candidates for downstream characterization."
+      },
+      {
+        title: "'Promote to Success' Curation Engine",
         icon: "check_circle",
-        body: "Variantes com mutações extremas nas âncoras não são descartadas irreversivelmente: são encaminhadas para a tabela de 'Failed Sequences', onde o investigador pode inspecionar, corrigir manualmente e promover o clone de volta ao pipeline principal."
-      },
-      {
-        title: "Bibliotecas & Backend",
-        icon: "memory",
-        body: "Executado em contentor Docker isolado com Python 3.10, BioPython (SeqIO), Pandas e rotinas multithreaded para descompressão assíncrona de ficheiros gzip."
-      },
-      {
-        title: "Outputs Gerados",
-        icon: "dataset",
-        body: "Tabela de clones únicos validados, perfil termodinâmico instantâneo (MW, pI, carga molar), gráficos de distribuição clonal e gravação em Ficheiros Ghost."
+        body: "Clones with non-canonical anchor mutations resulting from extreme somatic hypermutation are not discarded. Instead, they are routed to a 'Failed Sequences' inspection panel where researchers can review anomalies and promote promising candidates back into the verified pipeline."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
-        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">Simulação de Resultados do Funil NGS (Dados Sintéticos)</h4>
+        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">NGS Repertoire Mining Funnel (Synthetic VL Demonstration)</h4>
         <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
             <div style="font-size:11px; color:#64748b; font-weight:700;">RAW READS</div>
-            <div style="font-size:20px; font-weight:800; color:#0f172a;">120,450</div>
+            <div style="font-size:20px; font-weight:800; color:#0f172a;">142,500</div>
           </div>
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#64748b; font-weight:700;">VALID READS</div>
-            <div style="font-size:20px; font-weight:800; color:#15803d;">119,728 (99.4%)</div>
+            <div style="font-size:11px; color:#64748b; font-weight:700;">MERGED READS</div>
+            <div style="font-size:20px; font-weight:800; color:#1e40af;">141,890 (99.5%)</div>
           </div>
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#64748b; font-weight:700;">UNIQUE CLONES</div>
-            <div style="font-size:20px; font-weight:800; color:#2563eb;">28,340</div>
+            <div style="font-size:11px; color:#64748b; font-weight:700;">VALID VL READS</div>
+            <div style="font-size:20px; font-weight:800; color:#15803d;">139,210 (98.1%)</div>
           </div>
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#64748b; font-weight:700;">TOP CLONE FREQ</div>
-            <div style="font-size:20px; font-weight:800; color:#dc2626;">54x</div>
+            <div style="font-size:11px; color:#64748b; font-weight:700;">UNIQUE VL CLONES</div>
+            <div style="font-size:20px; font-weight:800; color:#2563eb;">24,180</div>
           </div>
         </div>
         <div style="background:#f1f5f9; padding:14px; border-radius:6px; font-family:'JetBrains Mono', monospace; font-size:12px; color:#334155; line-height:1.6;">
-          <strong>Sequência Representativa Sintética (Top 1):</strong><br>
-          EVQLVESGGGLVQPGGSLRLSCAASGFTFS<span style="color:#2563eb; font-weight:700;">[CDR1: SYAMS]</span>WVRQAPGKGLEWVA<span style="color:#d97706; font-weight:700;">[CDR2: AISGSGGSTYY]</span>ADSVKGRFTISRDNSKNTLYLQMNSLRAEDTAVYYC<span style="color:#7c3aed; font-weight:700;">[CDR3: ARDFGSYYWFDY]</span>WGQGTLVTVSS
+          <strong>Top Ranked VL Candidate (Clone_VL_01 — 62x Frequency):</strong><br>
+          ELVLTQSPSSLSASVGDRVTITC<span style="color:#2563eb; font-weight:700;">[CDR-L1: RASQSISSYLN]</span>WYQQKPGKAPKLLIY<span style="color:#d97706; font-weight:700;">[CDR-L2: AASSLQS]</span>GVPSRFSGSGSGTDFTLTISSLQPEDFATYYC<span style="color:#7c3aed; font-weight:700;">[CDR-L3: QQSYSTPLT]</span>FGGGTKVEIK
         </div>
       </div>
     `
@@ -66,63 +69,63 @@ const toolsDatabase = {
 
   seq: {
     title: "Sequence Analysis",
-    category: "Biofísica & Desenvolvibilidade",
-    desc: "Diagnóstico biofísico instantâneo e contagem de cisteínas livres para previsão de agregados ou conjugação (ADCs).",
+    category: "Biophysical Characterization & Developability",
+    desc: "Rapid multi-parameter biophysical profiling of single or batch antibody Variable Light chain (VL) protein sequences to identify developability liabilities and predict in vitro formulation stability.",
     formFields: [
-      { label: "Laboratório", type: "select", options: ["Biblioteca_Sintetica_01"] },
-      { label: "Título da Análise", type: "text", value: "Diagnostico_Rapido_Clone_01" },
-      { label: "Sequência de Aminoácidos (Fasta ou texto simples)", type: "textarea", value: "EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWVRQAPGKGLEWVAAISGSGGSTYYADSVKGRFTISRDNSKNTLYLQMNSLRAEDTAVYYCARDFGSYYWFDYWGQGTLVTVSS" },
-      { label: "pH para Cálculo da Carga", type: "number", value: "7.40" }
+      { label: "Target Laboratory", type: "select", options: ["Synthetic_VL_Library_01"] },
+      { label: "Analysis Title", type: "text", value: "Developability_Profile_VL_01" },
+      { label: "Amino Acid Sequence (FASTA or Plain Text)", type: "textarea", value: "ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQSYSTPLTFGGGTKVEIK" },
+      { label: "Target pH for Charge Calculation", type: "number", value: "7.40" }
     ],
     algoCards: [
       {
-        title: "Cálculo de Propriedades Molares",
+        title: "Thermodynamic & Molar Properties",
         icon: "calculate",
-        body: "Calcula o Peso Molecular preciso com base na massa monoisotópica de cada resíduo, o ponto isoelétrico teórico (pI) pela equação de Henderson-Hasselbalch e o balanço líquido de cargas a pH fisiológico."
+        body: "Calculates monoisotopic Molecular Weight (MW), theoretical Isoelectric Point (pI) via Henderson-Hasselbalch equations, and net electrostatic charge at physiological pH (7.4)."
       },
       {
-        title: "Deteção Crítica de Cisteínas",
+        title: "Critical Cysteine Liability Detection",
         icon: "warning",
-        body: "Contabiliza o número total de resíduos Cys. Um valor ímpar gera alerta imediato de cisteína livre desemparelhada na superfície, crucial para prevenir pontes dissulfeto espúrias ou planear conjugação em Antibody-Drug Conjugates (ADCs)."
+        body: "Counts total cysteine residues. An odd count triggers an immediate alert for unpaired free surface thiols, essential for avoiding intermolecular dimerization, aggregation, or guiding site-specific maleimide bioconjugation in Antibody-Drug Conjugates (ADCs)."
       },
       {
-        title: "Índice de Instabilidade & GRAVY",
+        title: "Instability Index & GRAVY Hydropathy",
         icon: "thermostat",
-        body: "Avalia a estabilidade proteolítica (índice de Guruprasad) e a hidrofobicidade global GRAVY (Kyte & Doolittle) para prever solubilidade em soluções farmacêuticas."
+        body: "Evaluates proteolytic and thermal stability using the Guruprasad instability index (values under 40 indicate stability) and Kyte-Doolittle GRAVY hydropathy score for solubility forecasting."
       },
       {
-        title: "Biblioteca Responsável",
+        title: "BioPython & Custom Backend Engine",
         icon: "code",
-        body: "Módulo Bio.SeqUtils.ProtParam e algoritmos matemáticos termodinâmicos próprios da plataforma Ypsilon."
+        body: "Powered by Bio.SeqUtils.ProtParam and Ypsilon's proprietary vectorized thermodynamic scoring algorithms."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
-        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">Diagnóstico Biofísico do Clone Sintético</h4>
+        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">Biophysical & Developability Diagnostics (VL Candidate)</h4>
         <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;">
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#64748b;">PESO MOLECULAR</div>
-            <div style="font-size:18px; font-weight:800; color:#0f172a;">12.82 kDa</div>
+            <div style="font-size:11px; color:#64748b;">MOLECULAR WEIGHT</div>
+            <div style="font-size:18px; font-weight:800; color:#0f172a;">11.64 kDa</div>
           </div>
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#64748b;">PONTO ISOELÉTRICO (pI)</div>
-            <div style="font-size:18px; font-weight:800; color:#0f172a;">6.65</div>
+            <div style="font-size:11px; color:#64748b;">ISOELECTRIC POINT (pI)</div>
+            <div style="font-size:18px; font-weight:800; color:#0f172a;">6.42</div>
           </div>
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#64748b;">CARGA (@ pH 7.4)</div>
-            <div style="font-size:18px; font-weight:800; color:#0f172a;">-0.43</div>
+            <div style="font-size:11px; color:#64748b;">NET CHARGE (@ pH 7.4)</div>
+            <div style="font-size:18px; font-weight:800; color:#0f172a;">-0.28</div>
           </div>
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#64748b;">CISTEÍNAS TOTAIS</div>
-            <div style="font-size:18px; font-weight:800; color:#15803d;">2 (Formam Ponte)</div>
+            <div style="font-size:11px; color:#64748b;">TOTAL CYSTEINES</div>
+            <div style="font-size:18px; font-weight:800; color:#15803d;">2 (Intrachain S-S Bond)</div>
           </div>
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#64748b;">ÍNDICE INSTABILIDADE</div>
-            <div style="font-size:18px; font-weight:800; color:#0f172a;">42.06 (Estável)</div>
+            <div style="font-size:11px; color:#64748b;">INSTABILITY INDEX</div>
+            <div style="font-size:18px; font-weight:800; color:#15803d;">32.14 (Stable in solution)</div>
           </div>
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#64748b;">HIDROFOBICIDADE (GRAVY)</div>
-            <div style="font-size:18px; font-weight:800; color:#0f172a;">-0.430 (Hidrofílico)</div>
+            <div style="font-size:11px; color:#64748b;">HYDROPATHY (GRAVY)</div>
+            <div style="font-size:18px; font-weight:800; color:#0f172a;">-0.380 (Hydrophilic)</div>
           </div>
         </div>
       </div>
@@ -131,30 +134,30 @@ const toolsDatabase = {
 
   trans: {
     title: "Translation",
-    category: "Genómica & Tradução",
-    desc: "Tradução de DNA em proteína com identificação dos 3 reading frames e anotação visual do núcleo de anticorpo.",
+    category: "In Silico Molecular Biology",
+    desc: "In silico 3-frame translation of nucleotide sequencing reads into functional VL light chain protein sequences with open reading frame validation and stop codon detection.",
     formFields: [
-      { label: "Sequência de Nucleótidos (DNA)", type: "textarea", value: "GAGGTGCAGCTGGTGGAGTCTGGGGGAGGCTTGGTCCAGCCTGGGGGGTCCCTGAGACTCTCCTGTGCAGCCTCTGGATTCACCTTTAGTAGCTATGCCATGAGCTGGGTCCGCCAGGCTCCAGGGAAGGGGCTGGAGTGGGTCTCAGCTATTAGTGGTAGTGGTGGTAGCACATACTACGCAGACTCCGTGAAGGGCCGGTTCACCATCTCCAGAGACAATTCCAAGAACACGCTGTATCTGCAAATGAACAGCCTGAGAGCCGAGGACACGGCCGTGTATTACTGTGCGAGAGACTTTGGTAGCTACTACTGGTTCGACTACTGGGGCCAGGGAACCCTGGTCACCGTCTCCTCA" },
-      { label: "Tabela de Código Genético", type: "select", options: ["Standard Genetic Code (Bacterial/Eukaryotic)"] }
+      { label: "DNA Nucleotide Sequence", type: "textarea", value: "GAGCTCGTGCTGACCCAGTCTCCATCCTCCCTGTCTGCATCTGTAGGAGACAGAGTCACCATCACTTGCCGGGCAAGTCAGAGCATTAGCAGCTATTTAAATTGGTATCAGCAGAAACCAGGGAAAGCCCCTAAGCTCCTGATCTATGCTGCATCCAGTTTGCAAAGTGGGGTCCCATCAAGGTTCAGTGGCAGTGGATCTGGGACAGATTTCACTCTCACCATCAGCAGTCTGCAACCTGAAGATTTTGCAACTTACTACTGTCAACAGAGTTACAGTACCCCTCTCACTTTTGGCGGAGGGACCAAGGTAGAGATCAAA" },
+      { label: "Genetic Code Table", type: "select", options: ["Standard Genetic Code (Bacterial / Eukaryotic Expression)"] }
     ],
     algoCards: [
       {
-        title: "Quadros de Leitura (Reading Frames)",
+        title: "Reading Frame Resolution",
         icon: "view_carousel",
-        body: "Avalia os três quadros de leitura potenciais (+1, +2, +3), permitindo ao investigador detetar se existem deleções de nucleótidos (*frameshifts*) ou codões de paragem prematuros (*stop codons*)."
+        body: "Analyzes forward reading frames (+1, +2, +3) to verify coding continuity, detect insertion/deletion frameshifts, and ensure absence of premature stop codons."
       },
       {
-        title: "Realce do Núcleo do Anticorpo",
+        title: "Expression Tag & Leader Detection",
         icon: "brush",
-        body: "Localiza automaticamente as assinaturas AQAA e caudas de histidinas (His-Tag) adicionadas em vetores de expressão fagídica."
+        body: "Automatically identifies pelB signal peptides, His6 purification tags, or antibody joining motifs used in phage display vectors."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
-        <h4 style="color:#0f172a; margin-bottom:8px; font-size:15px;">Tradução no Quadro Ótimo (Frame +1)</h4>
-        <div style="font-size:11px; color:#15803d; font-weight:700; margin-bottom:10px;">Codão de Paragem Ausente (Tradução Contínua Bem-Sucedida)</div>
+        <h4 style="color:#0f172a; margin-bottom:8px; font-size:15px;">Optimal Reading Frame Translation (+1 Frame)</h4>
+        <div style="font-size:11px; color:#15803d; font-weight:700; margin-bottom:10px;">Continuous Functional Open Reading Frame (No Stop Codons)</div>
         <div style="background:#f1f5f9; padding:14px; border-radius:6px; font-family:'JetBrains Mono', monospace; font-size:13px; color:#1e293b; line-height:1.6; word-break:break-all;">
-          EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWVRQAPGKGLEWVSAISGSGGSTYYADSVKGRFTISRDNSKNTLYLQMNSLRAEDTAVYYCARDFGSYYWFDYWGQGTLVTVSS
+          ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQSYSTPLTFGGGTKVEIK
         </div>
       </div>
     `
@@ -162,41 +165,41 @@ const toolsDatabase = {
 
   align: {
     title: "Alignment",
-    category: "Alinhamento & MSA",
-    desc: "Alinhamento múltiplo via Clustal Omega nativo com visualizador interativo colorido por famílias físico-químicas.",
+    category: "Multiple Sequence Alignment (MSA)",
+    desc: "Native Clustal Omega multiple sequence alignment of candidate VL repertoires with mutation highlighting and positional conservation scoring.",
     formFields: [
-      { label: "Laboratório", type: "select", options: ["Biblioteca_Sintetica_01"] },
-      { label: "Conjunto de Sequências", type: "select", options: ["Relatorio_Ghost_Top10 (Ficheiro Operacional Leve)"] },
-      { label: "Destacar Mutações Relativas ao Consenso", type: "checkbox", value: "true" }
+      { label: "Target Laboratory", type: "select", options: ["Synthetic_VL_Library_01"] },
+      { label: "Sequence Dataset", type: "select", options: ["Top10_VL_Candidates (Ghost File Cache)"] },
+      { label: "Highlight Mutations Against Consensus", type: "checkbox", value: "true" }
     ],
     algoCards: [
       {
-        title: "Motor Clustal Omega Nativo",
+        title: "Clustal Omega Engine",
         icon: "hub",
-        body: "Executa alinhamentos progressivos utilizando árvores guia mBed e matrizes de pontuação Gonnet/PAM. Totalmente integrado como binário nativo no backend."
+        body: "Executes progressive multiple alignments using mBed guide trees and Gonnet scoring matrices to compare homologous VL light chain variants."
       },
       {
-        title: "Paleta Cromática Clustal-X",
+        title: "Clustal-X Biochemical Color Coding",
         icon: "palette",
-        body: "Cada aminoácido é colorido em tempo real pela sua classe: Laranja (Hidrofóbico), Verde (Polar), Vermelho (Ácido), Roxo (Básico) e Amarelo (Cisteínas)."
+        body: "Residues are dynamically rendered by chemical class: Orange (Hydrophobic), Green (Polar), Red (Acidic), Purple (Basic), and Yellow (Cysteines)."
       },
       {
-        title: "Cálculo de Significância (P-Value)",
+        title: "Mutation Significance (P-Value)",
         icon: "functions",
-        body: "A tabela de variações calcula o valor de P-Value para cada resíduo alterado na população, distinguindo mutações aleatórias de enriquecimento clonal."
+        body: "Calculates statistical significance for each somatic substitution against germline consensus to distinguish random mutations from functional selection."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
-        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">Matriz de Alinhamento Demonstrativa (Clustal Omega)</h4>
-        <div style="display:inline-block; padding:10px 16px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; font-size:13px; font-weight:700; color:#166534; margin-bottom:15px;">
-          Identidade Global de Alinhamento: 94.62%
+        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">Multiple Sequence Alignment (Clustal Omega)</h4>
+        <div style="display:inline-block; padding:8px 14px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; font-size:13px; font-weight:700; color:#166534; margin-bottom:15px;">
+          Overall Sequence Identity: 95.8% across 10 VL variants
         </div>
         <div style="overflow-x:auto; background:#ffffff; border:1px solid #e2e8f0; border-radius:6px; padding:12px; font-family:'JetBrains Mono', monospace; font-size:11px;">
-          <div style="padding:4px 0; border-bottom:1px solid #e2e8f0; font-weight:700; color:#0f172a;">CONSENSUS: EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWVRQAPGKGLEWVA...</div>
-          <div style="padding:4px 0; color:#334155;">Clone_01 : EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWVRQAPGKGLEWVA...</div>
-          <div style="padding:4px 0; color:#334155;">Clone_02 : EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWVRQAPGKGLEWVA...</div>
-          <div style="padding:4px 0; color:#334155;">Clone_03 : EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWVRQAPGKGLEWVA...</div>
+          <div style="padding:4px 0; border-bottom:1px solid #e2e8f0; font-weight:700; color:#0f172a;">CONSENSUS: ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQS...</div>
+          <div style="padding:4px 0; color:#334155;">Clone_VL_01: ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQS...</div>
+          <div style="padding:4px 0; color:#334155;">Clone_VL_02: ELVLTQSPSSLSASVGDRVTITCRASQGISSYLNWYQQKPGKAPKLLIYAASNLQS...</div>
+          <div style="padding:4px 0; color:#334155;">Clone_VL_03: ELVLTQSPSSLSASVGDRVTITCRASQSISNWLNWYQQKPGKAPKLLIYAASSLQS...</div>
         </div>
       </div>
     `
@@ -204,34 +207,35 @@ const toolsDatabase = {
 
   phylo: {
     title: "Phylogenetic Trees",
-    category: "Evolução & Filogenia",
-    desc: "Construção de dendrogramas UPGMA para mapear parentesco evolutivo e eventos de hipermutações somáticas.",
+    category: "Evolutionary Lineage & Phylogenetics",
+    desc: "Distance-based phylogenetic dendrogram generation for antibody VL repertoires using UPGMA and Neighbor-Joining algorithms to map clonal diversification.",
     formFields: [
-      { label: "Laboratório", type: "select", options: ["Biblioteca_Sintetica_01"] },
-      { label: "Alinhamento de Origem", type: "select", options: ["Alinhamento_Top10_Sintetico"] }
+      { label: "Target Laboratory", type: "select", options: ["Synthetic_VL_Library_01"] },
+      { label: "Source Alignment Dataset", type: "select", options: ["Top10_VL_Candidates (Alignment)"] },
+      { label: "Clustering Algorithm", type: "select", options: ["UPGMA (Average Distance)", "Neighbor-Joining (NJ)"] }
     ],
     algoCards: [
       {
-        title: "Método UPGMA & Distâncias Molares",
+        title: "UPGMA & Genetic Distance Matrices",
         icon: "account_tree",
-        body: "Utiliza a matriz de distâncias de identidade de sequências para agrupar progressivamente os clones mais próximos através da média aritmética de distâncias."
+        body: "Computes pairwise sequence identity distances and progressively groups related VL clones via hierarchical cluster analysis."
       },
       {
-        title: "Interpretação da Árvore",
+        title: "Interactive Dendrogram Topology",
         icon: "insights",
-        body: "O eixo horizontal mede substituições por site. Ramos curtos terminais refletem hipermutações pontuais derivadas de uma linhagem comum de sucesso."
+        body: "Renders branch lengths corresponding to substitutions per amino acid site, visualizing clonal expansions and divergence branches."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
-        <h4 style="color:#0f172a; margin-bottom:8px; font-size:15px;">Dendrograma Filogenético UPGMA (Estrutura Ilustrativa)</h4>
-        <div style="font-size:12px; color:#64748b; margin-bottom:15px;">Distância Genética medida em substituições por resíduo.</div>
+        <h4 style="color:#0f172a; margin-bottom:8px; font-size:15px;">Phylogenetic Relationship Tree (UPGMA Topology)</h4>
+        <div style="font-size:12px; color:#64748b; margin-bottom:15px;">Branch lengths indicate substitutions per site.</div>
         <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:15px; border-radius:6px; font-family:'JetBrains Mono', monospace; font-size:12px; line-height:1.8;">
-          +--- Clone_Alpha (Seq.1) [dist: 0.004]<br>
-          |&nbsp;&nbsp;&nbsp;&nbsp;+--- Clone_Beta (Seq.2) [dist: 0.006]<br>
-          +--- Clone_Gamma (Seq.3) [dist: 0.019]<br>
+          +--- Clone_VL_01 [subst/site: 0.003]<br>
+          |&nbsp;&nbsp;&nbsp;&nbsp;+--- Clone_VL_02 [subst/site: 0.005]<br>
+          +--- Clone_VL_03 [subst/site: 0.012]<br>
           |<br>
-          +-------------------------- Clone_Delta (Família B) [dist: 0.246]
+          +-------------------------- Clone_VL_08 (Divergent Family) [subst/site: 0.184]
         </div>
       </div>
     `
@@ -239,128 +243,148 @@ const toolsDatabase = {
 
   comp: {
     title: "Comparative Analysis",
-    category: "Comparação de Bibliotecas",
-    desc: "Cruzamento de frequências clonais entre rondas de biopanning para identificar clones enriquecidos.",
+    category: "Repertoire Dynamics & Biopanning",
+    desc: "Cross-dataset longitudinal tracking of clone frequencies across consecutive biopanning rounds (R0 to R3) to measure clonal enrichment and selection dynamics.",
     formFields: [
-      { label: "Dataset Referência (Ronda 1)", type: "select", options: ["Biblioteca_Inicial_R1"] },
-      { label: "Dataset Comparativo (Ronda Final)", type: "select", options: ["Biblioteca_Enriquecida_R3"] }
+      { label: "Baseline Dataset (Round 1)", type: "select", options: ["Biopanning_Round_1_VL"] },
+      { label: "Comparison Dataset (Round 3)", type: "select", options: ["Biopanning_Round_3_Enriched_VL"] },
+      { label: "Minimum Fold-Change Threshold", type: "number", value: "5.0" }
     ],
     algoCards: [
       {
-        title: "Cálculo de Enriquecimento Clonal",
+        title: "Clonal Enrichment Calculation",
         icon: "trending_up",
-        body: "Identifica a taxa de enriquecimento (Fold-Change) de variantes entre sucessivos ciclos de seleção fagídica."
+        body: "Quantifies the fold-change multiplication in clone frequency between successive rounds of phage/yeast display selection."
+      },
+      {
+        title: "Venn & Repertoire Overlaps",
+        icon: "pie_chart",
+        body: "Computes Venn and Euler intersections to isolate surviving high-affinity VL binders against wash-out dropouts."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
-        <h4 style="color:#0f172a; margin-bottom:8px; font-size:15px;">Sobreposição Clonal</h4>
-        <p style="font-size:13px; color:#475569;">Candidatos com enriquecimento superior a 15x nos ciclos de seleção.</p>
+        <h4 style="color:#0f172a; margin-bottom:8px; font-size:15px;">Biopanning Selection Dynamics (Round 1 vs Round 3)</h4>
+        <p style="font-size:13px; color:#475569; margin-bottom:12px;">Identified <strong>14 significantly enriched VL clones</strong> with fold-change &gt; 10x.</p>
+        <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:12px; border-radius:6px; font-size:13px; color:#166534; font-weight:600;">
+          Lead Candidate Clone_VL_01 enriched from 0.04% (R1) to 4.41% (R3) — 110.2x Fold-Change.
+        </div>
       </div>
     `
   },
 
   "3d": {
     title: "Antibody Structural Profiler",
-    category: "Modelação 3D & Inteligência Artificial",
-    desc: "Predição estrutural tridimensional com AlphaFold2 / ColabFold, pontuações de confiança pLDDT e cálculo SASA.",
+    category: "Structural Biology & 3D Modeling",
+    desc: "Deep-learning 3D conformational modeling of antibody VL domains using ColabFold/AlphaFold2 with per-residue pLDDT confidence scoring and Solvent Accessible Surface Area (SASA) computation.",
     formFields: [
-      { label: "Sequência para Modelação", type: "textarea", value: "EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWVRQAPGKGLEWVAAISGSGGSTYYADSVKGRFTISRDNSKNTLYLQMNSLRAEDTAVYYCARDFGSYYWFDYWGQGTLVTVSS" },
-      { label: "Número de Modelos / Reciclagens", type: "select", options: ["1 Modelo (Rápido)", "3 Reciclagens (Alta Resolução)"] }
+      { label: "VL Sequence to Model", type: "textarea", value: "ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQSYSTPLTFGGGTKVEIK" },
+      { label: "Modeling Engine", type: "select", options: ["ColabFold (AlphaFold2-ptm / Fast GPU)", "ESMFold (Single Sequence)"] },
+      { label: "Amber Relaxation Cycles", type: "select", options: ["Standard (3 Cycles)", "Relaxation Off (Fast)"] }
     ],
     algoCards: [
       {
-        title: "Integração ColabFold / AlphaFold2",
+        title: "ColabFold / AlphaFold2 Integration",
         icon: "memory",
-        body: "Comunicação via API assíncrona com nó de computação acelerado por GPU (NVIDIA CUDA) para geração de coordenadas PDB."
+        body: "Asynchronous API communication with GPU-accelerated computing nodes (NVIDIA CUDA) to generate atomic 3D coordinates in PDB format."
       },
       {
-        title: "Confiança Residual (pLDDT)",
+        title: "Per-Residue Confidence (pLDDT)",
         icon: "speed",
-        body: "Mapeamento resíduo a resíduo da confiança estereoquímica. Valores de pLDDT > 90 indicam conformação estrutural de altíssima certeza."
+        body: "Maps stereochemical confidence along the sequence. pLDDT values above 90 indicate exceptionally reliable backbone and side-chain conformations."
       },
       {
-        title: "Área Acessível ao Solvente (SASA)",
+        title: "Solvent Accessible Surface Area (SASA)",
         icon: "water_drop",
-        body: "Cálculo da acessibilidade dos resíduos nas alças CDR3 para identificar os pontos de contacto direto com o epítopo."
+        body: "Computes exposed surface area across CDR-L1, CDR-L2, and CDR-L3 loops to evaluate epitope-contact residues and hydrophobic patches."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
-        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">Relatório de Modelação Estrutural 3D (Simulação)</h4>
+        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">3D Structural Modeling Report (Simulated VL Fold)</h4>
         <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-bottom:15px;">
           <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#166534; font-weight:700;">pLDDT MÉDIO GLOBAL</div>
+            <div style="font-size:11px; color:#166534; font-weight:700;">GLOBAL MEAN pLDDT</div>
             <div style="font-size:20px; font-weight:800; color:#15803d;">94.2 / 100</div>
           </div>
           <div style="background:#eff6ff; border:1px solid #bfdbfe; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#1e40af; font-weight:700;">pLDDT DA ALÇA CDR3</div>
-            <div style="font-size:20px; font-weight:800; color:#2563eb;">89.7 / 100</div>
+            <div style="font-size:11px; color:#1e40af; font-weight:700;">CDR-L3 LOOP pLDDT</div>
+            <div style="font-size:20px; font-weight:800; color:#2563eb;">91.5 / 100</div>
           </div>
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
-            <div style="font-size:11px; color:#475569; font-weight:700;">ÁREA SASA TOTAL</div>
-            <div style="font-size:20px; font-weight:800; color:#0f172a;">6,820 Å²</div>
+            <div style="font-size:11px; color:#475569; font-weight:700;">TOTAL SASA AREA</div>
+            <div style="font-size:20px; font-weight:800; color:#0f172a;">6,180 Å²</div>
           </div>
         </div>
-        <div style="font-size:12px; color:#64748b;">Estrutura PDB gerada em conformidade com os limites canónicos de Chothia/Kabat.</div>
+        <div style="font-size:12px; color:#64748b;">PDB model generated conforming to canonical Chothia and Kabat VL light chain structural constraints.</div>
       </div>
     `
   },
 
   dock: {
     title: "Interaction (Docking)",
-    category: "Biofísica Computacional",
-    desc: "Modelação molecular da interface anticorpo-antigénio e cálculo de energias livres de interação.",
+    category: "Computational Biophysics & Molecular Recognition",
+    desc: "Macromolecular in silico docking simulating binding interfaces between the VL paratope (CDR-L1, L2, L3) and target antigen epitopes, evaluating binding free energy (ΔG).",
     formFields: [
-      { label: "Ficheiro PDB do Anticorpo", type: "select", options: ["Modelo_ColabFold_Clone01.pdb"] },
-      { label: "Ficheiro PDB do Alvo (Antigénio)", type: "select", options: ["Target_Protein_Domain.pdb"] }
+      { label: "Antibody VL Model (PDB)", type: "select", options: ["ColabFold_VL_Clone01.pdb"] },
+      { label: "Target Antigen Structure (PDB)", type: "select", options: ["Target_Antigen_Ectodomain.pdb"] },
+      { label: "Docking Protocol", type: "select", options: ["Rigid Body + Flexible CDR-L3 Refinement", "Full Flexible Interface"] }
     ],
     algoCards: [
       {
-        title: "Amostragem Conformacional",
+        title: "Conformational Sampling",
         icon: "device_hub",
-        body: "Algoritmos de docking molecular com refinamento energético para prever os resíduos intervenientes no parátopo."
+        body: "Explores rotational and translational degrees of freedom to identify favorable paratope-epitope complexes."
+      },
+      {
+        title: "Binding Energy & Buried Surface",
+        icon: "energy_program_saving",
+        body: "Calculates binding free energy (ΔG in kcal/mol), buried surface area (BSA), and electrostatic complementarity."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
-        <h4 style="color:#0f172a; margin-bottom:8px; font-size:15px;">Interface de Contacto Predita</h4>
-        <div style="font-size:13px; color:#15803d; font-weight:600;">Energia de Ligação estimada: -11.4 kcal/mol (Forte Afinidade)</div>
+        <h4 style="color:#0f172a; margin-bottom:8px; font-size:15px;">Predicted Paratope-Epitope Interface</h4>
+        <div style="display:inline-block; padding:8px 14px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; font-size:13px; font-weight:700; color:#166534; margin-bottom:12px;">
+          Estimated Binding Energy: ΔG = -11.4 kcal/mol (High Affinity)
+        </div>
+        <p style="font-size:13px; color:#475569;">Key binding interactions identified at CDR-L1 (Tyr32) and CDR-L3 (Ser93, Thr95) forming a network of 4 hydrogen bonds.</p>
       </div>
     `
   },
 
   mat: {
     title: "Affinity Maturation Lab",
-    category: "Engenharia de Proteínas & IA",
-    desc: "Maturação de afinidade in silico utilizando o modelo de linguagem ESM-2 para identificar mutações benéficas.",
+    category: "Protein Engineering & AI Mutagenesis",
+    desc: "In silico rational affinity maturation using the ESM-2 protein language model to identify favorable somatic substitutions that increase binding affinity while preserving VL framework stability.",
     formFields: [
-      { label: "Sequência Matriz (Wild-Type)", type: "textarea", value: "EVQLVESGGGLVQPGGSLRLSCAASGFTFSSYAMSWVRQAPGKGLEWVAAISGSGGSTYYADSVKGRFTISRDNSKNTLYLQMNSLRAEDTAVYYCARDFGSYYWFDYWGQGTLVTVSS" },
-      { label: "Alvo da Mutagénese", type: "select", options: ["Alças CDRs apenas (Preservar Frameworks)", "CDR3 estrita"] }
+      { label: "Template VL Sequence", type: "textarea", value: "ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQSYSTPLTFGGGTKVEIK" },
+      { label: "Target Mutagenesis Region", type: "select", options: ["CDR Loops Only (Preserve Frameworks)", "CDR-L3 Strict Scanning", "Full Repertoire Scanning"] },
+      { label: "Developability Liability Filters", type: "select", options: ["Exclude Deamidation (NG/NS) & Isomerization (DG)", "All Substitutions"] }
     ],
     algoCards: [
       {
-        title: "Modelo de Linguagem ESM-2",
+        title: "ESM-2 Protein Language Model",
         icon: "psychology",
-        body: "O modelo ESM-2 (Meta AI) analisa a probabilidade evolutiva e a estabilidade conformacional de cada uma das 19 substituições possíveis em cada posição das CDRs."
+        body: "The 650M-parameter ESM-2 model (Meta AI) computes evolutionary fitness logits across all 19 possible amino acid substitutions per CDR position."
       },
       {
-        title: "Pontuação ΔLog-Likelihood",
+        title: "ΔLog-Likelihood Scoring",
         icon: "score",
-        body: "Valores positivos indicam mutações favorecidas na evolução natural das famílias de anticorpos, com menor risco de desnaturação ou perda de solubilidade."
+        body: "Positive scores highlight mutations favored by natural antibody evolution with minimal risk of destabilizing the VL fold or causing aggregation."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
-        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">Top Mutações Propostas pelo Modelo ESM-2</h4>
+        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">Top In Silico Mutations Recommended by ESM-2</h4>
         <table class="neutral-table">
           <thead>
-            <tr><th>Posição</th><th>Original</th><th>Mutação</th><th>Região</th><th>ΔScore ESM-2</th></tr>
+            <tr><th>Position</th><th>Original</th><th>Mutation</th><th>Region</th><th>ΔScore ESM-2</th></tr>
           </thead>
           <tbody>
-            <tr><td>31</td><td>S</td><td><strong>Y (Tirosina)</strong></td><td>CDR1</td><td><span style="color:#15803d; font-weight:700;">+2.41 (Favorável)</span></td></tr>
-            <tr><td>53</td><td>G</td><td><strong>D (Aspartato)</strong></td><td>CDR2</td><td><span style="color:#15803d; font-weight:700;">+1.85 (Favorável)</span></td></tr>
-            <tr><td>102</td><td>G</td><td><strong>W (Triptofano)</strong></td><td>CDR3</td><td><span style="color:#15803d; font-weight:700;">+3.12 (Alta Afinidade)</span></td></tr>
+            <tr><td>31</td><td>S</td><td><strong>Y (Tyrosine)</strong></td><td>CDR-L1</td><td><span style="color:#15803d; font-weight:700;">+2.41 (Favorable)</span></td></tr>
+            <tr><td>53</td><td>S</td><td><strong>D (Aspartate)</strong></td><td>CDR-L2</td><td><span style="color:#15803d; font-weight:700;">+1.85 (Favorable)</span></td></tr>
+            <tr><td>94</td><td>T</td><td><strong>W (Tryptophan)</strong></td><td>CDR-L3</td><td><span style="color:#15803d; font-weight:700;">+3.12 (High Affinity Gain)</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -371,21 +395,21 @@ const toolsDatabase = {
 let currentActiveToolKey = 'ngs';
 
 // ==========================================
-// NAVEGAÇÃO ENTRE MÓDULOS
+// MODULE NAVIGATION
 // ==========================================
 function switchModule(modName) {
-  // Ocultar todos os módulos
+  // Hide all modules
   document.querySelectorAll('.module-view').forEach(view => {
     view.classList.remove('active');
   });
 
-  // Ativar o módulo selecionado
+  // Activate targeted module
   const targetView = document.getElementById(`mod-${modName}`);
   if (targetView) {
     targetView.classList.add('active');
   }
 
-  // Atualizar botões da sidebar
+  // Update sidebar buttons
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.classList.remove('active');
     if (btn.getAttribute('data-mod') === modName) {
@@ -396,7 +420,7 @@ function switchModule(modName) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Inicializar listeners na sidebar
+// Initialize sidebar button click listeners
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const mod = btn.getAttribute('data-mod');
@@ -405,7 +429,7 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
 });
 
 // ==========================================
-// ABRIR TOOL RUNNER
+// OPEN TOOL RUNNER
 // ==========================================
 function openToolRunner(toolKey) {
   const tool = toolsDatabase[toolKey];
@@ -417,7 +441,7 @@ function openToolRunner(toolKey) {
   document.getElementById('runnerToolDesc').textContent = tool.desc;
   document.getElementById('runnerToolCategory').textContent = tool.category;
 
-  // Gerar campos de formulário
+  // Generate form fields
   const formContainer = document.getElementById('runnerFormFields');
   formContainer.innerHTML = '';
 
@@ -455,7 +479,7 @@ function openToolRunner(toolKey) {
     formContainer.appendChild(group);
   });
 
-  // Gerar detalhes de algoritmo (Tab 2)
+  // Generate algorithm cards (Tab 2)
   const algoContainer = document.getElementById('runnerAlgoDetails');
   algoContainer.innerHTML = '';
 
@@ -469,20 +493,20 @@ function openToolRunner(toolKey) {
     algoContainer.appendChild(cardEl);
   });
 
-  // Resetar simulação
+  // Reset simulation view
   document.getElementById('runnerSimulationOutput').innerHTML = `
     <span class="material-symbols-outlined placeholder-icon">experiment</span>
-    <h4>Sem execução ativa</h4>
-    <p>Clique no botão <strong>"Executar Simulação Demonstrativa"</strong> para visualizar como a plataforma renderiza os resultados estruturais de forma neutra.</p>
+    <h4>No Active Simulation</h4>
+    <p>Click <strong>"Run Interactive Simulation"</strong> to execute this tool and inspect realistic, neutral synthetic VL outputs.</p>
   `;
 
-  // Mudar para o módulo Tool_Runner e abrir Tab 1
+  // Switch to Tool_Runner module and open Tab 1
   switchRunnerTab('overview');
   switchModule('Tool_Runner');
 }
 
 // ==========================================
-// TABS DO TOOL RUNNER
+// TOOL RUNNER TABS
 // ==========================================
 function switchRunnerTab(tabName) {
   document.querySelectorAll('.tab-pill').forEach(btn => btn.classList.remove('active'));
@@ -490,9 +514,9 @@ function switchRunnerTab(tabName) {
 
   const activeBtn = Array.from(document.querySelectorAll('.tab-pill')).find(btn => 
     btn.textContent.toLowerCase().includes(tabName.toLowerCase()) || 
-    (tabName === 'overview' && btn.textContent.includes('Visão')) ||
-    (tabName === 'architecture' && btn.textContent.includes('Algoritmos')) ||
-    (tabName === 'demo' && btn.textContent.includes('Simulação'))
+    (tabName === 'overview' && btn.textContent.includes('Overview')) ||
+    (tabName === 'architecture' && btn.textContent.includes('Algorithms')) ||
+    (tabName === 'demo' && btn.textContent.includes('Simulation'))
   );
 
   if (activeBtn) activeBtn.classList.add('active');
@@ -501,7 +525,7 @@ function switchRunnerTab(tabName) {
   if (activeContent) activeContent.classList.add('active');
 }
 
-// Simular execução neutra
+// Simulate tool execution
 function simulateToolExecution() {
   const tool = toolsDatabase[currentActiveToolKey];
   if (!tool) return;
@@ -512,7 +536,7 @@ function simulateToolExecution() {
     <div style="padding: 10px 0;">
       <div style="display:inline-flex; align-items:center; gap:8px; background:#eff6ff; color:#1e40af; padding:6px 14px; border-radius:20px; font-size:12px; font-weight:700; margin-bottom:15px;">
         <span class="material-symbols-outlined" style="font-size:16px;">verified</span>
-        Pipeline Concluído com Sucesso em Contentor Isolado
+        Pipeline Completed Successfully in Isolated Container
       </div>
       ${tool.demoOutput}
     </div>
@@ -524,18 +548,18 @@ function simulateToolExecution() {
 // ==========================================
 function openNewLabModal() {
   const modal = document.getElementById('genericModal');
-  document.getElementById('modalTitle').textContent = 'Criar Novo Laboratório Virtual';
+  document.getElementById('modalTitle').textContent = 'Create New Virtual Laboratory';
   document.getElementById('modalBody').innerHTML = `
     <p style="margin-bottom:14px; font-size:13.5px; color:#475569;">
-      Na plataforma Ypsilon, os <strong>Laboratórios Virtuais</strong> permitem isolar conjuntos de dados, campanhas de triagem ou alvos biológicos de diferentes clientes ou teses, garantindo total privacidade e controlo de acessos.
+      In the Ypsilon platform, <strong>Virtual Laboratories</strong> isolate sequence datasets, screening campaigns, and project targets, ensuring total project confidentiality and role-based access control.
     </p>
     <div class="form-field-group" style="margin-bottom:12px;">
-      <label>Nome do Laboratório:</label>
-      <input type="text" class="styled-input" placeholder="Ex: Projeto_Anticorpo_X">
+      <label>Laboratory Name:</label>
+      <input type="text" class="styled-input" placeholder="e.g. Synthetic_VL_Screening_02">
     </div>
     <div class="form-field-group">
-      <label>Descrição do Alvo:</label>
-      <input type="text" class="styled-input" placeholder="Breve nota científica sobre o alvo...">
+      <label>Target Description:</label>
+      <input type="text" class="styled-input" placeholder="Scientific objective or campaign target notes...">
     </div>
   `;
   modal.classList.add('active');
@@ -543,14 +567,14 @@ function openNewLabModal() {
 
 function showGhostInfo(assetName) {
   const modal = document.getElementById('genericModal');
-  document.getElementById('modalTitle').textContent = `Registo: ${assetName}`;
+  document.getElementById('modalTitle').textContent = `Record: ${assetName}`;
   document.getElementById('modalBody').innerHTML = `
     <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:15px; margin-bottom:12px;">
-      <div style="font-size:12px; color:#64748b; font-weight:700;">TIPO DE RECURSO</div>
-      <div style="font-size:14px; color:#0f172a; font-weight:600;">Registo em Base de Dados (Instância Neutra)</div>
+      <div style="font-size:12px; color:#64748b; font-weight:700;">RESOURCE TYPE</div>
+      <div style="font-size:14px; color:#0f172a; font-weight:600;">Database Record (Lightweight Cache)</div>
     </div>
     <p style="font-size:13px; color:#475569; line-height:1.5;">
-      Este registo encontra-se arquivado na base de dados SQLite/PostgreSQL da plataforma. Na aplicação completa em produção, ao clicar em "Abrir", os clones e as matrizes associadas são carregados instantaneamente para o módulo correspondente.
+      This record is archived in the platform's PostgreSQL / SQLite database. In the full production environment, clicking "Open" loads the sequences and associated matrices directly into the corresponding analytical module.
     </p>
   `;
   modal.classList.add('active');
@@ -560,25 +584,26 @@ function closeModal() {
   document.getElementById('genericModal').classList.remove('active');
 }
 
-// Fechar com Escape
+// Close modal on Escape
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeModal();
 });
 
 // ==========================================
-// PESQUISA GLOBAL
+// GLOBAL SEARCH
 // ==========================================
 const mockArchive = [
-  { id: "Seq.1 (Clone_Alpha)", cdr3: "ARDFGSYYWFDY", lab: "Biblioteca_Sintetica_01", type: "Anticorpo Monoclonal" },
-  { id: "Seq.2 (Clone_Beta)", cdr3: "ARDLGYGYVMDY", lab: "Biblioteca_Sintetica_01", type: "Nanobody VHH" },
-  { id: "Seq.3 (Clone_Gamma)", cdr3: "AKEYSSSWFAY", lab: "Biblioteca_Sintetica_01", type: "Fragmento scFv" },
-  { id: "Seq.4 (Clone_Delta)", cdr3: "AREGAYYSYAMDY", lab: "Biblioteca_Sintetica_01", type: "Anticorpo Humano" }
+  { id: "VL.01 (Clone_Alpha)", cdr3: "QQSYSTPLT", lab: "Synthetic_VL_Library_01", type: "Kappa Light Chain (VL)" },
+  { id: "VL.02 (Clone_Beta)", cdr3: "QQYGSSPLT", lab: "Synthetic_VL_Library_01", type: "Kappa Light Chain (VL)" },
+  { id: "VL.03 (Clone_Gamma)", cdr3: "QSYDSSLSGYV", lab: "Synthetic_VL_Library_01", type: "Lambda Light Chain (VL)" },
+  { id: "VL.04 (Clone_Delta)", cdr3: "MQALQTPYT", lab: "Synthetic_VL_Library_01", type: "Kappa Light Chain (VL)" },
+  { id: "VL.05 (Clone_Epsilon)", cdr3: "QQWNSNPPT", lab: "Synthetic_VL_Library_01", type: "Kappa Light Chain (VL)" }
 ];
 
 function handleSearch(query) {
   const area = document.getElementById('searchResultsArea');
   if (!query.trim()) {
-    area.innerHTML = '<div class="search-hint">Escreva um termo na barra de pesquisa para filtrar os registos demonstrativos da plataforma.</div>';
+    area.innerHTML = '<div class="search-hint">Type a query above to filter demonstration records across all platform archives.</div>';
     return;
   }
 
@@ -589,17 +614,17 @@ function handleSearch(query) {
   );
 
   if (matches.length === 0) {
-    area.innerHTML = `<div class="search-hint">Nenhum resultado demonstrativo encontrado para "${query}".</div>`;
+    area.innerHTML = `<div class="search-hint">No demonstration records found matching "${query}".</div>`;
     return;
   }
 
-  let html = `<div style="font-size:13px; font-weight:700; color:#0f172a; margin-bottom:12px;">Resultados Encontrados (${matches.length})</div>`;
+  let html = `<div style="font-size:13px; font-weight:700; color:#0f172a; margin-bottom:12px;">Matching Records (${matches.length})</div>`;
   matches.forEach(item => {
     html += `
       <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:12px 16px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
         <div>
           <div style="font-weight:700; font-size:13px; color:#0f172a;">${item.id}</div>
-          <div style="font-size:11.5px; color:#64748b;">CDR3: <code style="background:#e2e8f0; padding:1px 4px; border-radius:2px;">${item.cdr3}</code> | Lab: ${item.lab}</div>
+          <div style="font-size:11.5px; color:#64748b;">CDR-L3: <code style="background:#e2e8f0; padding:1px 4px; border-radius:2px;">${item.cdr3}</code> | Lab: ${item.lab}</div>
         </div>
         <span style="font-size:11px; background:#dbeafe; color:#1e40af; padding:3px 8px; border-radius:4px; font-weight:600;">${item.type}</span>
       </div>
@@ -656,7 +681,7 @@ function toggleBatchAction(checkbox) {
   if (checkedCount > 0) {
     batchBar.style.display = 'flex';
     if (countText) {
-      countText.textContent = `Batch Actions (${checkedCount} selecionado${checkedCount > 1 ? 's' : ''})`;
+      countText.textContent = `Batch Actions (${checkedCount} selected)`;
     }
   } else {
     batchBar.style.display = 'none';
@@ -679,4 +704,3 @@ function showNotification(msg) {
     toast.classList.remove('show');
   }, 2600);
 }
-

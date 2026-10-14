@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ypsilon Bioinformatics Platform — Demonstração Interativa</title>
+  <title>Ypsilon Bioinformatics Platform — Interactive Showcase</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2.3">
+  <link rel="stylesheet" href="styles.css?v=3.0">
 </head>
 <body>
 
-  <!-- SIDEBAR (Exatamente como a interface original) -->
+  <!-- SIDEBAR (Native Streamlit Platform Layout) -->
   <aside class="sidebar">
     <div class="sidebar-brand">
       <img src="assets/logo.png" alt="Ypsilon Logo" class="brand-logo" onerror="this.src=''; this.alt='Ypsilon Platform';">
@@ -49,20 +49,19 @@
         <span class="nav-text">System Admin</span>
       </button>
     </nav>
-
   </aside>
 
   <!-- MAIN WRAPPER -->
   <div class="main-wrapper">
 
-    <!-- GLOBAL HEADER (Banner + Perfil Cátia Fidalgo) -->
+    <!-- GLOBAL HEADER -->
     <header class="global-header">
       <div class="header-pattern-bg">
         <div class="user-profile-card">
           <div class="user-profile-avatar"><span class="material-symbols-outlined" style="font-size:18px;">person</span></div>
           <div class="user-profile-info">
-            <div class="user-profile-name">Convidado</div>
-            <div class="user-profile-role"><span class="user-profile-badge">Investigador</span></div>
+            <div class="user-profile-name">Guest</div>
+            <div class="user-profile-role"><span class="user-profile-badge">Researcher</span></div>
           </div>
           <div class="user-profile-divider"></div>
         </div>
@@ -78,16 +77,16 @@
       <!-- ========================================== -->
       <section id="mod-Home" class="module-view active">
         <div class="module-header">Antibody Analyzer</div>
-        <div class="welcome-text">Bem-vindo(a), <strong>Convidado</strong>.</div>
+        <div class="welcome-text">Welcome, <strong>Guest</strong>.</div>
 
-        <!-- 3 Colunas na Linha 1 -->
+        <!-- 3 Columns Row 1 -->
         <div class="home-grid row-3">
           <div class="home-card" onclick="switchModule('Workspace')">
             <div class="home-card-header">
               <h3>Workspace</h3>
               <span class="material-symbols-outlined home-card-icon">schema</span>
             </div>
-            <p>Aceder a conjuntos de dados genómicos, gerir laboratórios virtuais e comparar populações de anticorpos.</p>
+            <p>Access genomic datasets, manage virtual laboratories, and organize VL antibody repertoires.</p>
           </div>
 
           <div class="home-card" onclick="switchModule('Tools')">
@@ -95,7 +94,7 @@
               <h3>Tools</h3>
               <span class="material-symbols-outlined home-card-icon">science</span>
             </div>
-            <p>Executar análise de NGS, alinhamentos de sequências, árvores filogenéticas e modelação 3D estrutural.</p>
+            <p>Run raw FASTQ NGS processing, multiple sequence alignments, phylogenetic trees, and 3D structural modeling.</p>
           </div>
 
           <div class="home-card" onclick="switchModule('Search')">
@@ -103,18 +102,18 @@
               <h3>Search</h3>
               <span class="material-symbols-outlined home-card-icon">search</span>
             </div>
-            <p>Pesquisar sequências, clones candidatos e metadados arquivados nos laboratórios do sistema.</p>
+            <p>Search VL sequences, candidate clones, CDR motifs, and biophysical metadata across project archives.</p>
           </div>
         </div>
 
-        <!-- 2 Colunas na Linha 2 -->
+        <!-- 2 Columns Row 2 -->
         <div class="home-grid row-2">
           <div class="home-card" onclick="switchModule('Dashboards')">
             <div class="home-card-header">
               <h3>Dashboards</h3>
               <span class="material-symbols-outlined home-card-icon">insights</span>
             </div>
-            <p>Visualizar métricas biofísicas globais, frequências clonais e distribuições de propriedades físico-químicas.</p>
+            <p>Interactive multi-criteria filtering, clonal abundance rankings, and thermodynamic property distributions.</p>
           </div>
 
           <div class="home-card" onclick="switchModule('Reports')">
@@ -122,15 +121,15 @@
               <h3>Reports</h3>
               <span class="material-symbols-outlined home-card-icon">description</span>
             </div>
-            <p>Gerar, exportar e descarregar relatórios técnicos detalhados e estruturados das variantes analisadas.</p>
+            <p>Generate, audit, and export publication-ready discovery PDFs, Clustal-X Excel tables, and operational Ghost Files.</p>
           </div>
         </div>
 
-        <!-- Estatísticas Tecnológicas da Plataforma -->
+        <!-- Technology Infrastructure Stack -->
         <div class="tech-spec-container">
           <div class="tech-spec-title">
             <span class="material-symbols-outlined">developer_board</span>
-            Especificações da Infraestrutura Ypsilon
+            Ypsilon Infrastructure & Stack Specifications
           </div>
           <div class="tech-tags">
             <span class="tech-tag">Python 3.10</span>
@@ -138,7 +137,7 @@
             <span class="tech-tag">Docker Compose</span>
             <span class="tech-tag">PostgreSQL / SQLite</span>
             <span class="tech-tag">BioPython</span>
-            <span class="tech-tag">Clustal Omega (UPGMA)</span>
+            <span class="tech-tag">Clustal Omega (UPGMA/NJ)</span>
             <span class="tech-tag">ColabFold / AlphaFold2</span>
             <span class="tech-tag">ESM-2 Embeddings</span>
             <span class="tech-tag">Plotly & py3Dmol</span>
@@ -147,11 +146,11 @@
       </section>
 
       <!-- ========================================== -->
-      <!-- MODULE: TOOLS (Catálogo das 9 Ferramentas)  -->
+      <!-- MODULE: TOOLS (9 Bioinformatics Tools)     -->
       <!-- ========================================== -->
       <section id="mod-Tools" class="module-view">
         <div class="module-header">Tools</div>
-        <div class="module-subheader">Selecione uma ferramenta bioinformática para explorar o seu funcionamento e arquitetura</div>
+        <div class="module-subheader">Select an analysis tool to explore its scientific capabilities, underlying algorithms, and interactive simulation</div>
 
         <div class="tools-grid">
           <!-- 1. NGS Analysis -->
@@ -160,7 +159,7 @@
               <h3>NGS Analysis</h3>
               <span class="material-symbols-outlined home-card-icon">dna</span>
             </div>
-            <p>Filtragem heurística e extração automatizada de alças hipervariáveis (CDR1, CDR2, CDR3) a partir de ficheiros FASTQ brutos.</p>
+            <p>Filter and extract Variable Light chain (VL) clones from raw paired-end FASTQ files.</p>
             <button class="tool-open-btn" onclick="openToolRunner('ngs')">Open</button>
           </div>
 
@@ -170,7 +169,7 @@
               <h3>Sequence Analysis</h3>
               <span class="material-symbols-outlined home-card-icon">analytics</span>
             </div>
-            <p>Cálculo de biométricas de sequências isoladas: Peso Molecular (MW), pI teórico, carga líquida, GRAVY e deteção de cisteínas livres.</p>
+            <p>Calculate biometrics, pI, net charge, and developability liabilities of protein sequences.</p>
             <button class="tool-open-btn" onclick="openToolRunner('seq')">Open</button>
           </div>
 
@@ -180,7 +179,7 @@
               <h3>Translation</h3>
               <span class="material-symbols-outlined home-card-icon">translate</span>
             </div>
-            <p>Tradução de sequências de DNA em múltiplos quadros de leitura (*Reading Frames*), deteção de codões de paragem e mapeamento do núcleo do anticorpo.</p>
+            <p>Translate nucleotide reads to amino acids with 3-frame validation.</p>
             <button class="tool-open-btn" onclick="openToolRunner('trans')">Open</button>
           </div>
 
@@ -190,7 +189,7 @@
               <h3>Alignment</h3>
               <span class="material-symbols-outlined home-card-icon">splitscreen</span>
             </div>
-            <p>Alinhamento múltiplo (MSA) via Clustal Omega nativo com visualizador interativo colorido por propriedades químicas e tabela de variações.</p>
+            <p>Align multiple VL sequences using Clustal Omega to compare somatic mutations.</p>
             <button class="tool-open-btn" onclick="openToolRunner('align')">Open</button>
           </div>
 
@@ -200,7 +199,7 @@
               <h3>Phylogenetic Trees</h3>
               <span class="material-symbols-outlined home-card-icon">account_tree</span>
             </div>
-            <p>Reconstrução de linhagens clonais e dendrogramas pelo método UPGMA para identificar hipermutações somáticas e diversificação.</p>
+            <p>Build evolutionary dendrograms (UPGMA / NJ) for clone populations.</p>
             <button class="tool-open-btn" onclick="openToolRunner('phylo')">Open</button>
           </div>
 
@@ -210,7 +209,7 @@
               <h3>Comparative Analysis</h3>
               <span class="material-symbols-outlined home-card-icon">compare_arrows</span>
             </div>
-            <p>Comparação de sobreposição clonal e enriquecimento de frequências entre diferentes bibliotecas ou rondas de seleção.</p>
+            <p>Compare clone overlaps and enrichment frequencies across biopanning rounds.</p>
             <button class="tool-open-btn" onclick="openToolRunner('comp')">Open</button>
           </div>
 
@@ -220,7 +219,7 @@
               <h3>Antibody Structural Profiler</h3>
               <span class="material-symbols-outlined home-card-icon">view_in_ar</span>
             </div>
-            <p>Modelação tridimensional via inteligência artificial (ColabFold/AlphaFold2), mapa de confiança pLDDT, cálculo SASA e pontes dissulfeto.</p>
+            <p>Predict 3D structures and conformational features with AlphaFold2 / ColabFold.</p>
             <button class="tool-open-btn" onclick="openToolRunner('3d')">Open</button>
           </div>
 
@@ -230,7 +229,7 @@
               <h3>Interaction (Docking)</h3>
               <span class="material-symbols-outlined home-card-icon">link</span>
             </div>
-            <p>Modelação de interfaces de ligação complexo anticorpo-antigénio e estimativa de energias livres de afinidade de ligação.</p>
+            <p>Model macromolecular docking binding interfaces and evaluate paratope-epitope energies.</p>
             <button class="tool-open-btn" onclick="openToolRunner('dock')">Open</button>
           </div>
 
@@ -240,96 +239,98 @@
               <h3>Affinity Maturation Lab</h3>
               <span class="material-symbols-outlined home-card-icon">trending_up</span>
             </div>
-            <p>Engenharia *in silico* de anticorpos utilizando o modelo de linguagem ESM-2 para predição de mutações com maior termoestabilidade.</p>
+            <p>Optimize antibody VL candidates using the ESM-2 protein language model to enhance affinity.</p>
             <button class="tool-open-btn" onclick="openToolRunner('mat')">Open</button>
           </div>
         </div>
       </section>
 
       <!-- ========================================== -->
-      <!-- MODULE: TOOL_RUNNER (Simulador de Ferramenta)-->
+      <!-- MODULE: TOOL RUNNER                        -->
       <!-- ========================================== -->
       <section id="mod-Tool_Runner" class="module-view">
-        <div class="runner-nav-header">
+        <div class="back-link-row">
           <button class="back-link-btn" onclick="switchModule('Tools')">
             <span class="material-symbols-outlined">arrow_back</span>
-            Voltar ao Menu de Ferramentas
+            Back to Tools
           </button>
-          <div class="runner-badge" id="runnerToolCategory">Módulo Bioinformático</div>
         </div>
 
-        <div class="module-header" id="runnerToolTitle">Nome da Ferramenta</div>
-        <div class="module-subheader" id="runnerToolDesc">Descrição e objetivo técnico da ferramenta</div>
+        <div class="runner-header-box">
+          <div class="runner-category-tag" id="runnerToolCategory">Category</div>
+          <h2 id="runnerToolTitle">Tool Name</h2>
+          <p id="runnerToolDesc">Detailed tool description and purpose in the analysis pipeline.</p>
+        </div>
 
-        <!-- Painel Técnico Explicativo da Ferramenta -->
-        <div class="tool-architecture-box">
+        <div class="tabs-container">
           <div class="tab-pills">
-            <button class="tab-pill active" onclick="switchRunnerTab('overview')">Visão Geral & Parâmetros</button>
-            <button class="tab-pill" onclick="switchRunnerTab('architecture')">Algoritmos & Backend</button>
-            <button class="tab-pill" onclick="switchRunnerTab('demo')">Simulação Neutra (Demonstração)</button>
+            <button class="tab-pill active" onclick="switchRunnerTab('overview')">Overview & Parameters</button>
+            <button class="tab-pill" onclick="switchRunnerTab('architecture')">Algorithms & Architecture</button>
+            <button class="tab-pill" onclick="switchRunnerTab('demo')">Interactive Simulation</button>
           </div>
 
-          <!-- Tab 1: Visão Geral -->
+          <!-- Tab 1: Parameters Form -->
           <div id="tab-overview" class="tab-content active">
-            <div class="runner-form-card">
-              <div class="form-title">Painel de Parâmetros de Entrada</div>
-              <div id="runnerFormFields" class="form-fields-grid">
-                <!-- Preenchido dinamicamente via JS -->
-              </div>
-              <div class="form-actions">
+            <div class="runner-card">
+              <h3>Execution Parameters</h3>
+              <div id="runnerFormFields"></div>
+              <div class="runner-actions">
                 <button class="btn-primary" onclick="simulateToolExecution()">
                   <span class="material-symbols-outlined">play_arrow</span>
-                  Executar Simulação Demonstrativa
+                  Run Interactive Simulation
                 </button>
               </div>
             </div>
           </div>
 
-          <!-- Tab 2: Arquitetura & Algoritmos -->
+          <!-- Tab 2: Algorithms & Engine -->
           <div id="tab-architecture" class="tab-content">
-            <div class="algo-details-grid" id="runnerAlgoDetails">
-              <!-- Preenchido dinamicamente via JS -->
+            <div class="runner-card">
+              <h3>Algorithmic Architecture & Mathematical Foundations</h3>
+              <div id="runnerAlgoDetails" class="algo-grid"></div>
             </div>
           </div>
 
-          <!-- Tab 3: Simulação Neutra -->
+          <!-- Tab 3: Interactive Simulation Output -->
           <div id="tab-demo" class="tab-content">
-            <div id="runnerSimulationOutput" class="simulation-placeholder">
-              <span class="material-symbols-outlined placeholder-icon">experiment</span>
-              <h4>Sem execução ativa</h4>
-              <p>Clique no botão <strong>"Executar Simulação Demonstrativa"</strong> para visualizar como a plataforma renderiza os resultados estruturais de forma neutra.</p>
+            <div class="runner-card simulation-card">
+              <div id="runnerSimulationOutput" class="simulation-placeholder">
+                <span class="material-symbols-outlined placeholder-icon">experiment</span>
+                <h4>No Active Simulation</h4>
+                <p>Click <strong>"Run Interactive Simulation"</strong> to execute this tool and inspect realistic, neutral synthetic VL outputs.</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- ========================================== -->
-      <!-- MODULE: WORKSPACE                          -->
+      <!-- MODULE: WORKSPACE (STREAMLIT NATIVE LAYOUT)-->
       <!-- ========================================== -->
       <section id="mod-Workspace" class="module-view">
         <div class="module-header">WORKSPACE</div>
         <div class="module-subheader">Manage sequence datasets, analyze candidate populations, and configure project laboratories</div>
 
         <div class="workspace-layout">
-          <!-- Coluna Esquerda: Lista de Laboratórios -->
+          <!-- LEFT COLUMN: LABORATORIES (STREAMLIT NATIVE) -->
           <div class="ws-sidebar-col">
-            <div class="sidebar-list-title">Laboratories</div>
+            <div class="ws-sidebar-heading">LABORATORIES</div>
             <button class="st-btn-new-lab" onclick="openNewLabModal()">+ New Lab</button>
 
             <div class="lab-btn-stack">
-              <button class="st-lab-btn active" id="lab-btn-1" onclick="selectLab(1, 'Biblioteca_Sintetica_01', 'Ambiente de trabalho demonstrativo para análise e seleção de variantes de anticorpos de cadeia pesada.')">
-                Biblioteca_Sintetica_01
+              <button class="st-lab-btn active" id="lab-btn-1" onclick="selectLab(1, 'Synthetic_VL_Library_01', 'High-throughput screening environment for humanized single-domain light chain (VL) variants.')">
+                Synthetic_VL_Library_01
               </button>
-              <button class="st-lab-btn" id="lab-btn-2" onclick="selectLab(2, 'Projeto_Nanobodies_VHH', 'Triagem de biblioteca sintética de nanocorpos (VHH) para validação termodinâmica.')">
-                Projeto_Nanobodies_VHH
+              <button class="st-lab-btn" id="lab-btn-2" onclick="selectLab(2, 'Lambda_VL_Screening_Project', 'Phage display selection campaign targeting novel conformational epitopes with lambda light chain scaffolds.')">
+                Lambda_VL_Screening_Project
               </button>
             </div>
           </div>
 
-          <!-- Coluna Direita: Conteúdo do Laboratório -->
+          <!-- RIGHT COLUMN: ACTIVE LABORATORY & TABS (STREAMLIT NATIVE) -->
           <div class="ws-content-col">
-            <h2 class="lab-title" id="activeLabTitle">Biblioteca_Sintetica_01</h2>
-            <div class="lab-description" id="activeLabDesc">Ambiente de trabalho demonstrativo para análise e seleção de variantes de anticorpos de cadeia pesada.</div>
+            <h2 class="lab-title" id="activeLabTitle">Synthetic_VL_Library_01</h2>
+            <div class="lab-description" id="activeLabDesc">High-throughput screening environment for humanized single-domain light chain (VL) variants.</div>
 
             <!-- STREAMLIT TABS -->
             <div class="st-tabs-bar">
@@ -346,49 +347,49 @@
               <div id="batchActionsBar" class="batch-actions-box" style="display: none;">
                 <span id="batchCountText">Batch Actions (1 selected)</span>
                 <div class="batch-btns">
-                  <button class="st-btn st-btn-primary" onclick="showNotification('Item movido com sucesso!')">Move Selected</button>
-                  <button class="st-btn st-btn-danger" onclick="showNotification('Item eliminado.')">Delete Selected</button>
+                  <button class="st-btn st-btn-primary" onclick="showNotification('Item moved successfully!')">Move Selected</button>
+                  <button class="st-btn st-btn-danger" onclick="showNotification('Item deleted.')">Delete Selected</button>
                 </div>
               </div>
 
               <div class="st-asset-list">
                 <div class="st-asset-row">
                   <div class="st-asset-check"><input type="checkbox" onchange="toggleBatchAction(this)"></div>
-                  <div class="st-asset-title"><strong>Run_NGS_Demo_01</strong> <span class="st-asset-date">(2026-10-12)</span></div>
+                  <div class="st-asset-title"><strong>Run_NGS_VL_01</strong> <span class="st-asset-date">(2026-10-12)</span></div>
                   <div class="st-asset-actions">
-                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Run_NGS_Demo_01')">Open</button>
-                    <button class="st-btn st-btn-sm" onclick="showNotification('Mover registo selecionado')">Move</button>
-                    <button class="st-btn st-btn-sm" onclick="showNotification('Eliminar registo')">Delete</button>
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Run_NGS_VL_01')">Open</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Moved selected record')">Move</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Deleted record')">Delete</button>
                   </div>
                 </div>
 
                 <div class="st-asset-row">
                   <div class="st-asset-check"><input type="checkbox" onchange="toggleBatchAction(this)"></div>
-                  <div class="st-asset-title"><strong>Alinhamento_Top10_Sintetico</strong> <span class="st-asset-date">(2026-10-12)</span></div>
+                  <div class="st-asset-title"><strong>Multiple_Alignment_Top10_VL</strong> <span class="st-asset-date">(2026-10-12)</span></div>
                   <div class="st-asset-actions">
-                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Alinhamento_Top10_Sintetico')">Open</button>
-                    <button class="st-btn st-btn-sm" onclick="showNotification('Mover registo selecionado')">Move</button>
-                    <button class="st-btn st-btn-sm" onclick="showNotification('Eliminar registo')">Delete</button>
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Multiple_Alignment_Top10_VL')">Open</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Moved selected record')">Move</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Deleted record')">Delete</button>
                   </div>
                 </div>
 
                 <div class="st-asset-row">
                   <div class="st-asset-check"><input type="checkbox" onchange="toggleBatchAction(this)"></div>
-                  <div class="st-asset-title"><strong>Tree_Alinhamento_Top10</strong> <span class="st-asset-date">(2026-10-13)</span></div>
+                  <div class="st-asset-title"><strong>UPGMA_Tree_Top10_VL</strong> <span class="st-asset-date">(2026-10-13)</span></div>
                   <div class="st-asset-actions">
-                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Tree_Alinhamento_Top10')">Open</button>
-                    <button class="st-btn st-btn-sm" onclick="showNotification('Mover registo selecionado')">Move</button>
-                    <button class="st-btn st-btn-sm" onclick="showNotification('Eliminar registo')">Delete</button>
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('UPGMA_Tree_Top10_VL')">Open</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Moved selected record')">Move</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Deleted record')">Delete</button>
                   </div>
                 </div>
 
                 <div class="st-asset-row">
                   <div class="st-asset-check"><input type="checkbox" onchange="toggleBatchAction(this)"></div>
-                  <div class="st-asset-title"><strong>Comparativo_Rondas_Selecao</strong> <span class="st-asset-date">(2026-10-13)</span></div>
+                  <div class="st-asset-title"><strong>Biopanning_Rounds_Comparison_R1_R3</strong> <span class="st-asset-date">(2026-10-13)</span></div>
                   <div class="st-asset-actions">
-                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Comparativo_Rondas_Selecao')">Open</button>
-                    <button class="st-btn st-btn-sm" onclick="showNotification('Mover registo selecionado')">Move</button>
-                    <button class="st-btn st-btn-sm" onclick="showNotification('Eliminar registo')">Delete</button>
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Biopanning_Rounds_Comparison_R1_R3')">Open</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Moved selected record')">Move</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Deleted record')">Delete</button>
                   </div>
                 </div>
               </div>
@@ -399,9 +400,9 @@
               <div class="st-asset-list">
                 <div class="st-asset-row">
                   <div class="st-asset-check"><input type="checkbox"></div>
-                  <div class="st-asset-title"><strong>Run_NGS_Demo_01_ngstotal</strong> <span class="st-asset-date">(2026-10-12)</span></div>
+                  <div class="st-asset-title"><strong>Run_NGS_VL_01_ngstotal</strong> <span class="st-asset-date">(2026-10-12)</span></div>
                   <div class="st-asset-actions">
-                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Run_NGS_Demo_01_ngstotal')">Open</button>
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Run_NGS_VL_01_ngstotal')">Open</button>
                     <button class="st-btn st-btn-sm">Move</button>
                     <button class="st-btn st-btn-sm">Delete</button>
                   </div>
@@ -409,9 +410,9 @@
 
                 <div class="st-asset-row">
                   <div class="st-asset-check"><input type="checkbox"></div>
-                  <div class="st-asset-title"><strong>Run_NGS_Demo_01_ngstop</strong> <span class="st-asset-date">(2026-10-12)</span> <span class="st-ghost-tag">Ghost File</span></div>
+                  <div class="st-asset-title"><strong>Run_NGS_VL_01_ngstop</strong> <span class="st-asset-date">(2026-10-12)</span> <span class="st-ghost-tag">Ghost File</span></div>
                   <div class="st-asset-actions">
-                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Run_NGS_Demo_01_ngstop')">Open</button>
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Run_NGS_VL_01_ngstop')">Open</button>
                     <button class="st-btn st-btn-sm">Move</button>
                     <button class="st-btn st-btn-sm">Delete</button>
                   </div>
@@ -419,9 +420,9 @@
 
                 <div class="st-asset-row">
                   <div class="st-asset-check"><input type="checkbox"></div>
-                  <div class="st-asset-title"><strong>Snapshot_Biometricas_Top10</strong> <span class="st-asset-date">(2026-10-13)</span></div>
+                  <div class="st-asset-title"><strong>Biometrics_Top10_Snapshot</strong> <span class="st-asset-date">(2026-10-13)</span></div>
                   <div class="st-asset-actions">
-                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Snapshot_Biometricas_Top10')">Open</button>
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Biometrics_Top10_Snapshot')">Open</button>
                     <button class="st-btn st-btn-sm">Move</button>
                     <button class="st-btn st-btn-sm">Delete</button>
                   </div>
@@ -434,7 +435,7 @@
               <div class="st-asset-list">
                 <div class="st-asset-row">
                   <div class="st-asset-check"><input type="checkbox"></div>
-                  <div class="st-asset-title"><strong>Model_ColabFold_Clone01.pdb</strong> <span class="st-asset-date">(2026-10-13)</span> <span class="plddt-badge">pLDDT: 94.2</span></div>
+                  <div class="st-asset-title"><strong>ColabFold_VL_Clone01.pdb</strong> <span class="st-asset-date">(2026-10-13)</span> <span class="plddt-badge">pLDDT: 94.2</span></div>
                   <div class="st-asset-actions">
                     <button class="st-btn st-btn-sm" onclick="openToolRunner('3d')">Open 3D</button>
                     <button class="st-btn st-btn-sm">Download</button>
@@ -449,14 +450,14 @@
               <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:6px; padding:20px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
                   <h4 style="margin:0; font-size:15px; color:#0f172a;">Laboratory Members</h4>
-                  <button class="st-btn st-btn-sm st-btn-primary" onclick="showNotification('Convite enviado!')">+ Invite Member</button>
+                  <button class="st-btn st-btn-sm st-btn-primary" onclick="showNotification('Invitation sent successfully!')">+ Invite Member</button>
                 </div>
                 <div class="st-asset-row" style="padding:10px 0;">
-                  <div><strong>Convidado</strong> <span style="font-size:12px; color:#64748b;">(guest@ypsilon.io)</span></div>
+                  <div><strong>Guest</strong> <span style="font-size:12px; color:#64748b;">(guest@ypsilon.io)</span></div>
                   <span style="font-size:11px; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; font-weight:700;">Owner / Admin</span>
                 </div>
                 <div class="st-asset-row" style="padding:10px 0;">
-                  <div><strong>Investigador Colaborador</strong> <span style="font-size:12px; color:#64748b;">(colaborador@ypsilon.io)</span></div>
+                  <div><strong>Collaborating Scientist</strong> <span style="font-size:12px; color:#64748b;">(collaborator@ypsilon.io)</span></div>
                   <span style="font-size:11px; background:#eff6ff; color:#1e40af; padding:2px 8px; border-radius:12px; font-weight:700;">Editor</span>
                 </div>
               </div>
@@ -478,15 +479,15 @@
                 <h4 style="color:#0f172a; margin-bottom:15px;">Laboratory Settings</h4>
                 <div class="form-field-group" style="margin-bottom:15px;">
                   <label>Laboratory Name:</label>
-                  <input type="text" class="styled-input" value="Biblioteca_Sintetica_01">
+                  <input type="text" class="styled-input" value="Synthetic_VL_Library_01">
                 </div>
                 <div class="form-field-group" style="margin-bottom:20px;">
                   <label>Target Description:</label>
-                  <textarea class="styled-textarea" rows="3">Ambiente de trabalho demonstrativo para análise e seleção de variantes de anticorpos de cadeia pesada.</textarea>
+                  <textarea class="styled-textarea" rows="3">High-throughput screening environment for humanized single-domain light chain (VL) variants.</textarea>
                 </div>
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <button class="st-btn st-btn-primary" onclick="showNotification('Definições guardadas!')">Save Changes</button>
-                  <button class="st-btn st-btn-danger" onclick="showNotification('Ação bloqueada no modo demonstrativo.')">Delete Laboratory</button>
+                  <button class="st-btn st-btn-primary" onclick="showNotification('Laboratory settings saved.')">Save Changes</button>
+                  <button class="st-btn st-btn-danger" onclick="showNotification('Action restricted in showcase mode.')">Delete Laboratory</button>
                 </div>
               </div>
             </div>
@@ -500,123 +501,135 @@
       <!-- ========================================== -->
       <section id="mod-Dashboards" class="module-view">
         <div class="module-header">NGS ANALYSIS DASHBOARD</div>
-        <div class="module-subheader">Filtragem multicritério e seleção de candidatos para relatórios laboratoriais</div>
+        <div class="module-subheader">Multi-criteria filtering and candidate selection for laboratory reporting</div>
 
         <div class="dash-selectors-row">
           <div class="dash-selector-item">
-            <label>Laboratório:</label>
+            <label>Laboratory:</label>
             <select class="styled-select">
-              <option>Biblioteca_Sintetica_01</option>
-              <option>Projeto_Nanobodies_VHH</option>
+              <option>Synthetic_VL_Library_01</option>
+              <option>Lambda_VL_Screening_Project</option>
             </select>
           </div>
           <div class="dash-selector-item">
-            <label>Conjunto de Dados (Análise):</label>
+            <label>Dataset (Analysis):</label>
             <select class="styled-select">
-              <option>NGS_Funnel_Demo_01 (10 clones selecionados)</option>
+              <option>NGS_VL_Funnel_Demo_01 (10 selected clones)</option>
             </select>
           </div>
         </div>
 
-        <!-- Filtros Biofísicos Interativos -->
+        <!-- Interactive Biophysical Filters -->
         <div class="filter-box">
           <div class="filter-title">
             <span class="material-symbols-outlined">tune</span>
-            Filtros Biofísicos de Seleção (Heurísticas Termodinâmicas)
+            Biophysical Selection Filters (Thermodynamic Heuristics)
           </div>
           <div class="sliders-grid">
             <div class="slider-group">
-              <div class="slider-label">Peso Molecular (MW): <span id="valMW">12.0 - 15.0 kDa</span></div>
-              <input type="range" min="10" max="20" value="13" class="styled-range">
+              <div class="slider-label">Molecular Weight (MW): <span id="valMW">11.0 - 13.0 kDa</span></div>
+              <input type="range" min="10" max="15" value="12" class="styled-range">
             </div>
             <div class="slider-group">
-              <div class="slider-label">Ponto Isoelétrico (pI): <span id="valPI">5.0 - 8.5</span></div>
+              <div class="slider-label">Isoelectric Point (pI): <span id="valPI">5.0 - 8.5</span></div>
               <input type="range" min="3" max="11" value="7" class="styled-range">
             </div>
             <div class="slider-group">
-              <div class="slider-label">Carga Líquida (@ pH 7.4): <span id="valCharge">-2.0 a +3.0</span></div>
+              <div class="slider-label">Net Charge (@ pH 7.4): <span id="valCharge">-2.0 to +2.0</span></div>
               <input type="range" min="-10" max="10" value="0" class="styled-range">
             </div>
             <div class="slider-group">
-              <div class="slider-label">Filtro de Cisteínas:</div>
+              <div class="slider-label">Cysteine Filter:</div>
               <select class="styled-select small">
-                <option>Todas</option>
-                <option selected>Par (Pontes Formadas)</option>
-                <option>Ímpar (Cisteína Livre)</option>
+                <option>All</option>
+                <option selected>Even (Intrachain S-S Bond)</option>
+                <option>Odd (Unpaired Free Cysteine)</option>
               </select>
             </div>
           </div>
         </div>
 
-        <!-- Tabela Neutra de Candidatos Sintéticos -->
+        <!-- Neutral Table of Synthetic VL Candidates -->
         <div class="candidates-table-container">
           <div class="candidates-table-header">
-            <h4>Candidatos Selecionados (Dados Neutros Demonstrativos)</h4>
-            <span class="count-tag">5 Clones em Exibição</span>
+            <h4>Selected Candidates (Neutral Demonstration Data)</h4>
+            <span class="count-tag">5 VL Clones Displayed</span>
           </div>
           <table class="neutral-table">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Frequência</th>
-                <th>CDR3 (Sequência Neutra)</th>
+                <th>Frequency</th>
+                <th>CDR-L1</th>
+                <th>CDR-L2</th>
+                <th>CDR-L3</th>
                 <th>MW (kDa)</th>
                 <th>pI</th>
-                <th>Carga</th>
-                <th>Cisteínas</th>
-                <th>Estado</th>
+                <th>Net Charge</th>
+                <th>Cysteines</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Seq.1 (Clone_Alpha)</strong></td>
-                <td>54</td>
-                <td><code class="aa-code">ARDFGSYYWFDY</code></td>
-                <td>12.82</td>
-                <td>6.65</td>
-                <td>-0.43</td>
-                <td>2 (Par)</td>
-                <td><span class="status-pill success">Validado</span></td>
+                <td><strong>Seq.1 (Clone_VL_01)</strong></td>
+                <td>62</td>
+                <td><code class="aa-code">RASQSISSYLN</code></td>
+                <td><code class="aa-code">AASSLQS</code></td>
+                <td><code class="aa-code">QQSYSTPLT</code></td>
+                <td>11.64</td>
+                <td>6.42</td>
+                <td>-0.28</td>
+                <td>2 (Even)</td>
+                <td><span class="status-pill success">Validated</span></td>
               </tr>
               <tr>
-                <td><strong>Seq.2 (Clone_Beta)</strong></td>
-                <td>38</td>
-                <td><code class="aa-code">ARDLGYGYVMDY</code></td>
-                <td>13.10</td>
-                <td>7.12</td>
-                <td>+0.15</td>
-                <td>2 (Par)</td>
-                <td><span class="status-pill success">Validado</span></td>
+                <td><strong>Seq.2 (Clone_VL_02)</strong></td>
+                <td>41</td>
+                <td><code class="aa-code">RASQGISSYLN</code></td>
+                <td><code class="aa-code">AASNLQS</code></td>
+                <td><code class="aa-code">QQYGSSPLT</code></td>
+                <td>11.71</td>
+                <td>6.85</td>
+                <td>+0.12</td>
+                <td>2 (Even)</td>
+                <td><span class="status-pill success">Validated</span></td>
               </tr>
               <tr>
-                <td><strong>Seq.3 (Clone_Gamma)</strong></td>
-                <td>29</td>
-                <td><code class="aa-code">AKEYSSSWFAY</code></td>
-                <td>12.45</td>
-                <td>5.90</td>
-                <td>-1.20</td>
-                <td>2 (Par)</td>
-                <td><span class="status-pill success">Validado</span></td>
+                <td><strong>Seq.3 (Clone_VL_03)</strong></td>
+                <td>33</td>
+                <td><code class="aa-code">RASQSISNWLN</code></td>
+                <td><code class="aa-code">AASSLQS</code></td>
+                <td><code class="aa-code">QQSYSTPWT</code></td>
+                <td>11.80</td>
+                <td>6.10</td>
+                <td>-0.85</td>
+                <td>2 (Even)</td>
+                <td><span class="status-pill success">Validated</span></td>
               </tr>
               <tr>
-                <td><strong>Seq.4 (Clone_Delta)</strong></td>
-                <td>21</td>
-                <td><code class="aa-code">AREGAYYSYAMDY</code></td>
-                <td>13.40</td>
-                <td>6.80</td>
-                <td>-0.10</td>
-                <td>2 (Par)</td>
+                <td><strong>Seq.4 (Clone_VL_04)</strong></td>
+                <td>24</td>
+                <td><code class="aa-code">KASQNVGTNVD</code></td>
+                <td><code class="aa-code">SASYRYS</code></td>
+                <td><code class="aa-code">MQALQTPYT</code></td>
+                <td>11.58</td>
+                <td>7.20</td>
+                <td>+0.40</td>
+                <td>2 (Even)</td>
                 <td><span class="status-pill promoted">Promote to Success</span></td>
               </tr>
               <tr>
-                <td><strong>Seq.5 (Clone_Epsilon)</strong></td>
-                <td>17</td>
-                <td><code class="aa-code">ARVRDYYDSGGYYDY</code></td>
-                <td>14.05</td>
-                <td>7.45</td>
-                <td>+0.60</td>
-                <td>2 (Par)</td>
-                <td><span class="status-pill success">Validado</span></td>
+                <td><strong>Seq.5 (Clone_VL_05)</strong></td>
+                <td>19</td>
+                <td><code class="aa-code">RASQSVSSSYLA</code></td>
+                <td><code class="aa-code">GASSRAT</code></td>
+                <td><code class="aa-code">QQWNSNPPT</code></td>
+                <td>11.92</td>
+                <td>6.55</td>
+                <td>-0.15</td>
+                <td>2 (Even)</td>
+                <td><span class="status-pill success">Validated</span></td>
               </tr>
             </tbody>
           </table>
@@ -628,16 +641,16 @@
       <!-- ========================================== -->
       <section id="mod-Reports" class="module-view">
         <div class="module-header">REPORTS & EXPORTS</div>
-        <div class="module-subheader">Geração e arquivo de relatórios analíticos, tabelas de exportação e registos de auditoria</div>
+        <div class="module-subheader">Generation and archiving of analytical reports, export spreadsheets, and audit logs</div>
 
         <div class="reports-grid">
           <div class="report-card">
             <div class="report-icon"><span class="material-symbols-outlined">picture_as_pdf</span></div>
             <div class="report-body">
-              <h3>Relatório de Descoberta (PDF)</h3>
-              <p>Documento formal contendo sumário executivo do funil NGS, distribuição clonal, alças hipervariáveis e métricas físico-químicas formatadas.</p>
+              <h3>Discovery Report (PDF)</h3>
+              <p>Formal publication-ready document containing executive summary of the NGS funnel, clonal frequency distribution, and biophysical metrics.</p>
               <div class="report-actions">
-                <span class="badge-ready">Formato Vetorial</span>
+                <span class="badge-ready">Vector Graphics</span>
                 <span class="report-size">A4 Landscape</span>
               </div>
             </div>
@@ -646,10 +659,10 @@
           <div class="report-card">
             <div class="report-icon"><span class="material-symbols-outlined">table_view</span></div>
             <div class="report-body">
-              <h3>Exportação de Alinhamentos (Excel)</h3>
-              <p>Ficheiro estruturado (.xlsx) gerado dinamicamente pela biblioteca XlsxWriter com cada aminoácido colorido pela sua família química (Clustal-X).</p>
+              <h3>Multiple Alignment Export (Excel)</h3>
+              <p>Structured spreadsheet (.xlsx) dynamically generated by XlsxWriter with each amino acid colored by chemical family (Clustal-X).</p>
               <div class="report-actions">
-                <span class="badge-ready">Coloração Condicional</span>
+                <span class="badge-ready">Conditional Formatting</span>
                 <span class="report-size">Excel 2016+</span>
               </div>
             </div>
@@ -658,10 +671,10 @@
           <div class="report-card">
             <div class="report-icon"><span class="material-symbols-outlined">data_object</span></div>
             <div class="report-body">
-              <h3>Ficheiros Ghost (Operational Cache)</h3>
-              <p>Versões compactadas de sequências filtradas (Top N) gravadas no banco de dados para alimentar pipelines secundários de IA e docking.</p>
+              <h3>Ghost Files (Operational Cache)</h3>
+              <p>Lightweight compressed Top-N sequence cache stored in the SQL database to feed secondary AI and docking pipelines without RAM overhead.</p>
               <div class="report-actions">
-                <span class="badge-ready">Otimização SQL</span>
+                <span class="badge-ready">SQL Optimized</span>
                 <span class="report-size">JSON / FASTA</span>
               </div>
             </div>
@@ -674,15 +687,15 @@
       <!-- ========================================== -->
       <section id="mod-Search" class="module-view">
         <div class="module-header">GLOBAL SEARCH</div>
-        <div class="module-subheader">Pesquisa de sequências, clones candidatos e metadados nos arquivos da plataforma</div>
+        <div class="module-subheader">Search sequences, candidate clones, and metadata across platform archives</div>
 
         <div class="search-input-box">
           <span class="material-symbols-outlined search-icon">search</span>
-          <input type="text" id="globalSearchInput" placeholder="Pesquisar por motivo de CDR3, identificador ou propriedade (ex: ARDFGS, Seq.1, pI)..." oninput="handleSearch(this.value)">
+          <input type="text" id="globalSearchInput" placeholder="Search by CDR-L3 motif, clone identifier, or property (e.g. QQSYST, Seq.1, pI)..." oninput="handleSearch(this.value)">
         </div>
 
         <div class="search-results-box" id="searchResultsArea">
-          <div class="search-hint">Escreva um termo na barra de pesquisa para filtrar os registos demonstrativos da plataforma.</div>
+          <div class="search-hint">Type a query above to filter demonstration records across all platform archives.</div>
         </div>
       </section>
 
@@ -691,25 +704,25 @@
       <!-- ========================================== -->
       <section id="mod-Admin" class="module-view">
         <div class="module-header">SYSTEM ADMINISTRATION</div>
-        <div class="module-subheader">Painel de infraestrutura, controlo de acessos federados e saúde dos nós computacionais</div>
+        <div class="module-subheader">Infrastructure control, federated authentication, and computational worker health</div>
 
         <div class="admin-kpi-grid">
           <div class="kpi-card">
-            <div class="kpi-title">Autenticação Federada</div>
+            <div class="kpi-title">Federated Authentication</div>
             <div class="kpi-value">OpenID</div>
-            <div class="kpi-trend trend-up"><span class="material-symbols-outlined" style="font-size:16px;">check_circle</span> SSO / Keycloak Ativo</div>
+            <div class="kpi-trend trend-up"><span class="material-symbols-outlined" style="font-size:16px;">check_circle</span> SSO / Keycloak Active</div>
           </div>
 
           <div class="kpi-card">
-            <div class="kpi-title">Motor de Base de Dados</div>
+            <div class="kpi-title">Database Engine</div>
             <div class="kpi-value">PostgreSQL</div>
-            <div class="kpi-trend trend-up"><span class="material-symbols-outlined" style="font-size:16px;">database</span> SQLAlchemy ORM Ligado</div>
+            <div class="kpi-trend trend-up"><span class="material-symbols-outlined" style="font-size:16px;">database</span> SQLAlchemy ORM Connected</div>
           </div>
 
           <div class="kpi-card">
-            <div class="kpi-title">Nó de IA Estrutural</div>
+            <div class="kpi-title">Structural AI Worker</div>
             <div class="kpi-value">ColabFold</div>
-            <div class="kpi-trend trend-up"><span class="material-symbols-outlined" style="font-size:16px;">memory</span> GPU Worker Operacional</div>
+            <div class="kpi-trend trend-up"><span class="material-symbols-outlined" style="font-size:16px;">memory</span> GPU Worker Operational</div>
           </div>
         </div>
       </section>
@@ -723,22 +736,22 @@
     </footer>
   </div>
 
-  <!-- MODAL: DETALHES / NOVO LABORATÓRIO -->
+  <!-- MODAL: DETAILS / NEW LABORATORY -->
   <div id="genericModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 id="modalTitle">Título</h3>
+        <h3 id="modalTitle">Title</h3>
         <button class="modal-close-btn" onclick="closeModal()">&times;</button>
       </div>
       <div class="modal-body" id="modalBody">
-        Conteúdo
+        Content
       </div>
       <div class="modal-footer">
-        <button class="btn-primary" onclick="closeModal()">Fechar</button>
+        <button class="btn-primary" onclick="closeModal()">Close</button>
       </div>
     </div>
   </div>
 
-  <script src="app.js?v=2.3"></script>
+  <script src="app.js?v=3.0"></script>
 </body>
 </html>
