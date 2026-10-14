@@ -1,47 +1,48 @@
 // ==========================================================================
 // YPSILON BIOINFORMATICS PLATFORM - INTERACTIVE CONTROLLER (SHOWCASE)
-// Specialized in Antibody Variable Light Chain (VL) Discovery & Engineering
-// 100% English Edition
+// Specialized exclusively in Antibody Variable Light Chain (VL) Discovery & Engineering
+// 100% Faithful to Original Codebase & Real Algorithms
 // ==========================================================================
 
 const toolsDatabase = {
   ngs: {
     title: "NGS Analysis",
     category: "High-Throughput Sequencing & Repertoire Mining",
-    desc: "End-to-end processing pipeline for raw paired-end FASTQ reads (R1/R2) from antibody Variable Light chain (VL) libraries. Executes BBMerge paired-end assembly, in silico 3-frame translation, biological quality filtering (eliminating premature stop codons, verifying functional length >= 100 aa, and confirming canonical cysteines for disulfide stability), heuristic framework anchor detection (FR1/FR4), automated segmentation of CDR-L1, CDR-L2, and CDR-L3 loops, clonal abundance calculation with frequency ranking, thermodynamic property profiling, and the 'Promote to Success' curation engine for somatic variant rescue.",
+    leadSummary: "End-to-end processing pipeline for raw paired-end FASTQ reads (R1/R2) from antibody Variable Light chain (VL) libraries. Merges overlapping amplicons, enforces biological structural filters, segments CDR loops, and ranks dominant clones with somatic variant curation.",
+    highlights: [
+      { icon: "merge_type", text: "BBMerge Overlap Assembly" },
+      { icon: "verified", text: "Biological Quality Filtering" },
+      { icon: "rule", text: "CDR-L1, L2, L3 Segmentation" },
+      { icon: "leaderboard", text: "Clonal Abundance Ranking" },
+      { icon: "published_with_changes", text: "Promote to Success Engine" }
+    ],
     formFields: [
       { label: "Target Laboratory", type: "select", options: ["Synthetic_VL_Library_01", "Lambda_VL_Screening_Project"] },
       { label: "Analysis Title", type: "text", value: "NGS_VL_Screening_Run_01" },
-      { label: "FASTQ Forward (R1)", type: "select", options: ["synthetic_vl_library_R1.fastq.gz (Secure Server Folder)", "vl_screen_round3_R1.fastq.gz"] },
-      { label: "FASTQ Reverse (R2)", type: "select", options: ["synthetic_vl_library_R2.fastq.gz (Secure Server Folder)", "vl_screen_round3_R2.fastq.gz"] },
-      { label: "Environmental pH (Charge Calculation)", type: "number", value: "7.40" }
+      { label: "Forward (R1)", type: "select", options: ["synthetic_vl_library_R1.fastq.gz (Server Shared Folder)", "vl_screen_round3_R1.fastq.gz"] },
+      { label: "Reverse (R2)", type: "select", options: ["synthetic_vl_library_R2.fastq.gz (Server Shared Folder)", "vl_screen_round3_R2.fastq.gz"] },
+      { label: "Environment pH (Charge Calculation)", type: "number", value: "7.40" }
     ],
     algoCards: [
       {
         title: "Paired-End Merging (BBMerge)",
         icon: "merge_type",
-        body: "Forward (R1) and reverse (R2) FASTQ reads are assembled using BBMerge with a 12-base minimum overlap threshold (minoverlap=12) and ordered stream processing to reconstruct the complete antibody coding sequence."
+        body: "Forward (R1) and reverse (R2) FASTQ reads are assembled using BBMerge with a 12-base minimum overlap threshold (minoverlap=12) and ordered streaming (ordered=t) to reconstruct the full-length antibody amplicon."
       },
       {
         title: "Biological Quality & Structural Filters",
         icon: "verified",
-        body: "Rather than applying an arbitrary Phred score cutoff, the pipeline enforces strict biological selection: (1) 3-frame translation resolving the functional open reading frame; (2) strict elimination of premature stop codons (*); (3) verification of at least 2 canonical cysteines (~C23 and terminal Cys) required for the intrachain disulfide bond; and (4) minimum length validation (>= 100 amino acids) to exclude truncated fragments."
+        body: "The pipeline translates reads in 3 frames and strictly rejects sequences with premature stop codons (*), sequences with fewer than 2 cysteines (essential for the canonical intrachain disulfide bond), and sequences under 100 amino acids."
       },
-
       {
-        title: "VL Framework & CDR-L1/L2/L3 Extraction",
+        title: "Framework & CDR Segmentation",
         icon: "rule",
-        body: "The engine scans for conserved Variable Light chain framework anchors: FR1 kappa/lambda motifs (e.g. ELVXTQTP, ELVLTQSP) and FR4 joining motifs (e.g. GTNVEIK, GTELEIL). It uses canonical cysteines (~C23 and terminal Cys) and conserved anchors (WY in FR2, FG in FR4) to isolate CDR-L1, CDR-L2, and CDR-L3 loops with single-amino-acid precision."
-      },
-      {
-        title: "Clonal Frequency & Top Clone Ranking",
-        icon: "analytics",
-        body: "Millions of raw sequences are dereplicated into unique VL clones. The pipeline computes copy counts, percentage frequencies, and repertoire diversity indices, ranking the top candidates for downstream characterization."
+        body: "Heuristic pattern matching targets conserved kappa and lambda framework motifs (FAM_FR1 and FAM_FR4) and canonical anchors (WY in FR2, FG in FR4) to isolate CDR-L1, CDR-L2, and CDR-L3 loops with single-residue precision."
       },
       {
         title: "'Promote to Success' Curation Engine",
-        icon: "check_circle",
-        body: "Clones with non-canonical anchor mutations resulting from extreme somatic hypermutation are not discarded. Instead, they are routed to a 'Failed Sequences' inspection panel where researchers can review anomalies and promote promising candidates back into the verified pipeline."
+        icon: "published_with_changes",
+        body: "Clones with non-canonical anchor mutations resulting from extreme somatic hypermutation are routed to an inspection table, where researchers can review anomalies and promote candidates back into the verified repertoire."
       }
     ],
     demoOutput: `
@@ -75,39 +76,45 @@ const toolsDatabase = {
 
   seq: {
     title: "Sequence Analysis",
-    category: "Biophysical Characterization & Developability",
-    desc: "Rapid multi-parameter biophysical profiling of single or batch antibody Variable Light chain (VL) protein sequences to identify developability liabilities and predict in vitro formulation stability.",
+    category: "Biophysical Characterization",
+    leadSummary: "Rapid multi-parameter biophysical profiling of single or batch antibody Variable Light chain (VL) sequences. Computes essential developability metrics, stability indices, and maps hypervariable regions.",
+    highlights: [
+      { icon: "calculate", text: "Molecular Weight & Theoretical pI" },
+      { icon: "warning", text: "Cysteine Liability Detection" },
+      { icon: "thermostat", text: "Guruprasad Instability Index" },
+      { icon: "view_column", text: "Framework & CDR Mapping" }
+    ],
     formFields: [
       { label: "Target Laboratory", type: "select", options: ["Synthetic_VL_Library_01"] },
-      { label: "Analysis Title", type: "text", value: "Developability_Profile_VL_01" },
-      { label: "Amino Acid Sequence (FASTA or Plain Text)", type: "textarea", value: "ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQSYSTPLTFGGGTKVEIK" },
-      { label: "Target pH for Charge Calculation", type: "number", value: "7.40" }
+      { label: "Analysis Title", type: "text", value: "Sequence_Analysis_VL_01" },
+      { label: "Paste Sequences (One per line or FASTA)", type: "textarea", value: "ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQSYSTPLTFGGGTKVEIK" },
+      { label: "Environment pH (Charge Calculation)", type: "number", value: "7.40" }
     ],
     algoCards: [
       {
         title: "Thermodynamic & Molar Properties",
         icon: "calculate",
-        body: "Calculates monoisotopic Molecular Weight (MW), theoretical Isoelectric Point (pI) via Henderson-Hasselbalch equations, and net electrostatic charge at physiological pH (7.4)."
+        body: "Computes monoisotopic Molecular Weight (Da), theoretical Isoelectric Point (pI) using Henderson-Hasselbalch equations, and net electrostatic charge at user-specified pH."
       },
       {
-        title: "Critical Cysteine Liability Detection",
+        title: "Cysteine Analysis & Disulfide Integrity",
         icon: "warning",
-        body: "Counts total cysteine residues. An odd count triggers an immediate alert for unpaired free surface thiols, essential for avoiding intermolecular dimerization, aggregation, or guiding site-specific maleimide bioconjugation in Antibody-Drug Conjugates (ADCs)."
+        body: "Scans total cysteines to confirm canonical pairing (even count of 2) or alert for free reactive surface thiols (odd count) that could lead to aggregation."
       },
       {
-        title: "Instability Index & GRAVY Hydropathy",
+        title: "Instability Index & Hydropathy",
         icon: "thermostat",
-        body: "Evaluates proteolytic and thermal stability using the Guruprasad instability index (values under 40 indicate stability) and Kyte-Doolittle GRAVY hydropathy score for solubility forecasting."
+        body: "Evaluates proteolytic stability using Guruprasad's instability index (< 40 indicates stable protein) and Kyte-Doolittle GRAVY hydropathy for formulation forecasting."
       },
       {
-        title: "BioPython & Custom Backend Engine",
-        icon: "code",
-        body: "Powered by Bio.SeqUtils.ProtParam and Ypsilon's proprietary vectorized thermodynamic scoring algorithms."
+        title: "Framework & CDR Highlighting",
+        icon: "view_column",
+        body: "Deconstructs the sequence into FR1, CDR-L1, FR2, CDR-L2, FR3, CDR-L3, and FR4 using the platform's regex pattern matching engine."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
-        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">Biophysical & Developability Diagnostics (VL Candidate)</h4>
+        <h4 style="color:#0f172a; margin-bottom:12px; font-size:15px;">Biophysical Diagnostics (VL Candidate)</h4>
         <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;">
           <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px;">
             <div style="font-size:11px; color:#64748b;">MOLECULAR WEIGHT</div>
@@ -140,28 +147,35 @@ const toolsDatabase = {
 
   trans: {
     title: "Translation",
-    category: "In Silico Molecular Biology",
-    desc: "In silico 3-frame translation of nucleotide sequencing reads into functional VL light chain protein sequences with open reading frame validation and stop codon detection.",
+    category: "DNA to Protein Translation",
+    leadSummary: "Translates DNA sequences into functional antibody proteins using 3-frame evaluation. Selects the optimal reading frame with the AQAA leader or minimal stop codons, isolating the functional antibody core down to the His-tag.",
+    highlights: [
+      { icon: "view_carousel", text: "3-Frame Translation" },
+      { icon: "error_outline", text: "Stop Codon Detection" },
+      { icon: "brush", text: "AQAA & His-Tag Core Extraction" },
+      { icon: "save", text: "Laboratory Report Integration" }
+    ],
     formFields: [
-      { label: "DNA Nucleotide Sequence", type: "textarea", value: "GAGCTCGTGCTGACCCAGTCTCCATCCTCCCTGTCTGCATCTGTAGGAGACAGAGTCACCATCACTTGCCGGGCAAGTCAGAGCATTAGCAGCTATTTAAATTGGTATCAGCAGAAACCAGGGAAAGCCCCTAAGCTCCTGATCTATGCTGCATCCAGTTTGCAAAGTGGGGTCCCATCAAGGTTCAGTGGCAGTGGATCTGGGACAGATTTCACTCTCACCATCAGCAGTCTGCAACCTGAAGATTTTGCAACTTACTACTGTCAACAGAGTTACAGTACCCCTCTCACTTTTGGCGGAGGGACCAAGGTAGAGATCAAA" },
-      { label: "Genetic Code Table", type: "select", options: ["Standard Genetic Code (Bacterial / Eukaryotic Expression)"] }
+      { label: "Target Laboratory", type: "select", options: ["Synthetic_VL_Library_01"] },
+      { label: "Analysis Title", type: "text", value: "Translation_Run_01" },
+      { label: "DNA Sequence (FASTA or Plain Text)", type: "textarea", value: "GAGCTCGTGCTGACCCAGTCTCCATCCTCCCTGTCTGCATCTGTAGGAGACAGAGTCACCATCACTTGCCGGGCAAGTCAGAGCATTAGCAGCTATTTAAATTGGTATCAGCAGAAACCAGGGAAAGCCCCTAAGCTCCTGATCTATGCTGCATCCAGTTTGCAAAGTGGGGTCCCATCAAGGTTCAGTGGCAGTGGATCTGGGACAGATTTCACTCTCACCATCAGCAGTCTGCAACCTGAAGATTTTGCAACTTACTACTGTCAACAGAGTTACAGTACCCCTCTCACTTTTGGCGGAGGGACCAAGGTAGAGATCAAA" }
     ],
     algoCards: [
       {
-        title: "Reading Frame Resolution",
+        title: "3-Frame Translation Resolution",
         icon: "view_carousel",
-        body: "Analyzes forward reading frames (+1, +2, +3) to verify coding continuity, detect insertion/deletion frameshifts, and ensure absence of premature stop codons."
+        body: "Evaluates reading frames (+1, +2, +3) and chooses the frame containing the AQAA motif or fewest stop codons to ensure open reading frame continuity."
       },
       {
-        title: "Expression Tag & Leader Detection",
+        title: "Antibody Core Isolation",
         icon: "brush",
-        body: "Automatically identifies pelB signal peptides, His6 purification tags, or antibody joining motifs used in phage display vectors."
+        body: "Extracts the functional VL domain from the N-terminal anchor (AQAA) to the C-terminal expression tag (HHHHHH) required for purification."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
         <h4 style="color:#0f172a; margin-bottom:8px; font-size:15px;">Optimal Reading Frame Translation (+1 Frame)</h4>
-        <div style="font-size:11px; color:#15803d; font-weight:700; margin-bottom:10px;">Continuous Functional Open Reading Frame (No Stop Codons)</div>
+        <div style="font-size:11px; color:#15803d; font-weight:700; margin-bottom:10px;">Continuous Functional Open Reading Frame (No Premature Stop Codons)</div>
         <div style="background:#f1f5f9; padding:14px; border-radius:6px; font-family:'JetBrains Mono', monospace; font-size:13px; color:#1e293b; line-height:1.6; word-break:break-all;">
           ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQSYSTPLTFGGGTKVEIK
         </div>
@@ -171,28 +185,39 @@ const toolsDatabase = {
 
   align: {
     title: "Alignment",
-    category: "Multiple Sequence Alignment (MSA)",
-    desc: "Native Clustal Omega multiple sequence alignment of candidate VL repertoires with mutation highlighting and positional conservation scoring.",
+    category: "Multiple Sequence Alignment",
+    leadSummary: "Multiple sequence alignment for antibody VL repertoires using Clustal Omega. Computes consensus sequence, positional conservation identity bar, global identity score, and variation analysis with P-value significance, with Clustal-X coloring and Excel export.",
+    highlights: [
+      { icon: "hub", text: "Clustal Omega Engine" },
+      { icon: "palette", text: "Clustal-X Biochemical Coloring" },
+      { icon: "functions", text: "P-Value Variation Analysis" },
+      { icon: "table_view", text: "Excel Spreadsheet Export" }
+    ],
     formFields: [
       { label: "Target Laboratory", type: "select", options: ["Synthetic_VL_Library_01"] },
-      { label: "Sequence Dataset", type: "select", options: ["Top10_VL_Candidates (Ghost File Cache)"] },
-      { label: "Highlight Mutations Against Consensus", type: "checkbox", value: "true" }
+      { label: "Select File(s) (Ghost Files)", type: "select", options: ["Top10_VL_Candidates (Ghost File)"] },
+      { label: "Find Variations Relative to Consensus", type: "checkbox", value: "true" }
     ],
     algoCards: [
       {
         title: "Clustal Omega Engine",
         icon: "hub",
-        body: "Executes progressive multiple alignments using mBed guide trees and Gonnet scoring matrices to compare homologous VL light chain variants."
+        body: "Uses guide trees and Gonnet scoring matrices to produce global multiple alignments across homologous VL variants."
       },
       {
-        title: "Clustal-X Biochemical Color Coding",
+        title: "Conservation & Consensus Scoring",
+        icon: "bar_chart",
+        body: "Computes residue-by-residue conservation identity bars and consensus sequence representation."
+      },
+      {
+        title: "Clustal-X Biochemical Palette",
         icon: "palette",
-        body: "Residues are dynamically rendered by chemical class: Orange (Hydrophobic), Green (Polar), Red (Acidic), Purple (Basic), and Yellow (Cysteines)."
+        body: "Highlights amino acids by chemical properties: Hydrophobic, Polar, Acidic, Basic, Cysteine, Glycine, and Aromatic."
       },
       {
-        title: "Mutation Significance (P-Value)",
+        title: "Variation Analysis & P-Value",
         icon: "functions",
-        body: "Calculates statistical significance for each somatic substitution against germline consensus to distinguish random mutations from functional selection."
+        body: "Identifies somatic mutations relative to consensus and calculates statistical significance (P-value) to separate real selection from noise."
       }
     ],
     demoOutput: `
@@ -213,23 +238,28 @@ const toolsDatabase = {
 
   phylo: {
     title: "Phylogenetic Trees",
-    category: "Evolutionary Lineage & Phylogenetics",
-    desc: "Distance-based phylogenetic dendrogram generation for antibody VL repertoires using UPGMA and Neighbor-Joining algorithms to map clonal diversification.",
+    category: "Evolutionary Trees",
+    leadSummary: "Reconstructs phylogenetic trees from aligned antibody VL repertoires using BioPython and the UPGMA distance method, visualizing clonal divergence and somatic mutations as substitutions per site.",
+    highlights: [
+      { icon: "linear_scale", text: "Identity Distance Matrix" },
+      { icon: "account_tree", text: "UPGMA Tree Construction" },
+      { icon: "insights", text: "Substitutions-per-Site Scaling" },
+      { icon: "download", text: "Newick Format Export" }
+    ],
     formFields: [
       { label: "Target Laboratory", type: "select", options: ["Synthetic_VL_Library_01"] },
-      { label: "Source Alignment Dataset", type: "select", options: ["Top10_VL_Candidates (Alignment)"] },
-      { label: "Clustering Algorithm", type: "select", options: ["UPGMA (Average Distance)", "Neighbor-Joining (NJ)"] }
+      { label: "Source Alignment", type: "select", options: ["Top10_VL_Alignment"] }
     ],
     algoCards: [
       {
-        title: "UPGMA & Genetic Distance Matrices",
-        icon: "account_tree",
-        body: "Computes pairwise sequence identity distances and progressively groups related VL clones via hierarchical cluster analysis."
+        title: "Pairwise Distance Matrix",
+        icon: "linear_scale",
+        body: "Calculates distance matrices based on sequence identity using BioPython's DistanceCalculator('identity')."
       },
       {
-        title: "Interactive Dendrogram Topology",
-        icon: "insights",
-        body: "Renders branch lengths corresponding to substitutions per amino acid site, visualizing clonal expansions and divergence branches."
+        title: "UPGMA Tree Construction",
+        icon: "account_tree",
+        body: "Reconstructs hierarchical cluster dendrograms using DistanceTreeConstructor().upgma(dm) with branch lengths representing substitutions per site."
       }
     ],
     demoOutput: `
@@ -249,29 +279,35 @@ const toolsDatabase = {
 
   comp: {
     title: "Comparative Analysis",
-    category: "Repertoire Dynamics & Biopanning",
-    desc: "Cross-dataset longitudinal tracking of clone frequencies across consecutive biopanning rounds (R0 to R3) to measure clonal enrichment and selection dynamics.",
+    category: "Repertoire Comparison",
+    leadSummary: "Compares antibody clone populations across different biopanning selection rounds or experiments. Trims sequences to the canonical antibody domain, tracks clone persistence, and calculates frequency shifts and overlaps.",
+    highlights: [
+      { icon: "content_cut", text: "Domain Slicing (FR1 to FR4)" },
+      { icon: "trending_up", text: "Cross-Round Frequency Shifts" },
+      { icon: "compare_arrows", text: "Enrichment Fold-Change" },
+      { icon: "splitscreen", text: "Direct Alignment Export" }
+    ],
     formFields: [
-      { label: "Baseline Dataset (Round 1)", type: "select", options: ["Biopanning_Round_1_VL"] },
-      { label: "Comparison Dataset (Round 3)", type: "select", options: ["Biopanning_Round_3_Enriched_VL"] },
-      { label: "Minimum Fold-Change Threshold", type: "number", value: "5.0" }
+      { label: "Target Laboratory", type: "select", options: ["Synthetic_VL_Library_01"] },
+      { label: "Primary Clone List (Round 1)", type: "select", options: ["Biopanning_Round_1_VL"] },
+      { label: "Comparison Clone List (Round 3)", type: "select", options: ["Biopanning_Round_3_VL"] }
     ],
     algoCards: [
       {
-        title: "Clonal Enrichment Calculation",
-        icon: "trending_up",
-        body: "Quantifies the fold-change multiplication in clone frequency between successive rounds of phage/yeast display selection."
+        title: "Antibody Domain Slicing",
+        icon: "content_cut",
+        body: "Trims leader and tag sequences to the canonical antibody domain (from FR1 start to FR4/His-tag) before comparison."
       },
       {
-        title: "Venn & Repertoire Overlaps",
-        icon: "pie_chart",
-        body: "Computes Venn and Euler intersections to isolate surviving high-affinity VL binders against wash-out dropouts."
+        title: "Clonal Tracking & Overlap",
+        icon: "compare_arrows",
+        body: "Compares clone frequencies across selection rounds (R1, R2, R3) to measure enrichment dynamics and export selected candidates directly to Alignment."
       }
     ],
     demoOutput: `
       <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:20px; text-align:left;">
         <h4 style="color:#0f172a; margin-bottom:8px; font-size:15px;">Biopanning Selection Dynamics (Round 1 vs Round 3)</h4>
-        <p style="font-size:13px; color:#475569; margin-bottom:12px;">Identified <strong>14 significantly enriched VL clones</strong> with fold-change &gt; 10x.</p>
+        <p style="font-size:13px; color:#475569; margin-bottom:12px;">Identified <strong>14 significantly enriched VL clones</strong> across biopanning cycles.</p>
         <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:12px; border-radius:6px; font-size:13px; color:#166534; font-weight:600;">
           Lead Candidate Clone_VL_01 enriched from 0.04% (R1) to 4.41% (R3) — 110.2x Fold-Change.
         </div>
@@ -281,28 +317,34 @@ const toolsDatabase = {
 
   "3d": {
     title: "Antibody Structural Profiler",
-    category: "Structural Biology & 3D Modeling",
-    desc: "Deep-learning 3D conformational modeling of antibody VL domains using ColabFold/AlphaFold2 with per-residue pLDDT confidence scoring and Solvent Accessible Surface Area (SASA) computation.",
+    category: "3D Structural Modeling",
+    leadSummary: "Generates 3D structural models of antibody Variable Light chain (VL) monomers using ColabFold (local GPU) or ESMFold2 (cloud API). Displays interactive 3D structures via py3Dmol with per-residue pLDDT confidence and CDR loop mapping.",
+    highlights: [
+      { icon: "memory", text: "ColabFold GPU & ESMFold2 API" },
+      { icon: "speed", text: "Per-Residue pLDDT Confidence" },
+      { icon: "view_in_ar", text: "Interactive py3Dmol Viewer" },
+      { icon: "water_drop", text: "Solvent Accessible Surface (SASA)" }
+    ],
     formFields: [
-      { label: "VL Sequence to Model", type: "textarea", value: "ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQSYSTPLTFGGGTKVEIK" },
-      { label: "Modeling Engine", type: "select", options: ["ColabFold (AlphaFold2-ptm / Fast GPU)", "ESMFold (Single Sequence)"] },
-      { label: "Amber Relaxation Cycles", type: "select", options: ["Standard (3 Cycles)", "Relaxation Off (Fast)"] }
+      { label: "Antibody Input Source", type: "select", options: ["Database (Select Clone)", "Manual Sequence Input"] },
+      { label: "Modelling Engine", type: "select", options: ["ColabFold (Local GPU)", "ESMFold2 (Cloud API)"] },
+      { label: "Antibody Sequence (Amino Acids)", type: "textarea", value: "ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQSYSTPLTFGGGTKVEIK" }
     ],
     algoCards: [
       {
-        title: "ColabFold / AlphaFold2 Integration",
+        title: "Structural Prediction Engines",
         icon: "memory",
-        body: "Asynchronous API communication with GPU-accelerated computing nodes (NVIDIA CUDA) to generate atomic 3D coordinates in PDB format."
+        body: "Supports ColabFold (AlphaFold2) for high-accuracy GPU prediction and ESMFold2 for rapid single-sequence cloud inference."
       },
       {
-        title: "Per-Residue Confidence (pLDDT)",
+        title: "pLDDT Confidence Scoring",
         icon: "speed",
-        body: "Maps stereochemical confidence along the sequence. pLDDT values above 90 indicate exceptionally reliable backbone and side-chain conformations."
+        body: "Maps stereochemical confidence per residue, with pLDDT > 90 indicating high-confidence backbone modeling."
       },
       {
-        title: "Solvent Accessible Surface Area (SASA)",
-        icon: "water_drop",
-        body: "Computes exposed surface area across CDR-L1, CDR-L2, and CDR-L3 loops to evaluate epitope-contact residues and hydrophobic patches."
+        title: "py3Dmol Visualizer & CDR Highlights",
+        icon: "view_in_ar",
+        body: "Colors CDR-L1 (red), CDR-L2 (green), and CDR-L3 (blue) with stick/sphere rendering for disulfide cysteines."
       }
     ],
     demoOutput: `
@@ -329,23 +371,29 @@ const toolsDatabase = {
 
   dock: {
     title: "Interaction (Docking)",
-    category: "Computational Biophysics & Molecular Recognition",
-    desc: "Macromolecular in silico docking simulating binding interfaces between the VL paratope (CDR-L1, L2, L3) and target antigen epitopes, evaluating binding free energy (ΔG).",
+    category: "Antibody-Antigen Complex Modeling",
+    leadSummary: "Predicts the 3D complex structure between antibody VL monomers and target antigens using ColabFold Multimer. Renders the interactive complex in py3Dmol with Chain A (VL, beige) and Chain B (Antigen, cyan) and highlighted CDR loops.",
+    highlights: [
+      { icon: "device_hub", text: "ColabFold Multimer Pipeline" },
+      { icon: "link", text: "Two-Chain Complex Modeling" },
+      { icon: "palette", text: "CDR Paratope Mapping" },
+      { icon: "biotech", text: "Binding Interface Diagnostics" }
+    ],
     formFields: [
-      { label: "Antibody VL Model (PDB)", type: "select", options: ["ColabFold_VL_Clone01.pdb"] },
-      { label: "Target Antigen Structure (PDB)", type: "select", options: ["Target_Antigen_Ectodomain.pdb"] },
-      { label: "Docking Protocol", type: "select", options: ["Rigid Body + Flexible CDR-L3 Refinement", "Full Flexible Interface"] }
+      { label: "Antibody (VL) Sequence", type: "textarea", value: "ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQSYSTPLTFGGGTKVEIK" },
+      { label: "Antigen Target Sequence", type: "textarea", value: "MSDSEVNQEAKPEVKPEVKPETHINLKVSDGSSEIFFKIKKTTPLRRLMEAFAKRQGKEMDSLRFLYDGIRIQADQTPEDLDMEDNDIIEAHREQIGG" },
+      { label: "Number of Models", type: "select", options: ["5 Complex Ranks (Standard)"] }
     ],
     algoCards: [
       {
-        title: "Conformational Sampling",
+        title: "ColabFold Multimer Queue",
         icon: "device_hub",
-        body: "Explores rotational and translational degrees of freedom to identify favorable paratope-epitope complexes."
+        body: "Submits {antibody_seq}:{antigen_seq} to the ColabFold Multimer prediction queue to sample complex conformations."
       },
       {
-        title: "Binding Energy & Buried Surface",
-        icon: "energy_program_saving",
-        body: "Calculates binding free energy (ΔG in kcal/mol), buried surface area (BSA), and electrostatic complementarity."
+        title: "py3Dmol Complex Visualization",
+        icon: "view_in_ar",
+        body: "Colors Chain A (VL) in beige with CDR-L1 (red), CDR-L2 (green), and CDR-L3 (blue), and Chain B (Antigen) in cyan (#90e0ef)."
       }
     ],
     demoOutput: `
@@ -361,23 +409,36 @@ const toolsDatabase = {
 
   mat: {
     title: "Affinity Maturation Lab",
-    category: "Protein Engineering & AI Mutagenesis",
-    desc: "In silico rational affinity maturation using the ESM-2 protein language model to identify favorable somatic substitutions that increase binding affinity while preserving VL framework stability.",
+    category: "Virtual CDR Mutagenesis",
+    leadSummary: "Performs in silico virtual scanning mutagenesis across CDR loops of lead antibody clones. Automatically maps CDR boundaries, allows excluding cysteines and prolines, and evaluates all single-point variants using the ESM-2 API (with BLOSUM62 fallback) to prioritize affinity-enhancing mutations.",
+    highlights: [
+      { icon: "map", text: "Automated CDR Boundary Mapping" },
+      { icon: "biotech", text: "Virtual Single-Point Mutagenesis" },
+      { icon: "shield", text: "Cysteine & Proline Liability Exclusion" },
+      { icon: "psychology", text: "ESM-2 API & BLOSUM62 Scoring" }
+    ],
     formFields: [
-      { label: "Template VL Sequence", type: "textarea", value: "ELVLTQSPSSLSASVGDRVTITCRASQSISSYLNWYQQKPGKAPKLLIYAASSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQSYSTPLTFGGGTKVEIK" },
-      { label: "Target Mutagenesis Region", type: "select", options: ["CDR Loops Only (Preserve Frameworks)", "CDR-L3 Strict Scanning", "Full Repertoire Scanning"] },
-      { label: "Developability Liability Filters", type: "select", options: ["Exclude Deamidation (NG/NS) & Isomerization (DG)", "All Substitutions"] }
+      { label: "Parent Clone", type: "select", options: ["Clone_VL_01 (Freq: 62)"] },
+      { label: "CDRs to Scan", type: "select", options: ["CDR1, CDR2, CDR3", "CDR3 Only", "CDR1 Only"] },
+      { label: "Exclude Cys (C)", type: "select", options: ["Yes (Recommended — Avoid spurious disulfides)", "No"] },
+      { label: "Exclude Pro (P)", type: "select", options: ["Yes (Recommended — Avoid rigid loop kinks)", "No"] },
+      { label: "Scoring Engine", type: "select", options: ["ESM-2 API Scoring (BLOSUM62 Fallback)"] }
     ],
     algoCards: [
       {
-        title: "ESM-2 Protein Language Model",
-        icon: "psychology",
-        body: "The 650M-parameter ESM-2 model (Meta AI) computes evolutionary fitness logits across all 19 possible amino acid substitutions per CDR position."
+        title: "Automated CDR Mapping",
+        icon: "map",
+        body: "Maps CDR-L1, CDR-L2, and CDR-L3 coordinates with optional manual boundary adjustments."
       },
       {
-        title: "ΔLog-Likelihood Scoring",
-        icon: "score",
-        body: "Positive scores highlight mutations favored by natural antibody evolution with minimal risk of destabilizing the VL fold or causing aggregation."
+        title: "Virtual Single-Point Mutagenesis",
+        icon: "biotech",
+        body: "Generates all variants across chosen CDR positions (excluding Cys to prevent spurious disulfides and Pro to avoid loop disruption)."
+      },
+      {
+        title: "ESM-2 API & BLOSUM62 Scoring",
+        icon: "psychology",
+        body: "Scores each substitution against the wild-type sequence using ESM-2 language model logits or BLOSUM62 matrices."
       }
     ],
     demoOutput: `
@@ -403,7 +464,7 @@ let currentActiveToolKey = 'ngs';
 // ==========================================
 // MODULE NAVIGATION
 // ==========================================
-function switchModule(modName) {
+function switchModule(modName, updateHash = true) {
   // Hide all modules
   document.querySelectorAll('.module-view').forEach(view => {
     view.classList.remove('active');
@@ -423,6 +484,10 @@ function switchModule(modName) {
     }
   });
 
+  if (updateHash && modName !== 'Tool_Runner') {
+    history.replaceState(null, '', '#' + modName);
+  }
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -437,15 +502,25 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
 // ==========================================
 // OPEN TOOL RUNNER
 // ==========================================
-function openToolRunner(toolKey) {
+function openToolRunner(toolKey, updateHash = true) {
   const tool = toolsDatabase[toolKey];
   if (!tool) return;
 
   currentActiveToolKey = toolKey;
 
   document.getElementById('runnerToolTitle').textContent = tool.title;
-  document.getElementById('runnerToolDesc').textContent = tool.desc;
   document.getElementById('runnerToolCategory').textContent = tool.category;
+
+  const descContainer = document.getElementById('runnerToolDesc');
+  let descHtml = `<p class="tool-lead-summary">${tool.leadSummary}</p>`;
+  if (tool.highlights && tool.highlights.length > 0) {
+    descHtml += '<div class="tool-key-features">';
+    tool.highlights.forEach(h => {
+      descHtml += `<span class="feature-pill"><span class="material-symbols-outlined">${h.icon}</span> ${h.text}</span>`;
+    });
+    descHtml += '</div>';
+  }
+  descContainer.innerHTML = descHtml;
 
   // Generate form fields
   const formContainer = document.getElementById('runnerFormFields');
@@ -508,7 +583,10 @@ function openToolRunner(toolKey) {
 
   // Switch to Tool_Runner module and open Tab 1
   switchRunnerTab('overview');
-  switchModule('Tool_Runner');
+  switchModule('Tool_Runner', false);
+  if (updateHash) {
+    history.replaceState(null, '', '#tool-' + toolKey);
+  }
 }
 
 // ==========================================
@@ -710,3 +788,26 @@ function showNotification(msg) {
     toast.classList.remove('show');
   }, 2600);
 }
+
+// ==========================================
+// HASH ROUTING & DEEP LINKING
+// ==========================================
+function handleHashRoute() {
+  const hash = window.location.hash.replace('#', '').trim();
+  if (!hash) return;
+  if (hash.startsWith('tool-')) {
+    const toolKey = hash.replace('tool-', '');
+    if (toolsDatabase[toolKey]) {
+      openToolRunner(toolKey, false);
+    }
+  } else if (hash) {
+    switchModule(hash, false);
+  }
+}
+
+window.addEventListener('hashchange', handleHashRoute);
+window.addEventListener('DOMContentLoaded', handleHashRoute);
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  handleHashRoute();
+}
+
