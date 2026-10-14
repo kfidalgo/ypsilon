@@ -608,3 +608,75 @@ function handleSearch(query) {
 
   area.innerHTML = html;
 }
+
+// ==========================================
+// WORKSPACE (STREAMLIT NATIVE LAYOUT)
+// ==========================================
+function switchWsTab(tabId) {
+  document.querySelectorAll('.st-tab-item').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  const clickedBtn = Array.from(document.querySelectorAll('.st-tab-item')).find(b => 
+    b.getAttribute('onclick')?.includes(`'${tabId}'`)
+  );
+  if (clickedBtn) clickedBtn.classList.add('active');
+
+  document.querySelectorAll('.ws-tab-pane').forEach(pane => {
+    pane.classList.remove('active');
+  });
+  const targetPane = document.getElementById(`ws-tab-${tabId}`);
+  if (targetPane) targetPane.classList.add('active');
+}
+
+function selectLab(labIndex, labName, labDesc) {
+  const buttons = document.querySelectorAll('.st-lab-btn');
+  buttons.forEach((btn, idx) => {
+    if (idx + 1 === labIndex) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  const titleEl = document.getElementById('activeLabTitle');
+  if (titleEl) titleEl.textContent = labName;
+
+  const descEl = document.getElementById('activeLabDesc');
+  if (descEl) descEl.textContent = labDesc;
+}
+
+function toggleBatchAction(checkbox) {
+  const batchBar = document.getElementById('batchActionsBar');
+  const countText = document.getElementById('batchCountText');
+  if (!batchBar) return;
+
+  const checkboxes = document.querySelectorAll('#ws-tab-experiments input[type="checkbox"]');
+  const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+
+  if (checkedCount > 0) {
+    batchBar.style.display = 'flex';
+    if (countText) {
+      countText.textContent = `Batch Actions (${checkedCount} selecionado${checkedCount > 1 ? 's' : ''})`;
+    }
+  } else {
+    batchBar.style.display = 'none';
+  }
+}
+
+function showNotification(msg) {
+  let toast = document.getElementById('showcaseToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'showcaseToast';
+    toast.className = 'showcase-toast';
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px; color:#38bdf8;">info</span> <span>${msg}</span>`;
+  toast.classList.add('show');
+
+  if (window.toastTimeout) clearTimeout(window.toastTimeout);
+  window.toastTimeout = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2600);
+}
+

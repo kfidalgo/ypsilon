@@ -308,107 +308,189 @@
       <!-- ========================================== -->
       <section id="mod-Workspace" class="module-view">
         <div class="module-header">WORKSPACE</div>
-        <div class="module-subheader">Gestão estruturada de laboratórios virtuais, alvos terapêuticos e arquivo de análises</div>
+        <div class="module-subheader">Manage sequence datasets, analyze candidate populations, and configure project laboratories</div>
 
         <div class="workspace-layout">
           <!-- Coluna Esquerda: Lista de Laboratórios -->
           <div class="ws-sidebar-col">
-            <div class="sidebar-list-title">Laboratórios Virtuais</div>
-            <button class="btn-new-lab" onclick="openNewLabModal()">
-              <span class="material-symbols-outlined">add</span>
-              Novo Laboratório
-            </button>
+            <div class="sidebar-list-title">Laboratories</div>
+            <button class="st-btn-new-lab" onclick="openNewLabModal()">+ New Lab</button>
 
-            <div class="lab-list">
-              <div class="lab-item active">
-                <div class="lab-item-header">
-                  <span class="lab-name">Biblioteca_Sintetica_01</span>
-                  <span class="lab-badge">Ativo</span>
-                </div>
-                <div class="lab-item-meta">4 Estudos Registados</div>
-              </div>
-              <div class="lab-item">
-                <div class="lab-item-header">
-                  <span class="lab-name">Projeto_Nanobodies_VHH</span>
-                </div>
-                <div class="lab-item-meta">2 Estudos Registados</div>
-              </div>
+            <div class="lab-btn-stack">
+              <button class="st-lab-btn active" id="lab-btn-1" onclick="selectLab(1, 'Biblioteca_Sintetica_01', 'Ambiente de trabalho demonstrativo para análise e seleção de variantes de anticorpos de cadeia pesada.')">
+                Biblioteca_Sintetica_01
+              </button>
+              <button class="st-lab-btn" id="lab-btn-2" onclick="selectLab(2, 'Projeto_Nanobodies_VHH', 'Triagem de biblioteca sintética de nanocorpos (VHH) para validação termodinâmica.')">
+                Projeto_Nanobodies_VHH
+              </button>
             </div>
           </div>
 
           <!-- Coluna Direita: Conteúdo do Laboratório -->
           <div class="ws-content-col">
-            <div class="active-lab-card">
-              <div class="active-lab-header">
-                <div>
-                  <h2 class="lab-title">Biblioteca_Sintetica_01</h2>
-                  <div class="lab-description">Ambiente de trabalho demonstrativo para análise e seleção de variantes de anticorpos de cadeia pesada.</div>
+            <h2 class="lab-title" id="activeLabTitle">Biblioteca_Sintetica_01</h2>
+            <div class="lab-description" id="activeLabDesc">Ambiente de trabalho demonstrativo para análise e seleção de variantes de anticorpos de cadeia pesada.</div>
+
+            <!-- STREAMLIT TABS -->
+            <div class="st-tabs-bar">
+              <button class="st-tab-item active" onclick="switchWsTab('experiments')">Experiments</button>
+              <button class="st-tab-item" onclick="switchWsTab('reports')">Reports</button>
+              <button class="st-tab-item" onclick="switchWsTab('modeling')">3D Modeling</button>
+              <button class="st-tab-item" onclick="switchWsTab('team')">Team</button>
+              <button class="st-tab-item" onclick="switchWsTab('import')">Import</button>
+              <button class="st-tab-item" onclick="switchWsTab('settings')">Settings</button>
+            </div>
+
+            <!-- TAB CONTENT: EXPERIMENTS -->
+            <div id="ws-tab-experiments" class="ws-tab-pane active">
+              <div id="batchActionsBar" class="batch-actions-box" style="display: none;">
+                <span id="batchCountText">Batch Actions (1 selected)</span>
+                <div class="batch-btns">
+                  <button class="st-btn st-btn-primary" onclick="showNotification('Item movido com sucesso!')">Move Selected</button>
+                  <button class="st-btn st-btn-danger" onclick="showNotification('Item eliminado.')">Delete Selected</button>
                 </div>
-                <span class="lab-status-tag">Seguro / Isolado</span>
               </div>
 
-              <!-- Lista de Estudos/Registos -->
-              <div class="assets-table-container">
-                <table class="assets-table">
-                  <thead>
-                    <tr>
-                      <th style="width: 30px;"><input type="checkbox"></th>
-                      <th>Designação do Registo</th>
-                      <th>Tipo</th>
-                      <th>Data</th>
-                      <th style="text-align: right;">Ações</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td><strong>NGS_Funnel_Demo_01</strong></td>
-                      <td><span class="badge-type run">RUN (NGS)</span></td>
-                      <td>2026-10-12</td>
-                      <td style="text-align: right;">
-                        <button class="btn-table-action" onclick="showGhostInfo('NGS_Funnel_Demo_01')">Abrir</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td><strong>Alinhamento_Top10_Sintetico</strong></td>
-                      <td><span class="badge-type study">STUDY (MSA)</span></td>
-                      <td>2026-10-12</td>
-                      <td style="text-align: right;">
-                        <button class="btn-table-action" onclick="showGhostInfo('Alinhamento_Top10_Sintetico')">Abrir</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td><strong>Arvore_Filogenetica_UPGMA_01</strong></td>
-                      <td><span class="badge-type tree">TREE</span></td>
-                      <td>2026-10-13</td>
-                      <td style="text-align: right;">
-                        <button class="btn-table-action" onclick="showGhostInfo('Arvore_Filogenetica_UPGMA_01')">Abrir</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td><strong>Relatorio_Ghost_Top10 (Operational Cache)</strong></td>
-                      <td><span class="badge-type ghost">GHOST FILE</span></td>
-                      <td>2026-10-13</td>
-                      <td style="text-align: right;">
-                        <button class="btn-table-action" onclick="showGhostInfo('Relatorio_Ghost_Top10')">Abrir</button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <!-- Mecanismo de Ghost Files Explicado -->
-              <div class="ghost-architecture-box">
-                <div class="ghost-header">
-                  <span class="material-symbols-outlined">psychology</span>
-                  Mecanismo dos "Ficheiros Ghost" (Patente Conceptual da Plataforma)
+              <div class="st-asset-list">
+                <div class="st-asset-row">
+                  <div class="st-asset-check"><input type="checkbox" onchange="toggleBatchAction(this)"></div>
+                  <div class="st-asset-title"><strong>Run_NGS_Demo_01</strong> <span class="st-asset-date">(2026-10-12)</span></div>
+                  <div class="st-asset-actions">
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Run_NGS_Demo_01')">Open</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Mover registo selecionado')">Move</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Eliminar registo')">Delete</button>
+                  </div>
                 </div>
-                <p>Para evitar sobrecarregar a memória RAM ao processar bibliotecas massivas de NGS (com mais de 100.000 leituras), a plataforma Ypsilon cria automaticamente <em>ficheiros ghost</em> na aba Reports: ficheiros operacionais leves focados estritamente no <strong>Top N</strong> de clones mais abundantes. Este método acelera em mais de 10x as rotinas subsequentes de alinhamento múltiplo e modelação tridimensional.</p>
+
+                <div class="st-asset-row">
+                  <div class="st-asset-check"><input type="checkbox" onchange="toggleBatchAction(this)"></div>
+                  <div class="st-asset-title"><strong>Alinhamento_Top10_Sintetico</strong> <span class="st-asset-date">(2026-10-12)</span></div>
+                  <div class="st-asset-actions">
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Alinhamento_Top10_Sintetico')">Open</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Mover registo selecionado')">Move</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Eliminar registo')">Delete</button>
+                  </div>
+                </div>
+
+                <div class="st-asset-row">
+                  <div class="st-asset-check"><input type="checkbox" onchange="toggleBatchAction(this)"></div>
+                  <div class="st-asset-title"><strong>Tree_Alinhamento_Top10</strong> <span class="st-asset-date">(2026-10-13)</span></div>
+                  <div class="st-asset-actions">
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Tree_Alinhamento_Top10')">Open</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Mover registo selecionado')">Move</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Eliminar registo')">Delete</button>
+                  </div>
+                </div>
+
+                <div class="st-asset-row">
+                  <div class="st-asset-check"><input type="checkbox" onchange="toggleBatchAction(this)"></div>
+                  <div class="st-asset-title"><strong>Comparativo_Rondas_Selecao</strong> <span class="st-asset-date">(2026-10-13)</span></div>
+                  <div class="st-asset-actions">
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Comparativo_Rondas_Selecao')">Open</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Mover registo selecionado')">Move</button>
+                    <button class="st-btn st-btn-sm" onclick="showNotification('Eliminar registo')">Delete</button>
+                  </div>
+                </div>
               </div>
             </div>
+
+            <!-- TAB CONTENT: REPORTS -->
+            <div id="ws-tab-reports" class="ws-tab-pane">
+              <div class="st-asset-list">
+                <div class="st-asset-row">
+                  <div class="st-asset-check"><input type="checkbox"></div>
+                  <div class="st-asset-title"><strong>Run_NGS_Demo_01_ngstotal</strong> <span class="st-asset-date">(2026-10-12)</span></div>
+                  <div class="st-asset-actions">
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Run_NGS_Demo_01_ngstotal')">Open</button>
+                    <button class="st-btn st-btn-sm">Move</button>
+                    <button class="st-btn st-btn-sm">Delete</button>
+                  </div>
+                </div>
+
+                <div class="st-asset-row">
+                  <div class="st-asset-check"><input type="checkbox"></div>
+                  <div class="st-asset-title"><strong>Run_NGS_Demo_01_ngstop</strong> <span class="st-asset-date">(2026-10-12)</span> <span class="st-ghost-tag">Ghost File</span></div>
+                  <div class="st-asset-actions">
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Run_NGS_Demo_01_ngstop')">Open</button>
+                    <button class="st-btn st-btn-sm">Move</button>
+                    <button class="st-btn st-btn-sm">Delete</button>
+                  </div>
+                </div>
+
+                <div class="st-asset-row">
+                  <div class="st-asset-check"><input type="checkbox"></div>
+                  <div class="st-asset-title"><strong>Snapshot_Biometricas_Top10</strong> <span class="st-asset-date">(2026-10-13)</span></div>
+                  <div class="st-asset-actions">
+                    <button class="st-btn st-btn-sm" onclick="showGhostInfo('Snapshot_Biometricas_Top10')">Open</button>
+                    <button class="st-btn st-btn-sm">Move</button>
+                    <button class="st-btn st-btn-sm">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB CONTENT: 3D MODELING -->
+            <div id="ws-tab-modeling" class="ws-tab-pane">
+              <div class="st-asset-list">
+                <div class="st-asset-row">
+                  <div class="st-asset-check"><input type="checkbox"></div>
+                  <div class="st-asset-title"><strong>Model_ColabFold_Clone01.pdb</strong> <span class="st-asset-date">(2026-10-13)</span> <span class="plddt-badge">pLDDT: 94.2</span></div>
+                  <div class="st-asset-actions">
+                    <button class="st-btn st-btn-sm" onclick="openToolRunner('3d')">Open 3D</button>
+                    <button class="st-btn st-btn-sm">Download</button>
+                    <button class="st-btn st-btn-sm">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB CONTENT: TEAM -->
+            <div id="ws-tab-team" class="ws-tab-pane">
+              <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:6px; padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                  <h4 style="margin:0; font-size:15px; color:#0f172a;">Laboratory Members</h4>
+                  <button class="st-btn st-btn-sm st-btn-primary" onclick="showNotification('Convite enviado!')">+ Invite Member</button>
+                </div>
+                <div class="st-asset-row" style="padding:10px 0;">
+                  <div><strong>Convidado</strong> <span style="font-size:12px; color:#64748b;">(convidado@fmv.ulisboa.pt)</span></div>
+                  <span style="font-size:11px; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; font-weight:700;">Owner / Admin</span>
+                </div>
+                <div class="st-asset-row" style="padding:10px 0;">
+                  <div><strong>Investigador Colaborador</strong> <span style="font-size:12px; color:#64748b;">(lab.collaborator@ulisboa.pt)</span></div>
+                  <span style="font-size:11px; background:#eff6ff; color:#1e40af; padding:2px 8px; border-radius:12px; font-weight:700;">Editor</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB CONTENT: IMPORT -->
+            <div id="ws-tab-import" class="ws-tab-pane">
+              <div style="background:#ffffff; border:2px dashed #cbd5e1; border-radius:8px; padding:40px; text-align:center;">
+                <span class="material-symbols-outlined" style="font-size:42px; color:#94a3b8; margin-bottom:10px;">upload_file</span>
+                <h4 style="color:#0f172a; margin-bottom:6px;">Import Data into this Laboratory</h4>
+                <p style="font-size:13px; color:#64748b; margin-bottom:15px;">Drag & drop FASTQ (.fastq.gz) or FASTA (.fasta) files, or select from institutional storage.</p>
+                <button class="st-btn">Browse Files</button>
+              </div>
+            </div>
+
+            <!-- TAB CONTENT: SETTINGS -->
+            <div id="ws-tab-settings" class="ws-tab-pane">
+              <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:6px; padding:20px; max-width:600px;">
+                <h4 style="color:#0f172a; margin-bottom:15px;">Laboratory Settings</h4>
+                <div class="form-field-group" style="margin-bottom:15px;">
+                  <label>Laboratory Name:</label>
+                  <input type="text" class="styled-input" value="Biblioteca_Sintetica_01">
+                </div>
+                <div class="form-field-group" style="margin-bottom:20px;">
+                  <label>Target Description:</label>
+                  <textarea class="styled-textarea" rows="3">Ambiente de trabalho demonstrativo para análise e seleção de variantes de anticorpos de cadeia pesada.</textarea>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <button class="st-btn st-btn-primary" onclick="showNotification('Definições guardadas!')">Save Changes</button>
+                  <button class="st-btn st-btn-danger" onclick="showNotification('Ação bloqueada no modo demonstrativo.')">Delete Laboratory</button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -637,7 +719,7 @@
     <!-- GLOBAL FOOTER -->
     <footer class="global-footer">
       <div class="footer-inst">Faculty of Veterinary Medicine</div>
-      <div class="footer-dev">Ypsilon Bioinformatics Platform</div>
+      <div class="footer-dev">Designed by Cátia Fidalgo</div>
     </footer>
   </div>
 
