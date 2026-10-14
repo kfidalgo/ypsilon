@@ -8,20 +8,26 @@ const toolsDatabase = {
   ngs: {
     title: "NGS Analysis",
     category: "High-Throughput Sequencing & Repertoire Mining",
-    desc: "End-to-end processing pipeline for raw paired-end FASTQ reads (R1/R2) from antibody Variable Light chain (VL) libraries. Executes BBMerge overlap assembly, Phred quality score filtering (Q30), open reading frame translation, heuristic framework anchor detection (FR1/FR4), automated segmentation of CDR-L1, CDR-L2, and CDR-L3 loops, clonal abundance calculation with frequency ranking, thermodynamic property profiling, and the 'Promote to Success' curation engine for somatic variant rescue.",
+    desc: "End-to-end processing pipeline for raw paired-end FASTQ reads (R1/R2) from antibody Variable Light chain (VL) libraries. Executes BBMerge paired-end assembly, in silico 3-frame translation, biological quality filtering (eliminating premature stop codons, verifying functional length >= 100 aa, and confirming canonical cysteines for disulfide stability), heuristic framework anchor detection (FR1/FR4), automated segmentation of CDR-L1, CDR-L2, and CDR-L3 loops, clonal abundance calculation with frequency ranking, thermodynamic property profiling, and the 'Promote to Success' curation engine for somatic variant rescue.",
     formFields: [
       { label: "Target Laboratory", type: "select", options: ["Synthetic_VL_Library_01", "Lambda_VL_Screening_Project"] },
+      { label: "Analysis Title", type: "text", value: "NGS_VL_Screening_Run_01" },
       { label: "FASTQ Forward (R1)", type: "select", options: ["synthetic_vl_library_R1.fastq.gz (Secure Server Folder)", "vl_screen_round3_R1.fastq.gz"] },
       { label: "FASTQ Reverse (R2)", type: "select", options: ["synthetic_vl_library_R2.fastq.gz (Secure Server Folder)", "vl_screen_round3_R2.fastq.gz"] },
-      { label: "Minimum Phred Quality (Q-Score)", type: "select", options: ["Q30 (99.9% Accuracy)", "Q20 (99.0% Accuracy)"] },
       { label: "Environmental pH (Charge Calculation)", type: "number", value: "7.40" }
     ],
     algoCards: [
       {
-        title: "Paired-End Merging & Quality Funnel",
-        icon: "filter_alt",
-        body: "Overlapping forward and reverse reads are merged using the BBMerge algorithm. Low-quality reads (mean Phred score below Q30) and reads with uncalled bases (N) are discarded. Valid open reading frames are translated into amino acid sequences."
+        title: "Paired-End Merging (BBMerge)",
+        icon: "merge_type",
+        body: "Forward (R1) and reverse (R2) FASTQ reads are assembled using BBMerge with a 12-base minimum overlap threshold (minoverlap=12) and ordered stream processing to reconstruct the complete antibody coding sequence."
       },
+      {
+        title: "Biological Quality & Structural Filters",
+        icon: "verified",
+        body: "Rather than applying an arbitrary Phred score cutoff, the pipeline enforces strict biological selection: (1) 3-frame translation resolving the functional open reading frame; (2) strict elimination of premature stop codons (*); (3) verification of at least 2 canonical cysteines (~C23 and terminal Cys) required for the intrachain disulfide bond; and (4) minimum length validation (>= 100 amino acids) to exclude truncated fragments."
+      },
+
       {
         title: "VL Framework & CDR-L1/L2/L3 Extraction",
         icon: "rule",
